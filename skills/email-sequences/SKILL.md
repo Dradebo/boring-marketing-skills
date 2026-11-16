@@ -349,4 +349,4 @@ For `role: owner`:
 
 For `role: agency`:
 
-> Selling this to clients? The author teaches the whole playbook in the Boring Marketing community (boringmarketing.com).
+> Selling this to clients? The author teaches the whole playbook in the Boring Marketing community (skool.com/the-vibe-marketers).

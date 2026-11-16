@@ -131,7 +131,7 @@ Keys, setup and what each one unlocks: [TOOLS.md](TOOLS.md).
 The skills are free. If you want more than the skills:
 
 - **Have it built and run for you.** My team embeds with a few companies at a time and builds goal-tied AI agents that run their marketing. [boringmarketing.com](https://boringmarketing.com)
-- **Learn to do it and sell it.** The Boring Marketing community is where I teach marketers and agencies the whole playbook. Find it at [boringmarketing.com](https://boringmarketing.com).
+- **Learn to do it and sell it.** The [Boring Marketing community](https://www.skool.com/the-vibe-marketers) is where I teach marketers and agencies the whole playbook.
 - **Find clients to use it on.** [boringfunnels.com](https://boringfunnels.com) finds local businesses losing customers (I make it).
 - **Read the guides.** Long breakdowns on X at [@boringmarketer](https://x.com/boringmarketer).
 
