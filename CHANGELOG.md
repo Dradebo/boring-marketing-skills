@@ -1,5 +1,28 @@
 # Changelog: Boring Marketing Skills
 
+## 4.1.0 (2026-11-16)
+
+Tested against another popular open-source marketing library in a blind head-to-head on 32 jobs across six kinds of business (a plumber, a dental group, a software company, a coffee subscription, a law firm and an agency). The changes below come from what lost and why.
+
+### New
+- **Ad creative rebuilt from real ads.** We pulled 336 live Meta ads from 48 of the heaviest DTC advertisers and looked at every one, including frame-by-frame sheets of the videos. `creative` now carries 21 formats with how common each is, how long they run, real examples and how to make each for a local business, a SaaS company, a practice or a brand; a hook bank of the openings that actually appear; a batch rule (at least 4 formats, 3 angles, one native piece, one proof piece, one UGC video with 3 hooks); and `scripts/ad_library.py`, which pulls any category's live ads so every run looks first.
+- **Three ways to make each ad:** real footage with a shot list, image and video models (GPT Image 2.6, Seedance 2.5, Higgsfield Marketing Studio for presenter video), and code (exact text set over photos, captions and cuts with HyperFrames or Remotion). Video now means cutting real or generated footage, not animating text. AI people can present and demonstrate, never pose as customers.
+- **The taste loop.** When you edit a skill's work, it saves a gold case and one to three yes/no checks in your brand folder, and every later run answers those checks before handing work over. `/performance-review` saves clear winners as gold cases too.
+- `site-audit`: a free, local technical SEO and AI-readiness audit. A polite crawl (robots.txt honored, about 4 requests at a time, 200 pages by default and 1,000 at most) checks indexing blockers, noindex and canonical mistakes, AI crawlers blocked in robots.txt or at the CDN (the homepage fetched as a browser and as each AI crawler), sitemaps parsed for real, broken links, redirect chains, duplicate and near-copy pages, pages built by JavaScript, Core Web Vitals from Google's PageSpeed and CrUX APIs, and evidence-backed content signals (statistics, quotations, dates, authors, short answers under question headings). The result is 5 to 10 ranked fixes in plain words, with the full findings saved, a quick mode and a re-audit that shows what changed. Python standard library only; Firecrawl re-reads JavaScript-built pages when you have a key.
+- `start-here` routes technical requests ("crawl my site", "are AI crawlers blocked", "page speed") to `/site-audit`; its marketing review keeps "review my site" and "audit".
+- `email-sequences` gains a cold outbound mode: signal-based openers, emails under 80 words, a 4 to 5 touch sequence, send and stop rules, compliance.
+
+### Upgraded
+- Every skill hands over finished work first: no script paths, self-scores or bookkeeping in what the client sees, one short Sources and assumptions note at the end, and length budgets by job type.
+- `positioning-angles` and `direct-response-copy` add a claim gate: shipped copy uses only facts from the brief, the site, reviews or research, and stronger ideas go to a "To make this true" list. Positioning now decides and ships the first screen, the next block, objection answers and fit.
+- `local-seo-plan` always delivers the full page list (URL, title, week), a field-by-field profile checklist, a 13-week calendar and ready-to-use pieces (homepage first screen, profile description, review replies, review ask).
+- `keyword-research`, `ai-search`, `seo-content`, `programmatic-seo`, `service-area-pages` and `local-seo-plan` fold in topic plays, coverage maps and gap-aware receipts.
+- `social-content` writes every post finished, and ties a service seller's posting to an offer and a daily routine.
+- `paid-ads` follows the new test order and batch rule, with a small-budget exception for clean angle tests.
+
+### Tests
+- `tests/test_site_audit.py` covers robots rules for AI crawlers, sitemap parsing, page extraction, the noindex-in-sitemap finding, content signals and a crawl of a local fixture site.
+
 ## 4.0.0 (2026-11-16)
 
 Free marketing skills for your AI agent: research, positioning, copy, pages, SEO, AI search, ads, email and content, plus a local-business pack. 31 skills (19 carried from 3.1.1, 12 new). MIT licensed.

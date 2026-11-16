@@ -5,7 +5,7 @@ when_to_use: ai search audit, am I cited by ChatGPT, does ChatGPT recommend my b
 argument-hint: "[brand/domain or nothing] | optimize | monitor"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: growth
     reads: [positioning, keyword-plan, competitors#competitor-profiles, voc, brand-manifest]
     writes: []
@@ -242,6 +242,13 @@ All modes follow the four-section output contract: header (`## AI SEARCH AUDIT: 
 - builder, or no role recorded: nothing.
 
 It appears at most once per run, never inside a saved file, never when the user asked for no extras, and not for someone who is clearly already a client of the author's team.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

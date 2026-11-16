@@ -5,7 +5,7 @@ when_to_use: are my ads actually working, is performance max taking credit for m
 argument-hint: "[campaign to test] | plan | read <call log CSV>"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: growth
     reads: [learnings, assets, brand-manifest]
     writes: [assets]
@@ -238,3 +238,10 @@ One optional line, once per run, after "What's next" and never inside the report
 - builder, or no role recorded: no line.
 
 Skip it when the user asked for no extras or is already a client.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

@@ -2,7 +2,7 @@
 
 ```
 last-verified: 2026-11-13 · ttl-days: 60 · refresh: re-verify model availability via scripts/verify_models.sh (plus the public model page for anything near a sunset) and re-test operator priors against recent generations
-changes: 2026-11-13: availability, schemas and prices re-verified against the Replicate API and model pages (25/25 pass); Sora 2 and Sora 2 Pro are gone (API ended 2026-09-24, pages 404), so video-ugc now resolves to Seedance 2.0 with Veo 3.1 as the alternate and Seedance 2.0 sits in the hero trio; Seedance 2.0 is cheaper without video inputs; gpt-image-2 got cheaper ($0.047 medium) and lost transparent backgrounds; section 6 re-checked for availability only (all eight ElevenLabs and HeyGen IDs live on Replicate). Operator priors were last re-tested in June 2026: treat them as priors, not measurements
+changes: 2026-11-16: image-complex-prompt and image-instruct-edit now resolve to GPT Image 2.6 (Flare for drafts, Sunburst for finals and consistent edits; schemas and prices pulled 2026-11-16). 2026-11-13: availability, schemas and prices re-verified against the Replicate API and model pages (25/25 pass); Sora 2 and Sora 2 Pro are gone (API ended 2026-09-24, pages 404), so video-ugc now resolves to Seedance 2.0 with Veo 3.1 as the alternate and Seedance 2.0 sits in the hero trio; Seedance 2.0 is cheaper without video inputs; section 6 re-checked for availability only (all eight ElevenLabs and HeyGen IDs live on Replicate). Operator priors were last re-tested in June 2026: treat them as priors, not measurements
 ```
 
 Load this BEFORE model selection, whenever the pick isn't already fixed by a saved
@@ -34,7 +34,7 @@ in `references/MODEL_REGISTRY.md`. Resolve the role there before any call.
 | Locked-off product shot, zero camera drift | **video-locked-camera** → seedance-1-pro (`camera_fixed`) | The only roster model with a hard camera lock | Motion is wanted after all → back to the draft tier |
 | Explicit "hero" video spend | **video-premium** trio in parallel (Runway 4.5 + Veo 3.1 + Seedance 2.0 at 1080p) | Three takes, pre-ranked: hero money buys options, not one roll | Never silently escalate here; ≥$2 confirm rule applies: at 2026-11 prices one 8s Veo take with audio is $3.20 on its own |
 | Image workhorse: most stills, iterations, moodboards | **image-default** → Nano Banana 2 | Fast, cheap, strong general quality, fusion editing up to 14 refs; the default until a job below clearly fits | Dense prompts or exact text → next row; shipping 4K → image-premium-4k |
-| Complex composition, exact in-image text, dense multi-element prompts | **image-complex-prompt** → GPT Image 2 | Best instruction-following and text rendering on the roster (succeeds gpt-image-1.5): when the prompt reads like a layout spec, route here | Simple typography-poster flat design → image-text-render (ideogram) is cheaper; high-volume iteration → NB2 then upgrade the winner |
+| Complex composition, exact in-image text, dense multi-element prompts | **image-complex-prompt** → GPT Image 2.6 (Flare drafts, Sunburst finals) | Best instruction-following and text rendering on the roster: when the prompt reads like a layout spec, route here. Ad text still goes on in HTML, not in the model | Simple typography-poster flat design → image-text-render (ideogram) is cheaper; high-volume iteration → NB2 then upgrade the winner |
 | Premium 4K stills: hero, print | **image-premium-4k** → nano-banana-pro | Same family as the workhorse; NB2 itself now outputs 4K ($0.151), so pro ($0.30 at 4K) is the fidelity upgrade, not the only 4K path | ~2× NB2's own 4K price: only when the extra fidelity actually ships (print, hero) |
 | Logos, icons, anything that must scale as vector | **image-vector** → recraft (`-svg` variant) | The only roster model returning real SVG | Raster brand graphics → NB2 |
 
@@ -60,7 +60,7 @@ The motion has a required DESTINATION             → start + end frame
   YOUR actual product, YOUR face, YOUR packaging and label, goes in as an image and
   gets edited around. A generated look-alike bottle is a different bottle; customers
   notice. Pass the real photo via `image_input` (NB2 fusion) or the edit path
-  (GPT Image 2) and change only what the prompt names. When RESTYLING a real person
+  (GPT Image 2.6 Sunburst) and change only what the prompt names. When RESTYLING a real person
   or product into a genre look, the reference alone isn't enough: also name what
   must NOT change ("warm olive skin, NOT dark brown"; "matte label, NOT glossy"):
   models drift to genre stereotypes unless explicitly negated.
@@ -170,8 +170,8 @@ Registry cheat sheet says which models respect seeds. Where seeds aren't support
 |----------|---------------|--------------------|
 | UGC ad (TikTok/Reels/Meta) | video-ugc (Seedance 2.0), 9:16 | imperfect-real, hook lands <2s, captions-on design |
 | Polished brand spot | video-reference (Seedance 2.0) or video-production (Kling 3.0) | cinematic grammar (product-video mode), 16:9 or 9:16 |
-| Product detail / e-comm | i2i edit of the REAL photo (NB2 fusion / GPT Image 2) | fidelity first: the actual product, cleaned up |
-| Social graphics with text | image-default (NB2); exact/dense text → image-complex-prompt (GPT Image 2) | platform-ratio, text legible at feed size |
+| Product detail / e-comm | i2i edit of the REAL photo (NB2 fusion / GPT Image 2.6 Sunburst) | fidelity first: the actual product, cleaned up |
+| Social graphics with text | image-default (NB2); exact/dense text → image-complex-prompt (GPT Image 2.6) | platform-ratio, text legible at feed size |
 | Hero / launch | image-premium-4k still + video-premium trio | parallel takes, pre-ranked, ≥$2 confirm |
 | Moodboard / direction | image-default (NB2) grid | 4-8 directions, pennies, then lock a capsule |
 

@@ -1,11 +1,11 @@
 ---
 name: email-sequences
 description: Build email (and text) sequences that turn leads into customers, including welcome, nurture, conversion, launch, re-engagement and post-purchase, plus local-service follow-ups (quote and treatment-plan follow-up, appointment reminders, review ask, seasonal reminder, win-back, missed-call text-back) and a cold outbound mode for prospecting sequences. Covers every reasonable reading of the request and leads with the revenue lever. Checks SPF, DKIM and DMARC on the real sending domain and can push drafts to Kit or Beehiiv. Use when a lead magnet needs a welcome sequence, an offer needs a sales sequence, quotes or treatment plans aren't closing, a list needs re-engaging, or an agency needs a cold email sequence.
-when_to_use: write welcome emails, email sequence for, nurture sequence, convert my list, onboarding emails, launch sequence, drip campaign, follow-up emails, quote follow-up, follow up on estimates, ask customers for reviews, seasonal reminder emails, win back old customers, missed call text, cart abandonment emails, check my email deliverability, push this sequence to Kit, cold email sequence, cold outbound, outbound email sequence, prospecting emails, treatment plan follow-up, cut no-shows
+when_to_use: write welcome emails, welcome email, first email after signup, write an email to my subscribers, email sequence for, nurture sequence, convert my list, onboarding emails, launch sequence, drip campaign, follow-up emails, quote follow-up, follow up on estimates, ask customers for reviews, seasonal reminder emails, win back old customers, missed call text, cart abandonment emails, check my email deliverability, push this sequence to Kit, cold email sequence, cold outbound, outbound email sequence, prospecting emails, treatment plan follow-up, cut no-shows
 argument-hint: "[sequence type + what it sells, e.g. 'welcome sequence for my checklist → $89 course' or 'quote follow-up for water heater installs'; or 'preflight <domain>']"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [voice-profile, positioning#chosen-angle, audience#segments, voc, learnings]
     writes: [assets, learnings]
@@ -398,6 +398,13 @@ water heater replacements: the quote by email and text, a day-1 text from the te
 quoted, a day-3 email laying out the options and financing, a day-7 call and text holding
 the slot until a date, and a day-14 "should I close this out?" The full copy is in
 `references/local-templates.md`.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

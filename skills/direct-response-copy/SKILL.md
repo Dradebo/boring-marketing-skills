@@ -1,11 +1,11 @@
 ---
 name: direct-response-copy
 description: Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.
-when_to_use: write copy for, write a landing page, make this convert, help me sell, punch this up, sales page, headline variants, score this copy, rewrite this email, write ad copy, write the offer, rewrite our homepage hero
+when_to_use: write copy for, write a landing page, make this convert, help me sell, punch this up, sales page, headline variants, score this copy, rewrite this email, write ad copy, write the offer, rewrite our homepage hero, write the homepage hero, hero headline, headline and subhead, write a tagline, button copy
 argument-hint: "[format + offer, e.g. 'landing page for my invoicing tool' or 'service page for same-day water heater replacement in Dallas']"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [voice-profile, positioning#chosen-angle, audience#pain-language, voc, learnings]
     writes: [assets]
@@ -356,3 +356,10 @@ brief.md). Append one line per asset to `./brand/assets.md` (not in Quick Mode).
 - After ad copy: `/paid-ads` for platform packaging and the test plan (~15 min)
 - After any copy that captures leads: `/email-sequences` for the follow-up (~15 min)
 - Once real numbers exist: `/performance-review` to turn the predictions in brief.md into priors
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

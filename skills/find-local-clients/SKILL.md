@@ -5,7 +5,7 @@ when_to_use: find me clients, find local clients, prospect list, who should I pi
 argument-hint: "[trade] [town], e.g. plumbers Dallas TX"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: growth
     reads: [positioning#chosen-angle, learnings]
     writes: []
@@ -143,6 +143,13 @@ could not be checked, anything built only from the user's own file, inferences t
 If Places API data appears in the file, add "Source: Google Maps" under the header. Keep the most common leak in town. It makes the opening line of a post, an article or a talk to the local trade group.
 
 Files first, then the chat summary (top five rows, the town's most common leak, the note). Line codes and point sums from `references/scoring.md` are working notes and stay out of the list. Append one line to `./brand/assets.md` if a brand folder exists.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

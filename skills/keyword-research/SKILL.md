@@ -5,7 +5,7 @@ when_to_use: keyword research for X, content strategy for X, what should I write
 argument-hint: "[topic, niche, or seed keywords]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: strategy
     reads: [positioning#chosen-angle, audience#watering-holes, competitors#competitor-profiles, voc]
     writes: [keyword-plan]
@@ -231,6 +231,13 @@ Write `./brand/keyword-plan.md` (version the old copy first), about 1,200 to 2,5
 Append one line per brief to `./brand/assets.md`.
 
 In chat, following the four-section output contract (header `## KEYWORD PLAN: <business>` plus one line of date and purpose): the verdict, the 3 to 5 discoveries, the top of the backlog, and one **start here** recommendation with its evidence and its strongest caveat, then the Sources and assumptions note, **Files saved** and **What's next**. No tool names, data tags or check tables. If one missing observation could reverse the recommendation, recommend collecting that observation instead. If nothing is supportable, recommend holding rather than manufacturing a commitment. Never end on a menu of options.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

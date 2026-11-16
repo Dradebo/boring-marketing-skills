@@ -5,7 +5,7 @@ when_to_use: repurpose this, atomize this content, turn this into social posts, 
 argument-hint: "[source content, file path, or URL | 'replies' + pasted comments | 'calendar' + source]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: distribution
     reads: [voice-profile#platform-adaptations, learnings, algo-cache]
     writes: []
@@ -228,3 +228,10 @@ Then the four-section chat output: `## SOCIAL POSTS: {source title}` plus one li
 - `/social-content`: build a per-platform pattern library from what performs, beyond one-source atomization (~20 min)
 - `/newsletter`: the source insights as an edition for the owned channel (~15 min)
 - `/performance-review`: after a week live, feed the numbers back so the next atomization inherits real priors (~10 min)
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

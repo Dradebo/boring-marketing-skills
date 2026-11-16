@@ -5,7 +5,7 @@ when_to_use: lead magnet ideas for X, grow my email list, what freebie should I 
 argument-hint: "[offer or niche, or a concept to build directly]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: strategy
     reads: [voice-profile#tone-spectrum, positioning#chosen-angle, audience#pain-language, voc]
     writes: [assets]
@@ -313,6 +313,13 @@ one line of date and what it is for, a content summary (what's in it, the bridge
 line, and for apps how to deploy and where the ESP key goes), one short **Sources and
 assumptions** note (10 lines max, including any real numbers the owner still has to
 supply), **Files saved**, **What's next**. The QA walk stays in `notes.md`.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

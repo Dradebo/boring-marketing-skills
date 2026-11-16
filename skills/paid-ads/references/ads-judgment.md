@@ -1,7 +1,7 @@
 # Ads judgment
 
-last-verified: 2026-09-02 · ttl-days: 90 · refresh: web search "Meta learning phase optimization events" (facebook.com/business/help/112167992830700) + "Meta Advantage+ audience default original audiences objectives" + "Performance Max run at least 6 weeks site:support.google.com" + "Google Ads learning period duration site:support.google.com"; update the learning-phase numbers, the audience-guidance block, and the per-platform floors; bump last-verified.
-changes: 2026-09-02. Header added; Meta learning phase restated in Meta's terms (~50 optimization events in the 7 days after the last significant edit); PMax floor restated from Google's guidance (run 6+ weeks; bid strategies calibrate up to ~3 weeks / 1-2 conversion cycles); audience block dated September 2026 with the objectives where Advantage+ audience is the default.
+last-verified: 2026-09-02 · ttl-days: 90 · refresh: web search "Meta learning phase optimization events" (facebook.com/business/help/112167992830700) + "Meta Advantage+ audience default original audiences objectives" + "Performance Max run at least 6 weeks site:support.google.com" + "Google Ads learning period duration site:support.google.com" + "Meta creative fatigue creative limited" (facebook.com/business/help/1346816142327858); update the learning-phase numbers, the audience-guidance block, and the per-platform floors; bump last-verified.
+changes: 2026-11-16. Added "Creative volume, cadence and fatigue" (Meta's fatigue labels, diversification guidance and testing cadence, sources inline; the rest of the file is as of last-verified). 2026-09-02. Header added; Meta learning phase restated in Meta's terms (~50 optimization events in the 7 days after the last significant edit); PMax floor restated from Google's guidance (run 6+ weeks; bid strategies calibrate up to ~3 weeks / 1-2 conversion cycles); audience block dated September 2026 with the objectives where Advantage+ audience is the default.
 
 Load before Phase 1 cell selection and Phase 2 structure in CAMPAIGN BUILD, and before
 any RESULTS REVIEW verdict. Nothing here is a perishable platform spec (those live in
@@ -51,6 +51,38 @@ wheel. The levers that remain, and they are sufficient:
 
 Budget and structure still matter as *constraints* (see budget math), just not as
 optimization levers. Bid hacking is dead; signal hygiene is not.
+
+## Creative volume, cadence and fatigue
+
+Facts checked 2026-11-16 on Meta's pages named inline. The tiers below them are our rule
+of thumb.
+
+- **Meta's fatigue labels.** Ads Manager's delivery column shows "Creative limited" when
+  an ad's cost per result is above your past ads but under twice as much, and "Creative
+  fatigue" at twice or more. It counts all recent exposures of that image or video,
+  including from your Page's other campaigns, and can warn before launch when fatigue is
+  likely in the first 7 days. Meta's fix is a new image or video "materially different
+  from the original creative" (facebook.com/business/help/1346816142327858).
+- **Similar ads count as one.** Meta says creative that is too similar may not be
+  recognized as different and can be delivered to the same audiences, which leads to
+  those labels. Its "Creative diversity" metric rates an ad set's images and video
+  thumbnails high, medium or low (facebook.com/business/m/small-business/creative-differentiation;
+  facebook.com/business/help/2371176336684086). A new angle or format adds diversity. A
+  hook swap or a recolor mostly doesn't.
+- **Meta's cadence guidance.** Its November 2024 guidance recommends launching new ads
+  weekly, keeping at least 20 diversified ads in Advantage+ shopping campaigns, and
+  putting 20-30% of budget toward testing
+  (facebook.com/business/news/three-steps-to-optimize-your-performance-with-creative-diversification).
+  Its Instagram video ads page suggests testing up to 10 creatives per ad set, keeping
+  the top 5, and running at least 4 days (facebook.com/business/help/188534925073536).
+- **Our tiers by budget.** Those numbers are written for large accounts. The 2x-CPA rule
+  below decides how many live ads a budget can judge. Under $50/day: 3-6 live ads and 2-3
+  new concepts every two weeks. $50-150/day: 6-10 live and 3-5 new a week. Above that,
+  work toward Meta's weekly launches and 20+ diversified ads.
+- **Our fatigue signal from the numbers.** Over 3 or more days at steady spend, frequency
+  climbs while CTR falls and cost per result rises. One bad day is noise (see the 72-hour
+  rule). When the label or the signal shows, refresh with a new format on the winning
+  angle first (the angle is still proven), then a new angle.
 
 ## Hooks → awareness stages
 

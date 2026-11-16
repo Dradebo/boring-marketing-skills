@@ -5,7 +5,7 @@ when_to_use: are we missing calls, missed call text back, how many calls do we m
 argument-hint: "[call log CSV path] | audit | setup"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: growth
     reads: [voice-profile#voice-summary, audience#pain-language, learnings, brand-manifest]
     writes: []
@@ -248,3 +248,10 @@ For `role: owner`:
 For `role: agency`:
 
 > Selling this to clients? The author teaches the whole playbook in the Boring Marketing community (skool.com/the-vibe-marketers).
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

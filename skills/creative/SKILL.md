@@ -1,11 +1,11 @@
 ---
 name: creative
-description: AI creative production engine for product photos, product video, social graphics, talking heads, and ad creative through one tiered pipeline with a vision-QA loop that scores every asset before you see it. Use whenever visual assets need to be generated, edited, or batch-produced for a brand or campaign.
-when_to_use: generate an image, product shot, product video, hero video, social graphic, YouTube thumbnail, talking head, UGC video, lip sync, ad creative, edit my product photo, animate this image, make visuals for this campaign
+description: AI creative production engine for product photos, product video, social graphics, talking heads, ad creative, and video ads cut from real or generated footage in code and rendered to MP4 for free, through one tiered pipeline with a vision-QA loop that looks at every asset before you see it. Ad creative is built from 336 live Meta ads we viewed (21 formats with real examples, a hook bank, a script that pulls competitors' live ads from the Meta Ad Library, a batch plan that mixes long-running stills with fresh UGC, and a visual check every ad must pass). Use whenever visual assets or ad creative need to be made, edited, planned, or batch-produced for a brand or campaign.
+when_to_use: generate an image, product shot, product video, hero video, social graphic, YouTube thumbnail, talking head, UGC video, lip sync, ad creative, ugc ads, ad concepts, static ads, video ad, hooks for ads, make ads, edit my product photo, animate this image, make visuals for this campaign, motion ad, kinetic text ad, turn my reviews into a video ad, video ad from screenshots, captions on my video, hyperframes, remotion, ad formats that work, us vs them ad, review stack ad, hook ideas for ads
 argument-hint: "[what to make, or blank to be routed]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [creative-kit, positioning#chosen-angle, voice-profile#voice-summary]
     writes: [creative-kit]
@@ -49,20 +49,31 @@ and settings for any tool you already have. When you want the files made for you
 the stack we run, one pick per job. Keys are listed in TOOLS.md; payloads and per-model
 prices live only in `references/MODEL_REGISTRY.md`.
 
-- **Images.** We use GPT Image (OpenAI) where the text or layout has to be exact and for
-  edits to a real photo, which are the `image-complex-prompt` and `image-instruct-edit`
-  roles. It is pay per image, through the OpenAI API (`OPENAI_API_KEY`) or Replicate.
-  Everyday stills stay on `image-default`. Without a key, the prompt-only deliverable
-  works in any image tool.
+- **Images.** We use GPT Image 2.6 (OpenAI): Flare for fast drafts, Sunburst for finals and
+  for keeping a product consistent across edits. It holds the `image-complex-prompt` and
+  `image-instruct-edit` roles (exact layout, edits to a real photo, native-looking phone
+  photos, animated GIFs). It is pay per image, through the OpenAI API (`OPENAI_API_KEY`) or
+  Replicate. Everyday stills stay on `image-default`. Ad text is set in HTML over the image,
+  not generated inside it. Without a key, the prompt-only deliverable works in any image tool.
 - **Video.** We use Seedance 2.5 (ByteDance) through Higgsfield or Replicate, pay per
   clip. That means 2.5 where your provider lists it, otherwise 2.0. The registry's
   verified rows are Seedance 2.0, and 2.5 sits there as a "newer, verify before use" row
-  until it passes the registry's checks. Without a key, you get the prompt and settings
-  for any video tool.
+  until it passes the registry's checks. For ads, Higgsfield Marketing Studio is our pick
+  for presenter or UGC-style video and for exploring many static formats fast (an AI
+  presenter presents, never reviews); Seedance 2.5 covers b-roll, foley and talking-object
+  skits. Setup, test results and what its API covers are in `references/ad-formats.md`.
+  Without a key, you get the prompt and settings for any video tool.
 - **Voiceover and talking heads.** We use ElevenLabs for the voice, for cloning and a
   consistent voice across a campaign. It has a free tier, then plans (`ELEVENLABS_API_KEY`).
   Without it, the lip-sync model's built-in voice or any quick text-to-speech tool
   covers a script test.
+- **Video ads cut in code.** We use HyperFrames (by HeyGen, Apache-2.0): the agent
+  writes HTML and a GSAP timeline, and the CLI renders MP4 on your machine. Free, no key,
+  no per-render fee; it needs Node 22+ and FFmpeg. It cuts real or generated footage
+  together with captions, review cards, offers and end cards, and renders hook variants
+  from one project.
+  Remotion (React to MP4) is the alternative; check its license for your company size.
+  Mode: `modes/motion-ads.md`.
 - **One key for many models.** Replicate is the path the registry's payloads and the
   async pattern are written for (`REPLICATE_API_TOKEN`). Higgsfield is the one-key
   alternative: one API for 50+ image and video models, Seedance included, pay as you go
@@ -77,6 +88,10 @@ prices live only in `references/MODEL_REGISTRY.md`.
 | `references/MODEL_REGISTRY.md` | Before ANY generation: the only source of payloads and prices. Resolve roles here. |
 | `references/api-workflow.md` | First generation of a session: async pattern, download-within-1h, file naming, campaign manifest, QA mechanics, handoffs. |
 | `references/VISUAL_INTELLIGENCE.md` | Constructing prompts for anything that matters: visual psychology, anti-slop checklist (Part 4 powers the QA rubric), style taxonomy, consistency techniques. |
+| `references/ad-formats.md` | Choosing, making or iterating ad creative: 21 formats from 336 live Meta ads with real examples and counts, the three routes (real, model, code), Higgsfield, production lessons, the translation for any business type, GPT Image 2.6 GIFs. |
+| `references/hooks.md` | Writing the first second of an ad: 12 opening patterns seen in live ads, when each fits, fill-ins for any business, making hook variants. |
+| `references/motion-ads-starter.html` | Starting a video ad cut in code: a checked 9:16 composition (hook clip with a text box at frame 0, body with captions, review card over footage, end card on a real photo, hook variants) that passes the render checks and the Reels, TikTok and Shorts safe zones. |
+| `scripts/ad_library.py` | Looking at what competitors run before planning ads: pulls live US Meta Ad Library ads for a brand or category, downloads them, writes an index and a board (ad-creative mode, step 1). |
 
 ## Modes
 
@@ -88,8 +103,9 @@ they all share the registry, the API workflow, and the QA loop.
 | Product stills, e-commerce shots, editing a real product photo | `modes/product-photo.md` |
 | Reveals, orbits, demos, any product motion | `modes/product-video.md` |
 | Posts, thumbnails, quote cards, content calendars | `modes/social-graphics.md` |
-| Presenters, UGC testimonials, spokesperson, lip-sync | `modes/talking-head.md` |
-| Paid ads, ad matrix cells, A/B variants | `modes/ad-creative.md` |
+| Presenters, spokesperson, UGC-style presenter videos (never posing as a customer), lip-sync | `modes/talking-head.md` |
+| Paid ads, UGC ads, ad concepts, static ads, hooks, ad matrix cells, A/B variants, which ad formats to make | `modes/ad-creative.md` |
+| Video ads cut from real or generated footage (UGC cut, hands demo, review card over footage, before/after, reply to a comment, screen recording), captions on a video, hook variants | `modes/motion-ads.md` |
 | Anything else visual | No mode file: brand kit + registry + this file |
 
 Quick Mode: a specific single-asset request ("16:9 hero shot of the bottle on walnut")
@@ -126,6 +142,11 @@ SPEECH
 ├─ cheap script tests → lipsync-budget
 ├─ video-production output → lipsync-kling
 └─ animate a still photo into a speaker → digital-human
+
+CODE-MADE VIDEO ADS (no model, no key)
+└─ cut real or generated footage with captions, review cards, end cards
+   → modes/motion-ads.md (text-only motion only for SaaS screen recordings
+   or an offer bumper, never the main ad for a physical product)
 ```
 
 Don't ask the user which model to use. Pick the role. Model names, seeds and per-asset
@@ -162,7 +183,9 @@ You look at everything before the user does. No raw URL dumps.
 
 1. **Download immediately** (URLs die in 1 hour; api-workflow.md §1).
 2. **Look:** `Read` the image; for video extract first/mid/last frames via ffmpeg
-   (mechanics in api-workflow.md §2; thumbnail fallback if ffmpeg is absent).
+   (mechanics in api-workflow.md §2; thumbnail fallback if ffmpeg is absent). Motion
+   ads: read the renderer's snapshot contact sheet before rendering, then frames from
+   the final MP4.
 3. **Score 1-10, silently,** against a rubric assembled from: the brand kit's palette/mood/
    avoid-list, the anti-slop checklist (VISUAL_INTELLIGENCE.md Part 4), and the
    request's own spec (ratio, text space, focal point, platform).
@@ -236,6 +259,13 @@ Delivery summary follows the standard contract:
 Ad sets: the ads plus a short test plan. If a creative brief came from another skill,
 hand the `creative_delivery` block (api-workflow.md §5) to that skill; never show it in
 the client-facing text.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

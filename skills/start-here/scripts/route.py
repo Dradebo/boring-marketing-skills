@@ -314,6 +314,7 @@ CAP_ENHANCES = {
         "find-local-clients",
         "pitch-the-fix",
         "long-form-article",
+        "site-audit",
     ],
     "web-search": [
         "keyword-research",
@@ -343,6 +344,7 @@ CAP_ENHANCES = {
         "keyword-research",
         "local-seo-plan",
         "service-area-pages",
+        "site-audit",
     ],
     "ads": [
         "paid-ads",

@@ -33,7 +33,7 @@ SKILLS_DIR="$INSTALL_HOME/skills"
 SYSTEM_DIR="$INSTALL_HOME/_system"   # beside skills/, so <skill>/../../_system resolves
 SYSTEM_COPY_DIR="$SKILLS_DIR/_system" # models often rewrite that path as skills/_system
 CLAUDE_ONLY=false
-VERSION="4.0.0"
+VERSION="4.1.0"
 
 # Skills that require a Replicate API token (skipped with --claude-only)
 REPLICATE_SKILLS=("creative")

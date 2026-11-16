@@ -26,3 +26,5 @@ skills/long-form-article/references/platform-notes.md
 skills/meta-ads/references/meta-facts.md
 skills/reviews/references/review-policy-facts.md
 skills/speed-to-lead/references/speed-evidence.md
+skills/site-audit/references/crawler-facts.md
+skills/creative/references/ad-formats.md

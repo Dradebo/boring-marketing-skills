@@ -1,11 +1,11 @@
 ---
 name: start-here
 description: The front door of Boring Marketing Skills. Reads any business (SaaS, online, creator, agency or local) from its site and what its customers say in about 3 minutes, writes the brand files every other skill uses, and routes any marketing request to the right skill or workflow, including the local-business pack and the agency path. Runs the deeper four-agent foundation on request, reviews a site, drafts a prospect proposal and says which tools would help most. Use on first run, when you don't know where to start, for any vague marketing request, or to onboard a new client.
-when_to_use: start here, get started, where do I start, what should I do next, set up my brand, set up my business, set up my marketing, onboard my business, help me with marketing, what's the plan, go deep, deep foundation, review my site, audit my site, what should I fix first, what should I add, which API keys, new client, onboard a client, switch client, agency status, status across clients, proposal for this prospect, remember that
+when_to_use: start here, get started, where do I start, what should I do next, set up my brand, set up my business, set up my marketing, onboard my business, help me with marketing, what's the plan, go deep, deep foundation, review my site, audit my site, what should I fix first, what should I add, which API keys, new client, onboard a client, switch client, agency status, status across clients, proposal for this prospect, remember that, show my checks, drop that check
 argument-hint: "[business name | url | deep | audit | stack | 'new client <url>' | 'prospect <url>' | --brand <slug> | any marketing request]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: foundation
     reads: [brand-manifest, learnings, assets]
     writes: [stack, brand-manifest, preferences, voice-profile, positioning, audience, voc, competitors]
@@ -63,6 +63,7 @@ First match wins:
 |---|---|
 | a business name, a URL, "set up my business" | First run: the lite read (~3 min) |
 | "deep", "go deep", "full foundation", "do the full research" | Deep foundation (~15 min) |
+| "technical SEO audit", "crawl my site", "robots.txt", "is Google indexing my pages", "are AI crawlers blocked", "page speed" | /site-audit |
 | "review my site", "what should I fix first", "audit" | Site review: audit |
 | "what should I add", "which API keys", "stack" | Stack advisor |
 | "new client <url>", "onboard <domain>" | Agency: new client (lite read into its folder) |
@@ -73,6 +74,7 @@ First match wins:
 | "do this for me", "done for you", "can someone run this", "hire you" | The author's team builds and runs it: boringmarketing.com (see The author's offers) |
 | "teach me this", "a course", "community", "learn to sell this" | The Boring Marketing community, where the author teaches it (skool.com/the-vibe-marketers) |
 | "remember that…", "never…", "always show me before…" | Preferences |
+| "show my checks", "drop that check", "why does it keep doing that" | Checks |
 
 ## Deterministic routing
 
@@ -363,6 +365,14 @@ it." Never ask the user to write the file; never read it all back. `MARKETING.md
 workspace root is the standing brief: offered once after the first run ("want me to
 write MARKETING.md from this so every skill starts from your goals and limits?"),
 edited by the user, never demanded.
+
+## Checks: what the user's edits taught
+
+Every skill saves a gold case and yes/no checks when the user edits its work
+(`references/taste-loop.md`). "Show my checks" lists `./brand/checks.md` grouped by skill,
+with the count of gold cases per skill. "Drop that check" moves it to `./brand/.history/`.
+"Why does it keep doing X" means find the check, gold case, preference or learning behind
+it and name it in one line. Never read the whole file back unasked.
 
 ## Tool detection
 

@@ -5,7 +5,7 @@ when_to_use: write SEO content for X, create article for keyword, write blog pos
 argument-hint: "[target keyword, or path to an existing article to refresh]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [voice-profile, keyword-plan, audience#dominant-emotion-sophistication, learnings]
     writes: []
@@ -225,3 +225,10 @@ Then present per the output contract (`${CLAUDE_SKILL_DIR}/../start-here/referen
 - `/ai-search`: full share-of-model audit + citation monitoring routine across your money queries (~20 min)
 - `/creative`: featured image and social cards for this piece (~15 min)
 - `/seo-content`: next brief in the keyword plan, or schedule a refresh: citations churn monthly
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

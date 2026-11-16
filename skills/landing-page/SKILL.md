@@ -5,7 +5,7 @@ when_to_use: build me a landing page, landing page for X, turn this copy into a 
 argument-hint: "[offer or campaign name | live URL for teardown]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [voice-profile, positioning#chosen-angle, audience#pain-language, voc, creative-kit, competitors, learnings]
     writes: []
@@ -353,3 +353,10 @@ words; a teardown plan about 1,200 to 2,500.
 - Local pages: `/first-screen-check` on the live page once it ships (~10 min);
   `/google-ads-tracking` so the ads count the calls and forms it produces (~30 min);
   `/speed-to-lead` so form leads get a reply in minutes (~20 min)
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

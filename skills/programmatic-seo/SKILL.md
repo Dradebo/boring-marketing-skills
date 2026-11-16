@@ -5,7 +5,7 @@ when_to_use: programmatic seo, pseo, generate pages from data, build 100 landing
 argument-hint: "[keyword pattern or cluster, e.g. 'crm for [industry]']"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [keyword-plan, positioning#chosen-angle, voice-profile#voice-summary]
     writes: [assets]
@@ -290,3 +290,10 @@ A NO verdict still ships `validation.md`; a documented kill is a deliverable.
   (~15 min)
 
 Or tell me what you're working on and I'll route you.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

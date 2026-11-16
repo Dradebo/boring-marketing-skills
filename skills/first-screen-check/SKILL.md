@@ -5,7 +5,7 @@ when_to_use: check my site on a phone, why isn't my website getting calls, first
 argument-hint: "[site URL or the URL an ad opens] [optional: the ad's text or promise]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [positioning#chosen-angle, competitors]
     writes: [assets]
@@ -261,6 +261,13 @@ on the page every paid click lands on.
 - Not checked: the booking flow past the first step (needs a test booking).
 - Confirm with the owner what they actually charge before changing the pricing text.
 ```
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

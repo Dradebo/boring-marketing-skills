@@ -5,7 +5,7 @@ when_to_use: write city pages, service area pages, location pages for my busines
 argument-hint: "[business or site] [towns, or 'from plan']"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [voice-profile, positioning#chosen-angle, voc, competitors#competitor-profiles, brand-manifest]
     writes: []
@@ -145,6 +145,13 @@ Write `./campaigns/service-area-pages/<YYYY-MM-DD>-pages.md`, the handoff for th
 `./campaigns/service-area-pages/notes.md` holds the working data: per-page specs, the ledger rows each page used, source URLs, and the Phase 6 results. Save it, don't paste it, and list it once under Files saved.
 
 If the project has a codebase, also write the pages into it, the way the project already builds pages, and list the paths. Never publish. Append one line to `./brand/assets.md`.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

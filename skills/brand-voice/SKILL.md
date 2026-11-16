@@ -5,7 +5,7 @@ when_to_use: what's my voice, analyze my brand voice, make this sound like me, v
 argument-hint: "[URL to auto-scrape | pasted content to extract | 'drift check' + recent content]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: foundation
     reads: [positioning, audience]
     writes: [voice-profile]
@@ -404,3 +404,10 @@ Per `start-here/references/output-format.md`:
 
 Optional one-line ask after first real use: "When you've shipped content with this
 profile, tell me what felt off. One line is enough."
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

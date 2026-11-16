@@ -5,7 +5,7 @@ when_to_use: local seo plan, which city pages should I build, should I make a pa
 argument-hint: "[business name or site] [main service] [main city]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: strategy
     reads: [positioning, audience, competitors#competitor-profiles, voc, keyword-plan, brand-manifest]
     writes: [assets]
@@ -201,7 +201,10 @@ These three are the plan. Write all three in full every time; a plan that leaves
 - **Weeks 5-10:** town pages that meet the standard, job stories, the "best of" lists the AI answers cite.
 - **Weeks 11-13:** the remaining pages, the 90-day re-check from the same places, the next quarter's list.
 
-Inside that shape, order by what pays soonest: foundations (profile facts, consistent name, phone and hours on the top listings, wrong facts in AI answers fixed at their source, unanswered reviews), then money cells (already at map position 4 to 10 for an urgent or planned service), then AI picks, then proof-backed pages, then habits (review requests, weekly posts). Every week ends in something someone can check: a page live, a field changed, a position re-read from the same town. Guardrails: no page for a place the business doesn't serve. Each month, re-read the map at the agreed depth, report against the calendar, and adjust the coming weeks from what changed.
+The highest-value service pages (the biggest tickets and the most-booked jobs) go in
+weeks 2 to 6, never the last month. Before any profile field or page promises something
+(open 24 hours, same day, free estimates), confirm the business can deliver it at that hour
+and put the confirmation in Owner to confirm. Inside that shape, order by what pays soonest: foundations (profile facts, consistent name, phone and hours on the top listings, wrong facts in AI answers fixed at their source, unanswered reviews), then money cells (already at map position 4 to 10 for an urgent or planned service), then AI picks, then proof-backed pages, then habits (review requests, weekly posts). Every week ends in something someone can check: a page live, a field changed, a position re-read from the same town. Guardrails: no page for a place the business doesn't serve. Each month, re-read the map at the agreed depth, report against the calendar, and adjust the coming weeks from what changed.
 
 ## Phase 9. Set the measurement before anything ships
 
@@ -240,14 +243,19 @@ The plan, in this order:
 3. **Three vitals,** short values the owner can repeat: "outside the top 20 in 4 of 5 towns", "named in 0 of 6 AI answers", "11 of the last 40 reviews unanswered".
 4. **The three costliest gaps,** costliest first: the fact, why it costs in one sentence the owner would nod at, the competitor who wins it, the evidence.
 5. **Fix first:** the one move to start with, what it involves, the owner's time, and how we'll know it worked within a month or two. Say so plainly when part of it is a longer climb (a map pin far from the town).
-6. **The page list** (Phase 8), complete and in build order.
-7. **The Google profile checklist** (Phase 8), field by field.
-8. **The 90-day calendar** (Phase 8), 13 dated weeks.
-9. **Where you stand:** a compact market map (services × towns, each cell with its map pack position and status: **win** at 1 to 3, **close** at 4 to 10, **losing** at 11 or absent, **not served**, **unknown** when the check failed) and who the AI answers name instead, per service.
-10. **Holds,** one line each, only if there are any.
-11. **How we'll know:** the baseline numbers and what gets re-read at day 30 and day 90.
-12. **Owner to confirm:** the facts the plan needs in writing.
-13. **Built from:** a short note: the sources with their date ranges, the depth, and, when the plan is thin, one named gap ("no job records yet, so town pages rest on reviews and the owner's word") with one offer to fill it.
+6. **Ready to use this week,** finished, true to the brief, nothing to fill in: the
+   homepage first screen rewritten around the strongest review line, the Google profile
+   description (750 characters at most), replies to the unanswered or weak reviews (up to
+   5), and the text that asks for a review after each job. Skip a piece only when the brief
+   gives nothing true to write it from, and say which in one line.
+7. **The page list** (Phase 8), complete and in build order.
+8. **The Google profile checklist** (Phase 8), field by field.
+9. **The 90-day calendar** (Phase 8), 13 dated weeks.
+10. **Where you stand:** a compact market map (services × towns, each cell with its map pack position and status: **win** at 1 to 3, **close** at 4 to 10, **losing** at 11 or absent, **not served**, **unknown** when the check failed) and who the AI answers name instead, per service.
+11. **Holds,** one line each, only if there are any.
+12. **How we'll know:** the baseline numbers and what gets re-read at day 30 and day 90.
+13. **Owner to confirm:** the facts the plan needs in writing.
+14. **Built from:** a short note, 10 lines at most, with no appendix after it: the sources with their date ranges, the depth, and, when the plan is thin, one named gap ("no job records yet, so town pages rest on reviews and the owner's word") with one offer to fill it.
 
 Say positions the way an owner hears them: 4 to 7 is "just outside the top three", 8 or lower is "well below the top three that get most of the calls". No scores, no dollar figures for what they're losing, no script paths or tool commands, and never "optimize your Google Business Profile" where the exact change (this category to that one, these services with these prices) belongs. Load `references/quality-bar.md` for a strong and a weak version of the plan, the page list, the calendar and each deliverable it hands off.
 
@@ -260,6 +268,13 @@ Append one line to `./brand/assets.md`. In chat: the headline, the three vitals,
 - builder, or no role recorded: nothing.
 
 It appears at most once per run, never inside a saved file, never when the user asked for no extras, and not for someone who is clearly already a client of the author's team.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

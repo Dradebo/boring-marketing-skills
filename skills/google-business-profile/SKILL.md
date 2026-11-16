@@ -5,7 +5,7 @@ when_to_use: check my google business profile, google business profile audit, GB
 argument-hint: "[business name or profile link] [main service] [city]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: distribution
     reads: [voice-profile, positioning#chosen-angle, voc, competitors#competitor-profiles, brand-manifest, algo-cache]
     writes: [assets]
@@ -119,6 +119,13 @@ Write `./campaigns/google-business-profile/<YYYY-MM-DD>-audit.md`, written so th
 8. Sources and assumptions, 10 lines at most: what the audit rests on (captures and screenshots, with dates), fields not observed, and what is missing.
 
 Append one line to `./brand/assets.md`. In chat: the top 3 gaps, the risks found, **Files saved**, **What's next**.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

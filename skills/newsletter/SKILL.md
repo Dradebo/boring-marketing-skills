@@ -5,7 +5,7 @@ when_to_use: write my newsletter, newsletter edition about X, weekly roundup, ne
 argument-hint: "[topic, or 'strategy: <question>'; optionally an archetype name]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: execution
     reads: [voice-profile, audience#segments, audience#desires-buying-triggers, learnings]
     writes: []
@@ -241,6 +241,13 @@ saved**, **What's next**.
 pair reads as one thought · every link fetched and live · one CTA · sender is a person's name
 · mobile paragraph lengths · one-click unsubscribe compliant (full preflight:
 `/email-sequences`) · A/B judged on clicks.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

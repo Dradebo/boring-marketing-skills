@@ -5,7 +5,7 @@ when_to_use: pitch this business, write a cold email to a plumber, how do I pitc
 argument-hint: "[business name + town + site | a row from a find-local-clients list]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: growth
     reads: [positioning#chosen-angle, voice-profile, learnings]
     writes: []
@@ -169,6 +169,13 @@ not be re-checked, what to confirm}
 Length: the three emails plus about 200 words of notes. Sending setup (a second domain, SPF, DKIM, DMARC) is one line of advice at most, and never an audit of a domain the user did not give.
 
 Files first, then the chat summary: the subject line, the first email, and what the user must fill in (price, address). Append one line to `./brand/assets.md` if a brand folder exists.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

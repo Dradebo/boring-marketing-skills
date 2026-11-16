@@ -5,7 +5,7 @@ when_to_use: get more reviews, more google reviews, reply to my reviews, respond
 argument-hint: "[business name + city, or the Google profile link] [optional: pasted reviews or a reviews export]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: growth
     reads: [voice-profile, positioning#chosen-angle, competitors, voc]
     writes: [assets]
@@ -231,6 +231,13 @@ Append one line to `./brand/assets.md` when a brand folder exists. The rival com
 quotes are good customer language; offer to add them to `voc.md` through
 `/audience-research`, which owns that file. Then the chat summary: the stall, the top
 fixes, **Files saved**, **What's next**.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

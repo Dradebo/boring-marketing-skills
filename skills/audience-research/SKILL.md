@@ -5,7 +5,7 @@ when_to_use: research my audience, who is my audience, voice of customer, what d
 argument-hint: "[product URL or description; optionally 'refresh' to diff against existing research]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: foundation
     reads: [positioning#market-assessment, brand-manifest]
     writes: [audience, voc]
@@ -296,3 +296,10 @@ one-line ask at most ("If a finding turns out wrong in market, tell
 - `/lead-magnet`: the top problem-aware pain usually names the magnet (~10 min)
 - `/brand-voice`: if vocabulary mining showed the brand speaks industry while customers
   speak plain (~10 min)
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.

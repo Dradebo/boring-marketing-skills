@@ -2,7 +2,7 @@
 
 Free marketing skills for your AI agent: research, positioning, copy, pages, SEO, AI search, ads, email and content, plus a deep pack for local businesses and the people who market them.
 
-31 skills for Claude Code, Codex, Cursor and other agents. They were built from real campaigns, and every one works without a paid tool. MIT licensed.
+32 skills for Claude Code, Codex, Cursor and other agents. They were built from real campaigns, and every one works without a paid tool. MIT licensed.
 
 Made by James Dickerson ([@boringmarketer](https://x.com/boringmarketer)). More at [boringmarketing.com](https://boringmarketing.com). Need clients to use this on? [boringfunnels.com](https://boringfunnels.com) finds local businesses losing customers (I make it). Want agents built for your team? [Work with us](https://boringmarketing.com/#work).
 
@@ -45,6 +45,7 @@ Grouped by stage, in the order a customer meets a business.
 | `local-seo-plan` | Decides which services and towns get a page, which get a section, and which to skip |
 | `service-area-pages` | Writes town and service pages that aren't the same page with the city swapped |
 | `ai-search` | Checks whether ChatGPT, Perplexity and Google's AI name the business, and what to fix if they don't |
+| `site-audit` | Crawls the site like Google and the AI crawlers do and ranks the few technical fixes that stop it being found |
 | `keyword-research` | Maps what people search, from free autocomplete data, as topics instead of a 5,000-row list |
 | `seo-content` | Writes the articles and guides that answer those searches |
 | `programmatic-seo` | Builds many pages from one template and a data set, without thin pages |
@@ -112,8 +113,9 @@ Every skill works with your agent's own web access. When you want more, this is 
 | Web search for agents | Exa | Free tier, then pay as you go |
 | Read, crawl and extract pages | Firecrawl | Free tier |
 | Search volumes, SERPs, keyword data | DataForSEO | Pay as you go |
-| Images | GPT Image (OpenAI) | Pay per image |
+| Images and GIFs | GPT Image 2.6 (OpenAI) | Pay per image |
 | Video | Seedance 2.5, through Higgsfield or Replicate | Pay per clip |
+| Presenter and UGC-style ad video | Higgsfield Marketing Studio | Plans with credits |
 | Voiceover | ElevenLabs | Free tier, then plans |
 | Meta ads | Meta's official Ads MCP server and Ads CLI | Free with an ad account |
 | Google Ads | Google Ads API | Free |

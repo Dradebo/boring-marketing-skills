@@ -5,7 +5,7 @@ when_to_use: competitor analysis, tear down my competitors, who am I up against,
 argument-hint: "[competitor names/URLs or a category] | watch | ads <category>"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: foundation
     reads: [positioning#market-assessment, competitors, brand-manifest]
     writes: [competitors, assets, brand-manifest]
@@ -297,6 +297,13 @@ Quick Mode: a narrow ask ("what does X charge?", "is Y running ads?") gets a sin
 - builder, or no role recorded: nothing.
 
 It appears at most once per run, never inside a saved file, never when the user asked for no extras, and not for someone who is clearly already a client of the author's team.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

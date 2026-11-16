@@ -83,7 +83,7 @@ the first run; say no and it never asks again. Edit it any time.
 ### `./campaigns/`: deliverables
 
 One folder per piece of work: `./campaigns/spring-launch/`, `./campaigns/content/`,
-`./campaigns/newsletters/`. Site audits land in `./campaigns/audit/audit-<date>.md`.
+`./campaigns/newsletters/`. Site reviews land in `./campaigns/audit/audit-<date>.md`; technical audits from `/site-audit` in `./campaigns/site-audit-<domain>-<date>/`.
 Every file written here gets a row in `assets.md` (the plugin hook does this for you).
 
 ### `./campaigns/prospects-*/`: businesses you want as clients
@@ -113,6 +113,7 @@ resolves the brand folder in this order: an explicit `--brand <slug>`, then
 |---|---|
 | a business name, a URL, "set up my business" | First run: the lite read (~3 min) |
 | "deep", "go deep", "full foundation" | The four-agent foundation (~15 min), upgrading the lite files |
+| "technical SEO audit", "crawl my site", "are AI crawlers blocked", "page speed" | `/site-audit`: a polite crawl of up to 200 pages (robots.txt, indexing, AI crawler access at robots.txt and the CDN, sitemaps, broken links, duplicate pages, Core Web Vitals) ranked into 5 to 10 fixes; the full findings in `./campaigns/site-audit-<domain>-<date>/` |
 | "review my site", "what should I fix first", "audit" | Audit: a teardown of your homepage and the page your goal implies (read on a phone for a local business), a light AI-search check, and a delta against your competitors. Top three priorities in chat; the full list in `./campaigns/audit/` |
 | "what should I do next" | Short status, one fetch of your homepage, then one or two specific recommendations |
 | "what should I add", "which API keys", "stack" | Stack advisor: missing toolsets ranked for your goal, one line each |
@@ -199,12 +200,13 @@ tool, and when a skill names a paid tool it gives the free way too.
 
 | Job | What we use | Used by |
 |---|---|---|
-| Web search, page reads | Exa, Firecrawl | the research skills, `ai-search`, `first-screen-check` |
+| Web search, page reads | Exa, Firecrawl | the research skills, `ai-search`, `first-screen-check`, `site-audit` |
 | Search volumes, SERPs | DataForSEO (treg as the one-key alternative) | `keyword-research`, `local-seo-plan`, `programmatic-seo` |
 | Images, video, voiceover | GPT Image, Seedance 2.5 via Higgsfield or Replicate, ElevenLabs | `creative` |
 | Meta and Google ads | Meta's official Ads MCP server and Ads CLI, Google Ads API | `meta-ads`, `paid-ads`, `google-ads-tracking` |
 | Posting and scheduling | Zernio (Buffer for a few free channels) | `social-content`, `content-atomizer`, `google-business-profile` |
-| Search Console, Business Profile | Google, free | `local-seo-plan`, `google-business-profile`, `performance-review` |
+| Search Console, Business Profile | Google, free | `local-seo-plan`, `google-business-profile`, `performance-review`, `site-audit` |
+| Core Web Vitals | Google's PageSpeed Insights and CrUX APIs, free with a key | `site-audit` |
 | Finding local businesses to pitch | boringfunnels (made by the author of this library) | `find-local-clients`, `pitch-the-fix`, `first-screen-check` |
 
 The author's own tool is marked wherever a skill mentions it, never replaces the free

@@ -5,7 +5,7 @@ when_to_use: write a long article, write an X article, write a LinkedIn article,
 argument-hint: "[the point or topic] [x | linkedin | blog | newsletter]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: distribution
     reads: [voice-profile, positioning#chosen-angle, audience#pain-language, learnings]
     writes: []
@@ -143,6 +143,13 @@ Load `references/platform-notes.md` for the platform's dated facts (who can publ
 ```
 
 Files first, then the chat summary, which never pastes the article. The Sources and assumptions note says in plain words what the numbers rest on (government and study data, vendor data, the author's own counts, each with how many), what the author must confirm, and what is missing. The gap-aware receipt is at most 3 of those lines: what was checked at the source, what could not be, and the one input that would unlock the next step (for example "the three first-hand counts need your real numbers"). No score, no data tag, no tool names. Append one line to `./brand/assets.md` if a brand folder exists.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

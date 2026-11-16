@@ -5,7 +5,7 @@ when_to_use: find angles for X, how should I position X, what's the hook, why is
 argument-hint: "[product, service or offer to position, plus market or city; blank uses brand memory]"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: foundation
     reads: [audience, competitors, voc, voice-profile#voice-summary, learnings]
     writes: [positioning, assets]
@@ -290,18 +290,29 @@ use:
 3. **The read.** One short paragraph: the after-state in the customer's words, what they
    do instead, the top complaint, and what it takes to be believed now ("they've heard
    every speed claim, so show how it works").
-4. **3-5 numbered angles**, each named for what it says, not for its generator. Each gets
-   a **statement**, **why it lands** (the complaint or customer phrase it answers),
-   **headline**, **offer**, **guarantee** ("none offered today" is a fine answer) and
-   **best for**. Every line passes the claim gate.
-5. Star exactly one, with 1-2 sentences on why it wins here.
-6. **To make this true.** The stronger ideas the facts can't back yet: the idea, the line
+4. **The position.** Decide. The one angle that wins here: the **statement**, **why it
+   wins** (the complaint or customer phrase it answers, in 1-2 sentences), the **offer** and
+   the **guarantee** ("none offered today" is a fine answer).
+5. **Ready to ship,** built from that position, finished and passing the claim gate:
+   - the first screen: headline, subhead, button and the line under the button;
+   - the next block the page needs (how it works, or the proof that backs the headline);
+   - answers to the 3 objections buyers raise first, in the customer's words;
+   - who it's for and who it isn't for (the buyer to turn away), plus what tends to make
+     them buy now.
+   The headline never rests on something you called table stakes in step 2.
+6. **Other angles worth testing:** 2 or 3, one line each, saying what it claims and when it
+   would beat the chosen one. No full builds.
+7. **To make this true.** The stronger ideas the facts can't back yet: the idea, the line
    it would unlock, what it takes. Skip it only when there are none.
-7. A short evidence note last: the data label, what the shipped lines rest on, and any
-   leg that fell back to model knowledge.
+8. A short evidence note last: what the shipped lines rest on, and any leg that fell back
+   to model knowledge.
 
-No scoring, gate checklists, framework names or script paths in the chat output. Then ask
-which angle to keep or combine.
+When the user asked for options to choose from ("give me angles", "brainstorm
+positioning"), swap steps 4 to 6 for 3-5 full angles (statement, why it lands, headline,
+offer, guarantee, best for) and star one. Otherwise decide, ship, and close with one line:
+"Want a different angle to lead? Say which and the pieces rebuild from it." No scoring,
+gate checklists, framework names, named-method labels the business doesn't use, or script
+paths in the chat output.
 
 **On selection, write `./brand/positioning.md`.** Offer, guarantee and mechanism live
 inside Chosen Angle, because other skills read only that section:
@@ -413,6 +424,13 @@ coach's sales page lists the program and already offers the refund. Offer: 12 we
 sessions for 6 weeks. If your easy pace hasn't improved, full refund." Method: the
 Two-Session Strength Block. ★ The over-40 angle (specificity), headline "A faster 10K
 after 40, without another injury."
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

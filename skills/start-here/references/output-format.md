@@ -124,7 +124,8 @@ in one line in the note.
 **Sources and assumptions.** Evidence and assumptions go in one short note at the end of
 the content, 10 lines at most: what the work rests on (sources and dates in a sentence),
 the data quality in plain words, what the client should confirm, and what is missing. A
-learning that changed the work gets one line, only if it did. For the SEO and AI search
+learning that changed the work gets one line, only if it did. When saved checks ran
+(see `taste-loop.md`), one line may say so ("Checked against your 9 saved checks."). For the SEO and AI search
 skills, the gap-aware receipt (what was checked, what could not be, what would unlock
 the next step) is at most 3 of those lines. Anything longer goes in a working file.
 

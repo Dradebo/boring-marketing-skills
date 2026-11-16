@@ -40,6 +40,8 @@ single-writer rule remains unchanged.
   algo-cache.md           <- any skill (dated platform facts, TTL'd)
   assets.md               <- append-only registry (all skills)
   learnings.md            <- append-only priors (/performance-review + explicit user feedback)
+  checks.md               <- append-only yes/no checks from the user's edits (any skill)
+  gold/<skill>/           <- gold cases: what a skill wrote, what shipped, and why
   .history/               <- auto-versioned prior copies of profile files
 ```
 
@@ -196,6 +198,15 @@ is gone. Skills never write profile files they do not own (see `writes:`).
 Every profile file starts with a `## Last Updated` line carrying the date and the
 writing skill. Keep files human-readable: a marketer should understand any brand file
 in a text editor without running a skill.
+
+### The taste loop: checks.md and gold/
+
+When the user edits a skill's work, the skill saves a gold case and one to three yes/no
+checks, and every later run of that skill answers those checks before handing work over.
+The loader prints the checks tagged for the running skill (plus `all`) and its three
+newest gold cases, right after `preferences.md`. Full rules: `taste-loop.md` in this
+folder. `learnings.md` holds what the data proved and `checks.md` holds what the owner
+wants, so the two never mix.
 
 ### Append-only files: assets.md and learnings.md
 

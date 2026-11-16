@@ -1,11 +1,11 @@
 # Model Registry: Creative Engine
 
 ```
-registry_version: 3.3.0
+registry_version: 3.4.0
 last-verified: 2026-11-13
 ttl-days: 60
 refresh: run scripts/verify_models.sh  (re-verifies every model ID against the Replicate API and rewrites ./brand/creative-stack.md), then open replicate.com/{owner}/{model} for any model near a sunset: a delisted model can still pass the API check
-changes: 2026-11-13: verify_models.sh 25 pass / 0 fail after removing Sora 2 and Sora 2 Pro (their replicate.com pages now 404 after the 2026-09-24 API sunset, although GET /v1/models still answers 200, so a script pass alone no longer proves a model is live); every input schema and enum re-pulled from the API with no removed params except gpt-image-2 `background: transparent` (gone from the enum); every price re-read from the model pages: gpt-image-2 dropped (low $0.012 · medium $0.047 · high/auto $0.128), Seedance 2.0 now bills less without video inputs ($0.08-$1.00/s vs $0.10-$1.25/s with them), all others unchanged; video-ugc and the hero trio now resolve to their post-sunset routes; newer IDs list refreshed (Kling 4.0, Seedance 2.5, Nano Banana 2.1, GPT Image 2.5, FLUX 3, Ideogram 4.5)
+changes: 2026-11-16: the GPT Image roles moved to GPT Image 2.6 (`openai/gpt-image-2.6-flare` for fast drafts, `openai/gpt-image-2.6-sunburst` for finals and consistent edits); both IDs answered 200, their input schemas were pulled from the API and their prices read from the model pages on 2026-11-16; the older GPT Image IDs left the roster (2.6 takes transparent backgrounds again and adds animated GIF and SVG output). 2026-11-13: verify_models.sh 25 pass / 0 fail after removing Sora 2 and Sora 2 Pro (pages 404 after the 2026-09-24 API sunset, although GET /v1/models still answered 200, so a script pass alone no longer proves a model is live); schemas and prices re-pulled; Seedance 2.0 bills less without video inputs; video-ugc and the hero trio resolve to their post-sunset routes; newer IDs list refreshed
 ```
 
 **This is the ONLY file in the product that contains model payloads, parameter
@@ -41,8 +41,8 @@ with the sections below: adding a model means adding it here AND in its section.
 ```models
 google/nano-banana-2
 google/nano-banana-pro
-openai/gpt-image-2
-openai/gpt-image-1.5
+openai/gpt-image-2.6-flare
+openai/gpt-image-2.6-sunburst
 black-forest-labs/flux-2-max
 black-forest-labs/flux-2-pro
 black-forest-labs/flux-2-flex
@@ -82,8 +82,8 @@ mode follows automatically.
 |------|-------|--------|------------|----------|
 | **image-default** | `google/nano-banana-2` | schema-verified | $0.067 (1K) · $0.101 (2K) · $0.151 (4K) | Everything, unless a role below fits better. Fusion editing with up to 14 reference images; now outputs 4K itself. |
 | **image-premium-4k** | `google/nano-banana-pro` | schema-verified | $0.15 (1K/2K) · $0.30 (4K) · $0.035 if the fallback model runs | Hero stills, print: the fidelity upgrade over NB2's own 4K, not the only 4K path. |
-| **image-complex-prompt** | `openai/gpt-image-2` | schema-verified | $0.012 low · $0.047 medium · $0.128 high (set `quality` explicitly: `auto` is the default and bills as high) | Complex multi-element composition, dense instruction-heavy prompts, exact in-image text inside real scenes. Succeeds gpt-image-1.5. |
-| **image-instruct-edit** | `openai/gpt-image-2` (fallback: `gpt-image-1.5`) | schema-verified | as above (1.5: $0.013 low · $0.05 medium · $0.136 high/auto) | Complex instruction-following edits, layout-aware compositing. Real photo goes in `input_images`. |
+| **image-complex-prompt** | `openai/gpt-image-2.6-sunburst` (drafts: `gpt-image-2.6-flare`) | schema-verified 2026-11-16 | $0.05 low · $0.09 medium · $0.128 high · $0.25 xhigh · $0.50 max, the same on both (set `quality` explicitly: `auto` is the default and bills $0.25); GIF and SVG bill by tokens | Complex multi-element composition, dense instruction-heavy prompts, exact in-image text inside real scenes, native-looking phone photos, animated GIFs. Flare for fast drafts, Sunburst for the final. |
+| **image-instruct-edit** | `openai/gpt-image-2.6-sunburst` (drafts: `gpt-image-2.6-flare`) | schema-verified 2026-11-16 | as above | Instruction-following edits and layout-aware compositing of a real photo, and keeping one product consistent across a series of edits (pass the previous output back in, one change at a time). Real photo goes in `input_images`. |
 | **image-art-direction** | `black-forest-labs/flux-2-max` (premium) / `flux-2-pro` (standard and the cheapest) / `flux-2-flex` (control knobs; NOT the budget pick) | schema-verified | per megapixel: pro ≈$0.03 at 1 MP, ≈$0.08 at 4 MP · max ≈$0.07 / ≈$0.16 · flex ≈$0.06 / ≈$0.24 (reference images bill per input MP too) | Photoreal art direction, strong prompt adherence, style range, multi-reference editing. |
 | **image-stylized** | `bytedance/seedream-4.5` | schema-verified | $0.04 | High-aesthetic stylized looks, editorial illustration vibes; sets of up to 15 in one call. |
 | **image-vector** | `recraft-ai/recraft-v4` / `recraft-v4-svg` | schema-verified | $0.04 (raster) · $0.08 (SVG) | Logos, icons, flat design; `-svg` returns actual vector files. |
@@ -161,15 +161,20 @@ default `block_only_high`: leave it); and `allow_fallback_model` (boolean, defau
 at $0.035) if Google is capacity-limited. Leave it `false` whenever the look must match
 the rest of a set. $0.15 at 1K/2K, $0.30 at 4K.
 
-### openai/gpt-image-2 (image-complex-prompt, image-instruct-edit): schema-verified
+### openai/gpt-image-2.6-flare and openai/gpt-image-2.6-sunburst (image-complex-prompt, image-instruct-edit): schema-verified 2026-11-16
 
-`POST /v1/models/openai/gpt-image-2/predictions`
+`POST /v1/models/openai/gpt-image-2.6-sunburst/predictions` (or `.../gpt-image-2.6-flare/predictions`)
+
+Flare is OpenAI's fast model, for drafts and interactive work; Sunburst is for detailed
+compositions, precise edits and series of edits. Same input surface and the same per-image
+prices on Replicate.
 
 ```json
 {
   "input": {
     "prompt": "{{prompt}}",
     "quality": "medium",
+    "complexity": "high",
     "aspect_ratio": "{{ratio}}",
     "output_format": "png",
     "input_images": []
@@ -179,24 +184,24 @@ the rest of a set. $0.15 at 1K/2K, $0.30 at 4K.
 
 | Parameter | Type | Default | Options | Notes |
 |-----------|------|---------|---------|-------|
-| `prompt` | string | none | required | Reads like a layout spec: that is the point of this model. |
-| `quality` | string | `"auto"` | `low, medium, high, auto` | Drives price ($0.012 / $0.047 / $0.128). Set it explicitly: `auto` bills as high. |
-| `aspect_ratio` | string | `"1:1"` | `1:1, 3:2, 2:3, 4:3, 3:4, 16:9, 9:16, auto` or a pixel size up to `3840x2160` / `2160x3840` | The README still lists only 1:1 / 3:2 / 2:3; the schema is wider. |
-| `input_images` | array | none | image URLs | Edit/compose from real photos. The param is **`input_images`**, NOT `image_input` (that is the Google family name). |
-| `output_format` | string | `"webp"` | `png, jpeg, webp` | PNG for hand-off. |
-| `background` | string | `"auto"` | `auto, opaque` | `transparent` left the schema (2026-11); sending it 422s. Cut out in post, or use gpt-image-1.5, which still accepts it. |
+| `prompt` | string | none | required | Reads like a layout spec. Put exact in-scene words in quotes; set ad text in HTML over the image instead. |
+| `quality` | string | `"auto"` | `low, medium, high, xhigh, max, auto` | Drives price ($0.05 / $0.09 / $0.128 / $0.25 / $0.50; `auto` bills $0.25). `low` for drafts, `xhigh` or `max` for finals. |
+| `complexity` | string | `"high"` | `low, medium, high` | How much the model plans before rendering. `high` for dense text and layouts; `low`/`medium` for focused edits. Does not change the price. |
+| `aspect_ratio` | string | `"1:1"` | `1:1, 3:2, 2:3, 4:3, 3:4, 16:9, 9:16, auto` or a pixel size up to `3840x2160` / `2160x3840` | Sizes above 2560x1440 are experimental. |
+| `input_images` | array | none | image URLs | Edit/compose from real photos and pass the product reference image. The param is **`input_images`**, NOT `image_input` (that is the Google family name). Read at high fidelity; there is no fidelity setting. |
+| `output_format` | string | `"webp"` | `png, jpeg, webp, gif, svg` | `gif` returns an animated GIF; `svg` traces a vector (generation only, one image). PNG for hand-off. |
+| `frame_count` | integer | `9` | 2-16 | GIF only. All frames share one image budget: a 1:1 GIF is 512x512, 16:9 is 896x512. |
+| `frame_duration_ms` | integer | `200` | 20-2000 | GIF only, rounded to 10 ms. |
+| `background` | string | `"auto"` | `auto, transparent, opaque` | Transparent needs `png` or `webp`. |
+| `svg_model` | string | `"gpt-5.6-terra"` | tracing models | SVG only. |
 | `moderation` | string | `"auto"` | `auto, low` | Leave at default. |
 | `number_of_images` | integer | `1` | 1-10 | Variants in one call, each billed. |
 | `output_compression` | integer | `90` | 0-100 | jpeg/webp only. |
+| `openai_api_key` | string | none | optional | Your own OpenAI key bills OpenAI directly instead of Replicate. |
 
-### openai/gpt-image-1.5 (fallback for the gpt-image roles): schema-verified
-
-Succeeded by gpt-image-2 (above). Prefer that for new work; this entry stays as the
-known-surface fallback. Same family surface with a narrower `aspect_ratio` (`1:1, 3:2,
-2:3` only) and one extra knob worth knowing: `input_fidelity` (`low` / `high`). Set
-`high` when editing a real product or face so the untouched regions survive. Image
-input is `input_images` (array), same as gpt-image-2. $0.013 low · $0.05 medium ·
-$0.136 high (and `auto` bills as high).
+GIFs and SVGs bill by the tokens OpenAI reports (more frames and higher quality cost more).
+For a loop, tell the prompt the last frame must match the first. Calling the API from
+Python's urllib needs a `User-Agent` header or it returns 403.
 
 ### black-forest-labs/flux-2-max | flux-2-pro | flux-2-flex (image-art-direction): schema-verified
 
@@ -500,7 +505,7 @@ a role. Listed so a refresh does not rediscover them from scratch (API metadata 
   `minimax/hailuo-2.3` (+`-fast`); `pixverse/pixverse-v6`; `runwayml/aleph-2`;
   `kwaivgi/kling-v3-motion-control`, `kling-avatar-v2`; `google/veo-3.1-lite`.
 - Images: `google/nano-banana-2.1` (2026-11-05; sharper text, up to 4K) and
-  `nano-banana-2-lite`; `openai/gpt-image-2.5-flare` / `-sunburst` and `2.6-*`;
+  `nano-banana-2-lite`;
   `black-forest-labs/flux-3-image` (2026-10) and the `flux-2-klein-*` budget tier;
   `bytedance/seedream-5-lite`; `ideogram-ai/ideogram-4-5` (2026-11-09) and
   `ideogram-v4-quality` / `-balanced`; `recraft-ai/recraft-v4.1` / `-pro` / `-svg` /

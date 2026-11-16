@@ -35,5 +35,27 @@ class BrandContext(unittest.TestCase):
         out = run(self.root)
         self.assertIn("brand .env present: yes", out); self.assertNotIn("secret123", out)
 
+    def test_checks_filtered_to_skill_and_all(self):
+        (self.root / "brand" / "checks.md").write_text(
+            "# Checks\n\n- [all] Does every number match the brief?\n"
+            "- [direct-response-copy] Does the headline use the customer's words?\n"
+            "- [email-sequences] Is every subject under 40 characters?\n")
+        out = run(self.root)
+        self.assertIn("2 yes/no checks", out)
+        self.assertIn("customer's words", out); self.assertIn("match the brief", out)
+        self.assertNotIn("40 characters", out)
+
+    def test_gold_cases_newest_three_for_this_skill(self):
+        g = self.root / "brand" / "gold"
+        for d in ("2026-11-01-a", "2026-11-05-b", "2026-11-09-c", "2026-11-12-d"):
+            (g / "direct-response-copy").mkdir(parents=True, exist_ok=True)
+            (g / "direct-response-copy" / f"{d}.md").write_text("# case\n")
+        (g / "paid-ads").mkdir(parents=True)
+        (g / "paid-ads" / "2026-11-13-z.md").write_text("# other\n")
+        out = run(self.root)
+        self.assertIn("2026-11-12-d.md", out); self.assertIn("2026-11-05-b.md", out)
+        self.assertNotIn("2026-11-01-a.md", out); self.assertNotIn("2026-11-13-z.md", out)
+        self.assertLess(out.index("2026-11-12-d.md"), out.index("2026-11-09-c.md"))
+
 if __name__ == "__main__":
     unittest.main()

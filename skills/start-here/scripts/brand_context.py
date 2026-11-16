@@ -281,6 +281,28 @@ def main(argv=None):
         print(prefs.read_text(encoding="utf-8").rstrip())
         print()
 
+    checks = brand_dir / "checks.md"
+    if brand_dir.is_dir() and checks.is_file():
+        mine = [ln.strip() for ln in checks.read_text(encoding="utf-8").splitlines()
+                if (m := re.match(r"\s*- \[([a-z0-9-]+)\]", ln)) and m.group(1) in ("all", skill_label)]
+        if mine:
+            print(f"## checks.md ({len(mine)} yes/no checks from the user's own edits: "
+                  "answer each against your draft before handing it over, fix every no, "
+                  "never show the list; see start-here/references/taste-loop.md)")
+            print()
+            print("\n".join(mine))
+            print()
+    gold = brand_dir / "gold" / skill_label
+    if gold.is_dir():
+        cases = sorted(gold.glob("*.md"), reverse=True)[:3]
+        if cases:
+            print("## Gold cases for this skill (finished work the user shipped; read the "
+                  "newest before writing the same kind of piece)")
+            print()
+            for c in cases:
+                print(f"- {c.relative_to(brand_dir.parent) if brand_dir.parent in c.parents else c}")
+            print()
+
     business = manifest_brand_block(brand_dir)
     if business:
         print("## Business (brand.yaml)")

@@ -9,7 +9,7 @@
       "name": "boring-marketing",
       "source": "./",
       "description": "Free marketing skills for your AI agent: research, positioning, copy, pages, SEO, AI search, ads, email and content, plus a local-business pack (Google profile, reviews, local pages, call tracking). Built from real campaigns. Every skill works without a paid tool. MIT licensed.",
-      "version": "4.0.0",
+      "version": "4.1.0",
       "keywords": [
         "marketing",
         "copywriting",
@@ -30,5 +30,5 @@
       ]
     }
   ],
-  "description": "Boring Marketing Skills: free marketing skills for your AI agent, with a strong local-business pack. 31 skills, MIT licensed."
+  "description": "Boring Marketing Skills: free marketing skills for your AI agent, with a strong local-business pack. 32 skills, MIT licensed."
 }

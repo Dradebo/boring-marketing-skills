@@ -9,10 +9,11 @@ Every skill works without these. When you want more, this is the stack we run, o
 | Job | What we use | Cost | Key | Used by |
 |---|---|---|---|---|
 | Web search for agents | Exa | Free tier, then pay as you go | `EXA_API_KEY` | research skills, `ai-search`, `competitive-intel` |
-| Read, crawl and extract pages | Firecrawl | Free tier, then plans | `FIRECRAWL_API_KEY` | research skills, `first-screen-check` |
+| Read, crawl and extract pages | Firecrawl | Free tier, then plans | `FIRECRAWL_API_KEY` | research skills, `first-screen-check`, `site-audit` |
 | Search volumes, SERPs, keyword data | DataForSEO | Pay as you go | `DATAFORSEO_LOGIN`, `DATAFORSEO_PASSWORD` | `keyword-research`, `local-seo-plan`, `programmatic-seo` |
-| Images | GPT Image (OpenAI) | Pay per image | `OPENAI_API_KEY` or `REPLICATE_API_TOKEN` | `creative` |
+| Images and GIFs | GPT Image 2.6 (OpenAI) | Pay per image | `OPENAI_API_KEY` or `REPLICATE_API_TOKEN` | `creative` |
 | Video | Seedance 2.5 (ByteDance) via Higgsfield or Replicate | Pay per clip | `HF_API_KEY_ID` + `HF_API_KEY_SECRET`, or `REPLICATE_API_TOKEN` | `creative` |
+| Presenter and UGC-style ad video, fast static ad formats | Higgsfield Marketing Studio (CLI: `npm i -g @higgsfield/cli`, then `higgsfield auth login`) | Plans with credits | Higgsfield login | `creative` |
 | Voice and voiceover | ElevenLabs | Free tier, then plans | `ELEVENLABS_API_KEY` | `creative` |
 | Meta ads | Meta's official Ads MCP server and Ads CLI, or the Marketing API | Free with an ad account | `META_ACCESS_TOKEN` | `meta-ads`, `paid-ads` |
 | Google Ads | Google Ads API | Free | `GOOGLE_ADS_*` (see Ads below) | `google-ads-tracking`, `paid-ads` |
@@ -32,7 +33,7 @@ To see what is live right now, say "what should I add" to `/start-here` (or run 
 ## Web scraping (`web-scrape`): Firecrawl (`FIRECRAWL_API_KEY`)
 - Unlocks: full-page, JS-rendered reads for every research skill (onboarding, audits, competitor teardowns, keyword SERP checks).
 - Without it: Claude Code's WebFetch reads pages as summaries; results are labelled accordingly.
-- Used by: /start-here, /brand-voice, /positioning-angles, /audience-research, /competitive-intel, /keyword-research, /seo-content, /ai-search, /landing-page, /programmatic-seo, /google-business-profile, /local-seo-plan, /service-area-pages, /reviews, /first-screen-check, /find-local-clients, /pitch-the-fix, /long-form-article
+- Used by: /start-here, /brand-voice, /positioning-angles, /audience-research, /competitive-intel, /keyword-research, /seo-content, /ai-search, /landing-page, /programmatic-seo, /google-business-profile, /local-seo-plan, /service-area-pages, /reviews, /first-screen-check, /find-local-clients, /pitch-the-fix, /long-form-article, /site-audit
 - Cost: free tier of 1,000 credits a month with no card; Hobby from $16 a month (billed yearly) for 5,000 credits; top-ups in $5 batches. A full onboarding is a few hundred page reads. [1]
 - Get it: firecrawl.dev → sign up → https://www.firecrawl.dev/app/api-keys
 
@@ -77,9 +78,16 @@ Nothing is ever sent on your behalf: a push creates drafts, and the skill asks f
 ## Search Console (`search-console`): Google service account
 - Unlocks: your real queries, impressions and click-through rates feed keyword research, content refreshes and the monthly review.
 - Without it: keyword work uses live search checks and model-knowledge estimates, labelled as such.
-- Used by: /performance-review, /seo-content, /keyword-research, /local-seo-plan, /service-area-pages
+- Used by: /performance-review, /seo-content, /keyword-research, /local-seo-plan, /service-area-pages, /site-audit
 - Cost: free with your Google account.
 - Get it: the same service account as GA4 (`GOOGLE_APPLICATION_CREDENTIALS`); add its email as a user on your Search Console property and set `GSC_SITE_URL`.
+
+## Core Web Vitals: Google PageSpeed Insights (`PAGESPEED_API_KEY`, optional `CRUX_API_KEY`)
+- Unlocks: /site-audit measures phone speed on the homepage and key templates, with real-visitor data where Google has it.
+- Without it: the keyless PageSpeed quota is shared and often used up, so the audit reports Core Web Vitals as not checked.
+- Used by: /site-audit
+- Cost: free. Checked 2026-11-16.
+- Get it: Google Cloud console → enable the PageSpeed Insights API (and the Chrome UX Report API for real-visitor data) → Credentials → create an API key.
 
 ## Ads (`ads`): Meta (`META_ACCESS_TOKEN`) and Google Ads (`GOOGLE_ADS_DEVELOPER_TOKEN`)
 - Unlocks: /paid-ads reads real campaign, ad-set and creative performance for kill/scale/iterate decisions; /google-ads-tracking reads the conversion setup; /meta-ads creates campaigns (paused) and checks the pixel and Conversions API; /ads-incrementality-check pulls spend and conversions for the pause test; /performance-review includes spend in the diagnosis.
@@ -145,7 +153,7 @@ Scheduling is the only action here that touches a live account. The skill always
 ## Our picks with no section above
 
 - **Exa** (`EXA_API_KEY`): semantic web search built for agents. Finds pages a keyword search misses, and returns clean text. Get it at exa.ai.
-- **GPT Image** (`OPENAI_API_KEY`): OpenAI's image model, called directly or through Replicate. Get it at platform.openai.com.
+- **GPT Image 2.6** (`OPENAI_API_KEY`): OpenAI's image model (Flare for fast drafts, Sunburst for finals, GIFs up to 16 frames), called directly or through Replicate. Get it at platform.openai.com.
 - **Higgsfield** (`HF_API_KEY_ID`, `HF_API_KEY_SECRET`): one API for 50+ image and video models, including Seedance. Pay as you go. Get it at higgsfield.ai.
 - **ElevenLabs** (`ELEVENLABS_API_KEY`): voiceover and voice cloning for video ads and talking heads. Get it at elevenlabs.io.
 - **Meta's official Ads MCP server and Ads CLI**: lets an agent read and manage ads through Meta's own connector. Turn it on in Meta Business Suite, Settings, Integrations, Ads MCP server. Get it at developers.facebook.com (Ads AI Connectors).

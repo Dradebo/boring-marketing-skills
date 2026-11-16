@@ -5,7 +5,7 @@ when_to_use: write me a tweet, draft an X post, write a LinkedIn post, set up my
 argument-hint: "[topic/insight/link to draft from | post to score | post URL to QT | 'setup' | 'week']"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: distribution
     reads: [social-canon, voice-profile, positioning#chosen-angle, learnings, algo-cache]
     writes: [social-canon, assets]
@@ -257,6 +257,13 @@ without a yes for that batch.
 ## Output
 
 Per the output contract: deliverable header, content, **Files saved** (`./brand/social-canon.md`, `./campaigns/social/...` with new or updated markers), **What's next**. Files are written before the chat summary. The content is the finished posts (plus the arc, offer and routine when selling a service), then one short line on what they're built from and any applied learnings priors. No scores, rubric tables or archetype labels outside SCORE mode.
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

@@ -5,7 +5,7 @@ when_to_use: how did it perform, review my numbers, analyze these results, here'
 argument-hint: "[paste data / CSV path / screenshot path] | monthly"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: growth
     reads: [assets, learnings, brand-manifest, keyword-plan#cluster-priorities]
     writes: [learnings]
@@ -238,6 +238,8 @@ Draft learnings other skills left under "Draft learnings" in a matched campaign'
 
 **Compaction protocol.** This skill is the one that runs it. When learnings.md exceeds ~50 entries: promote durable, repeatedly-confirmed findings to a `## PRIORS` section at the top (one line each, with confirming dates); merge near-duplicates into the strongest entry (largest n, most recent); archive stale or superseded entries to `./brand/.history/learnings.<YYYY-MM-DD>.md`, moved and never deleted. Note the compaction in the Files saved line for `learnings.md`.
 
+**Winners become gold cases.** When one asset clearly beat its siblings by the same bar (a subject line, an ad, a page variant), save it as a gold case at `./brand/gold/<skill that made it>/<YYYY-MM-DD>-<slug>.md` per `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`, with "What shipped" holding the winner and "Why" holding the result and its n instead of a quote. The next run of that skill reads it as the bar. The pattern itself goes to `learnings.md` as above, never to `checks.md`: checks come from the user's edits, priors come from data.
+
 **Bookkeeping in the artifacts reviewed** (campaign files, not brand memory): write each ad cell's numbers into its `results` block in `ad-matrix.json` (spend, impressions, clicks, conversions, notes; schema: `${CLAUDE_SKILL_DIR}/../start-here/references/schemas/ad-matrix.schema.json`), and flip `assets.md` statuses the data proves (`draft`→`live` for anything with traffic, `live`→`retired` for anything killed).
 
 ---
@@ -301,6 +303,13 @@ REVIEW mode follows the four-section contract (`${CLAUDE_SKILL_DIR}/../start-her
 |---|---|
 | REVIEW | `./campaigns/performance/<YYYY-MM-DD>-review.md`, `learnings.md` (appended), `ad-matrix.json` results + `assets.md` statuses where matched |
 | MONTHLY | `./campaigns/performance/<YYYY-MM>.md`, `learnings.md` (appended), same bookkeeping, `assets.md` report row |
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 

@@ -1,19 +1,18 @@
 # Ad Creative Mode
 
-Paid ad production wired to the shared ad-matrix contract: /positioning-angles writes
-the matrix, this mode fills its cells with creative, /paid-ads runs them, and
-/performance-review maps results back to the same cell IDs. One taxonomy end to end.
-That loop is the point. This is the floor, not the ceiling. When the situation argues
-for a better path, take it and say why (the cell-ID naming contract isn't the flexible part).
+Paid ad production, built the way working advertisers build: look at what is running first,
+pick angles from what customers say, plan a batch that mixes long-running still formats with a
+stream of UGC, make each piece by the best route, check every piece at phone size, then iterate
+from the winners. It stays wired to the shared ad-matrix contract: /positioning-angles writes the
+matrix, this mode fills its cells, /paid-ads runs them and /performance-review maps results back
+to the same cell IDs. This is the floor, not the ceiling. When the situation argues for a better
+path, take it and say why (the cell-ID naming contract isn't the flexible part).
 
-**Before generating:** resolve roles in `references/MODEL_REGISTRY.md`: statics on
-**image-default** (typography-dominant cells on **image-text-render**, dense/exact-text
-compositions on **image-complex-prompt**), video cells through the tier pipeline
-(**video-draft** → **video-production**; UGC-style cells on **video-ugc**; premium trio
-only on explicit hero), carousels = static sets. Job→model judgment and the i2v/i2i
-modality call live in `references/model-routing.md`. Load it when the routing isn't
-obvious. Follow `references/api-workflow.md` for calls,
-QA, manifest. Read `./brand/creative-kit.md` and `./brand/positioning.md#chosen-angle`.
+**Load before planning:** `references/ad-formats.md` (21 formats with real examples, the three
+routes, Higgsfield, production lessons) and `references/hooks.md` (12 opening patterns). Before
+generating, resolve roles in `references/MODEL_REGISTRY.md` and follow `references/api-workflow.md`
+for calls and the manifest. Video cut from footage, captions, review cards and end cards goes to
+`modes/motion-ads.md`. Read `./brand/creative-kit.md` and `./brand/positioning.md#chosen-angle`.
 
 ---
 
@@ -33,242 +32,278 @@ H1-H4, taxonomy:            A = static                  MA-H{1-4}-{A-C}
                             C = carousel
 ```
 
-Every cell carries: `cell_id`, hook + format refs, `headline`, `body_copy`,
-`cta_text`, `creative_prompt` (consumed by this mode), `asset_paths`, `status`
-(`planned → copy-ready → creative-ready → live → …`).
+Every cell carries: `cell_id`, hook + format refs, `headline`, `body_copy`, `cta_text`,
+`creative_prompt` (consumed by this mode), `asset_paths`, `status`
+(`planned → copy-ready → creative-ready → live → …`). The column says still, video or carousel;
+the specific format from `ad-formats.md` goes at the start of `creative_prompt` ("hands demo
+video", "review static", "native post") so the brief, the asset and the results all name it.
 
 **Asset naming is the contract:** `{cell_id}-{ratio}-v{N}.{ext}`, for example
-`MA-H2-B-9x16-v1.mp4`, `MA-H3-A-1x1-v2.png`, carousel cards
-`MA-H1-C-card1-1x1-v1.png`. This exact name is the tracking name: use it as the ad
-name in the platform dashboard and the UTM content parameter, so performance data maps
-back to cells with zero translation.
+`MA-H2-B-9x16-v1.mp4`, `MA-H3-A-1x1-v2.png`, carousel cards `MA-H1-C-card1-1x1-v1.png`. A second
+format or hook in the same cell is a named variant: `MA-H3-A-4x5-var-format-review-v1.png`,
+`MA-H2-B-9x16-var-hook-2-v1.mp4`. The name is the ad name in the platform and the UTM content, so
+results map back with no translation.
 
 ## Entry points
 
-1. **Matrix exists** (the normal path): read `ad-matrix.json`, list cells by status,
-   generate creative for `planned`/`copy-ready` cells (all 12, a row, a column, or
-   named cells; user's call). After each cell: append the file to its `asset_paths`,
-   set `status: creative-ready`, update the campaign manifest.
-2. **No matrix, campaign-scale ask:** route to `/positioning-angles`. Hooks belong to
-   positioning, not creative ("Run /positioning-angles first; it writes the matrix this
-   mode fills. ~15 min."). If the user wants to skip it, build a minimal schema-conforming
-   matrix yourself (4 hooks from the chosen angle + VoC language, one per class) and say so.
-3. **Quick Mode, single ad:** no matrix ceremony. Generate the one ad, QA, deliver;
-   name it descriptively and suggest the matrix when they're ready to test seriously.
+1. **Matrix exists** (the normal path): read `ad-matrix.json`, list cells by status, run steps 1
+   to 6 for the `planned` and `copy-ready` cells the user picks. After each piece: append the file
+   to the cell's `asset_paths`, set `status: creative-ready`, update the manifest.
+2. **No matrix, campaign-scale ask:** route to `/positioning-angles` ("it writes the matrix this
+   mode fills, about 15 minutes"). If the user wants to skip it, build a minimal schema-conforming
+   matrix from the chosen angle and customer words (step 2) and say so.
+3. **Quick Mode, one ad:** skip the plan. Pick the format, make it, run the visual check, deliver,
+   and suggest the batch when they're ready to test properly.
 
-## Filling a cell
+## Step 1: Look first
+
+Never plan ads for a category you haven't looked at. Pull 15 to 30 live ads from 3 to 5
+competitors in the category plus 2 to 3 best-in-class advertisers (strong brands selling to a
+similar buyer or at a similar price, in any category), and view them.
+
+- **Pull:** `python3 ${CLAUDE_SKILL_DIR}/scripts/ad_library.py "<brand or category>" --advertiser
+  "<page name>" --limit 30 --out ./campaigns/<name>/research/ads/<brand>` per advertiser. It reads
+  the Meta Ad Library through Firecrawl (`FIRECRAWL_API_KEY`, free tier, about 1 to 2 credits a
+  brand), downloads images and video posters, and writes `index.json` and a `board.html`. Add
+  `--videos` to download the video files for contact sheets. With no key it prints the Ad Library
+  URL: open it in a browser and screenshot the cards instead.
+- **Local businesses:** many local competitors run no Meta ads. Search "<service> <city>" and the
+  top competitors by name; if the category is empty, say so, and study the best operators of the
+  same trade in bigger cities plus Google's Ads Transparency Center.
+- **View them, don't skim the text.** Read every image. For videos, make a contact sheet and read
+  it:
+  `ffmpeg -i ad.mp4 -vf "select='eq(n\,0)+eq(n\,15)+eq(n\,30)+eq(n\,60)+eq(n\,90)+eq(n\,150)+eq(n\,240)+eq(n\,360)',scale=240:-1,tile=8x1" -frames:v 1 -fps_mode vfr sheet.jpg`
+  (frames at 0, 0.5, 1, 2, 3, 5, 8 and 12 seconds of a 30 fps clip; older ffmpeg takes
+  `-vsync vfr` in place of `-fps_mode vfr`).
+- **Log each ad:** format (names from `ad-formats.md`), hook pattern (`hooks.md`), days running,
+  product visible in the first 2 seconds, who is on screen (face, hands, nobody), phone or studio,
+  offer, landing page type.
+- **Write `./campaigns/<name>/research/ad-scan.md`:** formats and hooks counted, the 5 oldest
+  runners and what they have in common, offers in play, and what nobody in the category is doing.
+  That gap is often the first test. Study the pattern; never lift another brand's footage, words,
+  reviews or marks.
+
+## Step 2: Angles (3 to 5)
+
+An angle is the reason to buy the ad leads with. Build 3 to 5 from the chosen position in
+`positioning.md`, the scan's gaps and the customers' own words (reviews, sales calls, `audience.md`).
+Each angle gets one line in the customer's words and the proof that backs it.
+
+Run the claim gate from `/positioning-angles` on every angle: a line someone could paste into an
+ad uses only facts from the brief, the business's site, its reviews or research with a source. A
+guarantee is one the business already offers. Nothing that doesn't exist yet.
+
+## Step 3: The batch plan, with a diversity rule
+
+Every batch meets all of these:
+
+- **At least 4 formats across stills and video.**
+- **At least 3 angles.** Where the budget allows, run the strongest angle in two formats, so a
+  winner tells you whether the angle or the format won.
+- **At least one native or organic-feeling piece** (native post, customer UGC, reply to a comment,
+  POV).
+- **At least one proof piece:** a review or quote static, a before and after, or a comparison.
+- **At least one UGC or creator video with 3 hook variants** (three filmed openings, one body).
+- **A mix of the two lifespans the pull showed:** proven still formats that run for months (hero
+  still, offer card, review static, before and after, lifestyle still) and fast-rotating creator
+  and UGC video that gets replaced every few weeks.
+
+A default 8-piece first batch (illustrative, a sample coffee subscription):
+
+| Cell | Angle | Format | Hook pattern | Route |
+|---|---|---|---|---|
+| MA-H1-A | Freshness | Product hero still with a stat row | none, the product | Real photo, code text |
+| MA-H3-A | Taste | Review static | Result quote | Real review, model scene, code text |
+| MA-H4-A | Vs grocery bags | Us vs them | Dare | Real photo, model stand-in, code table |
+| MA-H2-A var | Convenience | Native post | POV | Model phone photo, code captions |
+| MA-H1-B | Freshness | Hands demo | Mid-sentence caption | Real or model b-roll, code cut |
+| MA-H2-B | Convenience | Customer UGC, 3 hooks | Confession, question, myth | Real customer, code cut |
+| MA-H3-B | Taste | Founder or maker | Velocity stat | Real founder, code cut |
+| MA-H4-C | Price | Offer carousel | Offer | Real photo, code cards |
+
+Write the plan to `./campaigns/<name>/ads/batch-plan.md`: cell, angle, format, hook pattern, route,
+who films or makes it, and when. The budget math in `/paid-ads` (`references/ads-judgment.md`)
+decides how many pieces can run at once; a small account runs the batch over two or three weeks.
+
+## Step 4: Make each piece by the best route
+
+Take the first route the business can do, in this order (details per format in `ad-formats.md`):
+
+1. **Real.** The owner, a staff member, a customer or a creator on a phone. Hand over a shot list
+   and, for creators, a brief (templates below). Real is the only route for a testimonial.
+2. **Model.** Make a product reference image first (GPT Image 2.6 Sunburst from the real product
+   photo), then pass it into every scene and every video first frame. Higgsfield Marketing Studio
+   for presenter or UGC-style video and for exploring many static formats fast; GPT Image 2.6 plus
+   HTML text for statics with exact copy (Flare for drafts, Sunburst for finals); Seedance 2.5,
+   through Higgsfield or Replicate, for b-roll, foley and talking-object skits; ElevenLabs for
+   voiceover. Generated copy invents names, sites and competitor claims, so every generated piece
+   goes through the claim check. Details and test results: `ad-formats.md`; payloads:
+   `MODEL_REGISTRY.md`.
+3. **Code.** Video: cut the footage with captions, overlays, review cards and end cards in
+   motion-ads mode. Stills: set every word of ad text in HTML/CSS over the photo and export a PNG,
+   so nothing misspelled ships. Text that belongs to the photo (a label, a sticker) can come from
+   the model.
+
+**Shot list (give it to whoever films):**
+
+```
+Ad: MA-H2-B (customer UGC, convenience angle) · 9:16, 4K 30fps, phone, window light, mic on
+1. Opening A, to camera: "<line from hooks.md>"            3 to 4s
+2. Opening B, to camera: "<second pattern>"                3 to 4s
+3. Opening C, product in hand to the lens: "<third>"       3 to 4s
+4. Product in use, close, hands only                        3 takes
+5. The result (the cup, the fixed drain, the screen)        2 takes
+6. Product beside the result, still                         5s
+7. Sign-off in their own words                              5s
+Don't: read a script word for word, show other brands, promise results
+```
+
+**Creator brief (one page):** the product and who it is for; the angle in one line; the three
+openings to film; the must-show moments (product in frame by 2 seconds, the use, the result); claims
+they may make, and claims they may not; the paid-partnership label; raw files in 9:16 plus all
+three openings; usage rights and how long.
+
+**Filling a cell:**
 
 ```
 1 READ the cell: hook_text + taxonomy + format + creative_prompt (+ headline/cta).
-2 BUILD the generation prompt: cell's creative_prompt + brand kit palette/avoid-list
-  + platform/safe-zone clauses (below) + format spine.
-   - A static: one image per target ratio.
-   - B video: source frame → draft pass → production final (tier pipeline). The
-     hook must land in the FIRST visible moment: frame one is the ad.
-   - C carousel: 2-10 cards, 1:1, consistent lock across cards; card 1 = the hook
-     standalone (most viewers never swipe).
-3 ON-IMAGE TEXT: the hook in ≤6 rendered words, or clean text-space + composite in
-  post. Letter-perfect offers → image-text-render role.
-4 GENERATE at the cell's primary ratio first; winning cells get ratio variants
-  (1:1, 4:5, 9:16, 16:9) per the format's platforms.
-5 QA (standard loop + ad gates below), save under the cell name, update json +
-  manifest.
+2 PICK the route (real, model, code) and write the shot list or prompt.
+3 STILLS: photo or generated scene from the product reference, then the words in HTML/CSS.
+  VIDEO: footage (filmed or generated), then the cut in motion-ads mode.
+  CAROUSEL: 2 to 10 cards, card 1 stands alone, one visual lock across cards.
+4 MAKE 9:16 first (most live ads ran 9:16, stills included), then 4:5 for feed; winners get the rest.
+5 VISUAL CHECK (step 5), then save under the cell name and update the json and manifest.
 ```
 
-Hook-taxonomy visual logic: the image should carry the same psychology as the copy.
-**direct** = product/result clean and unmissable · **question** = visual tension or
-incomplete state that the headline's question opens · **proof** = the number/result/
-before-after made visual · **contrarian** = pattern interrupt, breaks the category's
-visual conventions on purpose.
-
-**Worked cell, `MA-H2-B` (question hook × video), sample business Hartline Plumbing, Dallas TX:**
+**Placement prompts (model route).** Start every prompt from the product reference image and say
+what it is for:
 
 ```
-Matrix cell:   hook H2 (question): "Is your water heater older than your car?"
-               format B (video), platform Meta Reels, dimensions 9x16
-1 Source frame: a garage water heater with a rust-streaked base and a dated tag, a car
-                in soft focus behind it (the visual question), 9:16
-2 Draft pass:   3 motion drafts (draft-tier cost per the registry): slow push to the
-                dated tag / rack focus from the car to the tank / a hand wiping rust
-                from the base
-3 Pick:         rack-focus draft wins (question reads in frame one)
-4 Final:        video-production, 5s, silent (Reels gets platform audio), hook text
-                overlay zone reserved between the top 14% and the bottom 35%
-5 Save:         ./campaigns/hartline-water-heater/ads/MA-H2-B-9x16-v1.mp4
-                json: asset_paths += ..., status: creative-ready · manifest updated
+FEED PRODUCT STILL   The product from the reference image, [setting], [one light source and
+                     direction], product fills half the frame, plain ground, room at the top
+                     for one line of text, no text in the image, 4:5
+NATIVE PHONE PHOTO   A phone photo of the product from the reference image in a real [kitchen /
+                     truck / desk], slight tilt, ordinary light, a little clutter, not styled,
+                     not studio, no text, 9:16
+B-ROLL CLIP          First frame: [the still]. Small natural handheld motion only. [The one
+                     action]. Natural sounds only ([foil crinkle / pour]). No speech, no music.
+GOOGLE RESPONSIVE    The product, clean background, no text anywhere, survives a crop to 1:1
+                     and 1.91:1
 ```
 
-## Platform specs and safe zones
+### Platform specs and safe zones
 
-| Placement | Ratio / size | Safe zone & rules |
+| Placement | Ratio / size | Safe zone and rules |
 |-----------|--------------|-------------------|
-| Meta feed | 1:1 or 4:5 (1080 base) | bottom ~10% gets CTA overlay; keep in-image text light: heavy text hurts delivery |
-| Meta Stories/Reels | 9:16 (1080×1920) | keep text and logos out of the top ~14%, the bottom ~35% and 6% on each side (Meta's stated zone, see `meta-ads` `references/meta-facts.md`); subject in the middle |
-| Meta carousel | 1:1, 2-10 cards | every card standalone AND sequential |
-| Google responsive display | 1.91:1 + 1:1 (1200 base) | **NO text in image**: Google overlays text dynamically; clean background, product focal |
-| Google display fixed | 300×250, 728×90, 160×600, 320×50 | must read at actual pixel size; high contrast, brutal simplicity |
-| YouTube thumbnail/end | 16:9 (1280×720) | bottom-right ~30% of end screens = subscribe overlay |
-| LinkedIn sponsored | 1.91:1 or 1:1 | professional restraint; insight > urgency; no hype language |
-| TikTok in-feed | 9:16 | top ~130px, bottom ~170px, right ~80px are UI → subject center-left in middle 70%; native > produced |
+| Meta feed | 4:5 or 1:1 (1080 base) | bottom ~10% gets the CTA overlay; keep in-image text short |
+| Meta Stories/Reels | 9:16 (1080×1920) | keep text and logos out of the top ~14%, the bottom ~35% and 6% each side (Meta's stated zone, see `meta-ads` `references/meta-facts.md`) |
+| Meta carousel | 1:1, 2 to 10 cards | every card stands alone and leads to the next |
+| Google responsive display | 1.91:1 + 1:1 (1200 base) | no text in the image; Google adds it |
+| TikTok in-feed | 9:16 | top ~130px, bottom ~480px, right ~140px are UI (rule of thumb from `/paid-ads` platform-specs) |
+| One 9:16 for Reels, TikTok and Shorts | 1080×1920 | text inside x 120 to 888, y 288 to 1248, and left of x 780 below y 840 (motion-ads mode) |
 
-Cross-platform adaptation = re-composition + tone shift, not resizing: Meta→Google
-strips baked text; Meta→LinkedIn swaps emotional urgency for data/insight; Meta→TikTok
-strips polish and moves the subject center-left; everything→9:16 recomposes.
+230 of the 336 ads in the pull were 9:16, stills included. Make 9:16 first, then 4:5.
 
-### Placement prompt templates
+### Carousels and algorithm-assembled placements
 
-```
-META FEED PRODUCT        [Product] commercial advertising photography, prominently
-                         displayed in [lifestyle/studio] setting, [brand palette],
-                         soft professional lighting, space at [top/bottom] for
-                         headline, scroll-stopping, 4:5, sharp focus on product
+Carousel order for conversion: hook, problem, the fix, proof, offer. Every card stands alone. For
+Advantage+ and Performance Max, make components rather than one finished ad: 3 to 5 product shots,
+3 to 5 in-use shots and 2 or 3 graphic variants, each at 1:1, 4:5, 9:16 and 16:9, no baked-in text,
+genuinely different from each other, plus 5 headlines, 5 descriptions and 5 primary texts.
 
-META FEED UGC STYLE      Authentic-feeling social content, person [demographic]
-                         genuinely using [product], natural casual lighting,
-                         real-life setting, candid not over-produced, warm
-                         trustworthy, 4:5, genuine expression
+### Ad copy fields
 
-META FEED TYPOGRAPHY     Bold text-driven graphic, text "[HOOK ≤6 words]" in heavy
-                         condensed font, [brand color] background, high contrast,
-                         supporting visual element secondary, strong hierarchy, 1:1
+When the matrix's copy fields are empty, write them with the asset. Meta: primary text (the first
+125 characters do the work), headline ~40 characters, CTA from the fixed set. Google responsive
+display: up to 5 headlines of 30 characters, 1 long headline of 90, up to 5 descriptions of 90.
+TikTok: 100 characters, native voice. Deeper copy work belongs to `/direct-response-copy`.
 
-META STORIES             [Product/subject], vertical 9:16 immersive, content clear of
-                         the top 14% and bottom 35% of the frame, bold engaging, native-stories feel
-                         with commercial quality, visual flow downward toward CTA
+## Step 5: The visual check (every piece, before handover)
 
-GOOGLE RESPONSIVE        [Product] clean commercial photography, NO text overlays,
-                         product as clear focal point, clean uncluttered background,
-                         studio lighting, survives cropping to multiple ratios,
-                         [1:1 / 1.91:1]
+Look at a phone-size render (390 px wide) of every still and the contact sheet of every video.
+For a still: `sips --resampleWidth 390 ad.png --out ad-phone.png` (macOS) or
+`ffmpeg -i ad.png -vf scale=390:-1 ad-phone.png`, then Read both sizes. For a video: the contact
+sheet command in step 1, run on the final MP4. A piece passes only when all of these are true:
 
-GOOGLE BANNER            [Product] horizontal banner layout, ultra-wide, product on
-                         [left/right] with open text space opposite, high contrast,
-                         must read at 728x90 actual size, brutal simplicity, 21:9
-                         then crop
+- **The product or the person is visible in the first 2 seconds** (frame 0 for stills).
+- **The first frame works with the sound off:** it says or shows something on its own.
+- **Text is readable at phone size** (about 28 px or more on a 1080-wide frame) and captions are on
+  for every spoken word.
+- **Nothing reads as a slide deck or a template.** Text over a flat gradient is never a finished ad
+  for a physical product; put the words over the product or a real scene.
+- **No big empty areas.** Every part of the frame is doing something, or is deliberate quiet around
+  the product.
+- **Native formats look native:** a phone-photo look, platform-style text, no logo block, no button
+  baked into the image.
+- **The claims are true,** including the end card and the captions, checked against the claim gate.
+- **Safe zones hold** for the placement, and the file carries the right cell name.
 
-LINKEDIN                 [Product/concept] professional B2B visual, sophisticated
-                         restraint, thought-leadership positioning, credible not
-                         salesy, space for headline, 1.91:1 or 1:1
+Fix what fails and check again. A piece that still fails after about two tries is shown with its
+flaw named in one line, never passed off as clean. Results go in the manifest, not the chat.
 
-TIKTOK IN-FEED           [Product] authentic TikTok-native style, NOT corporate,
-                         phone-camera aesthetic with good lighting, subject
-                         center-left, middle 70% of frame, trend-aware, feels like
-                         organic content, 9:16
-```
+## Truth rules
 
-### Artifact formats: ads that don't look like ads
+- **Real reviews only, quoted exactly.** The FTC's rule on consumer reviews and testimonials (in
+  effect since 2024-10-21) bans fake or misrepresented reviews and testimonials. Quote word for
+  word, never stitch two reviews together, show stars only if the review had them, and get
+  permission for names and faces beyond the public post.
+- **An AI-generated person can demonstrate or present, never pose as a customer or give a
+  testimonial.** No "I've been using this for a month" from a generated face or a cloned voice.
+  Apply the platform's AI label where required (talking-head mode has the disclosure rules).
+- **Disclose material connections.** Paid creators use the paid-partnership label; a customer who
+  got a gift card for a video says so.
+- **Before and after shows typical results,** same angle and light, the time between stated. Meta
+  restricts body and health before-and-afters, health claims need support, and law, finance and
+  health practices have their own testimonial rules.
+- **Keep the claim gate from `/positioning-angles`** for every line on screen, in the captions and
+  on the end card.
+- **No fake furniture:** no invented customer chats or engagement numbers, no fake app screens, no
+  "news" headlines that aren't news, no countdown without a real deadline. Screenshot-style ads use
+  real screenshots with permission.
+- **Meta's personal-attribute rule:** name the situation ("waking up drenched?"), never the
+  attribute ("are you overweight?"). Creative must match the landing page.
 
-A reliably strong static family renders a believable ARTIFACT instead of an ad
-layout: napkin math (handwritten before/after numbers on a photographed napkin),
-a handwritten note, a sticky-note task board, a meme, a chat or post screenshot.
-Two rules of the genre: (1) image models over-polish, and polish is exactly what
-breaks the illusion. Counter explicitly in the prompt: "slightly messy natural
-handwriting, not calligraphy", "screenshot quality, not professional", "raw,
-slightly low quality". Memes get no CTA button (memes don't have CTAs; a small URL
-at most). (2) screenshot-style artifacts carry policy risk: no fake platform UI on
-TikTok, and invented engagement metrics or fabricated conversations presented as
-real social proof fail the honesty bar everywhere. Run these through the policy
-gate before spending.
+In the delivery, name only the pieces that need a review, one line each with the issue.
 
-### Carousel narrative structures
+## Step 6: Iterate from the winners
 
-```
-META (conversion):    1 hook/scroll-stopper → 2 problem → 3 solution → 4 proof →
-                      5 CTA with urgency
-LINKEDIN (insight):   1 provocative stat → 2 hidden problem → 3 your methodology →
-                      4 results/proof → 5 CTA with value proposition
-```
+Once results identify winning cells (via /performance-review or pasted platform data):
 
-Every card must survive standalone (cards get seen out of order) AND advance the
-sequence. One visual lock across all cards.
+1. **Keep the angle, change the format.** A winning review static becomes a customer UGC video;
+   a winning hands demo becomes a hero still with a stat row. This makes a genuinely new ad, which a
+   tired ad needs. Huel ran one customer quote in at least three designs.
+2. **Keep the format, change the hook.** Swap the first line or the first 3 seconds and keep the
+   body that converts. Film three openings every time you film, so the swaps already exist.
+3. **Run the winner again before rebuilding it.** The pull found 120 of 336 ads running the same
+   creative as several ads. A winning file can go into a new ad set as is.
 
-## Algorithm-assembled placements (Advantage+ / Performance Max)
+Name variants from the winning cell (`var-format-<name>`, `var-hook-<n>`). Change one thing per
+variant, reuse the seed and the reference image so the change is attributable, and judge nothing
+under ~1,000 impressions per variant. Plan for creator and UGC video to need replacing every few
+weeks and stills every few months; the fatigue labels to watch are in `/paid-ads`
+`references/ads-judgment.md`.
 
-These systems assemble ads from an asset library. Generate components, not one
-"perfect" ad: 3-5 product shots + 3-5 lifestyle/contextual + 2-3 bold graphic
-variants, EACH at 1:1, 4:5, 9:16, 16:9. Rules: no baked-in text (the algorithm adds
-it), clean backgrounds (overlay legibility), product survives any crop, genuine visual
-diversity (five near-identical images give the optimizer nothing to learn). Pair with
-text assets: 5 short headlines, 5 descriptions, 5 primary texts, varied angles.
-
-## A/B variants: one variable, or you learn nothing
-
-After results identify winning cells (via /performance-review or pasted platform
-data), generate variants that change EXACTLY one variable: background treatment,
-product angle, expression, text treatment, color temperature, composition, CTA text,
-or headline. Same base prompt verbatim, one clause swapped; fixed seed where the model
-supports it so the change is attributable. Naming: `{cell_id}-{ratio}-var-{variable}-{option}-v1.png`
-(e.g. `MA-H2-A-4x5-var-bg-warm-v1.png`). This keeps lineage to the cell. Judge nothing
-under ~1000 impressions per variant.
-
-## Batch freshness: recurring generation
-
-Per-batch uniqueness is not freshness; repetition creeps in ACROSS batches. When this
-mode runs on a cadence (daily/weekly cell fills, always-on asset feeds), check the
-last ~7 days of generated concepts before writing new ones and hold three guardrails:
-don't reuse a format from the last ~3 days or an angle from the last ~5 unless it's a
-deliberate iteration of a proven winner; never open a hook with the same first three
-words as a recent hook; every concept states a one-line novelty reason: if you can't
-write one, it's a rerun. Default daily mix: ~40% proven family (winning format/angle,
-new hook + visual treatment), ~40% adjacent test (swap exactly one of format or
-angle), ~20% new bet (fresh motif from competitor gaps or new inspiration). Read
-performance signals with recency decay. Avoid what the data has turned against, not
-what got one bad reaction.
-
-## Policy gates: check BEFORE generating
-
-Violations cost launch days. The recurring offenders:
-
-- **Meta:** no personal-attribute call-outs ("Are you overweight?" → "Looking to get
-  fit?"); no unrealistic before/after or health/income promises; creative must match
-  the landing page.
-- **Google:** editorial rules: no ALL-CAPS gimmicks, "$$$", or vague CTAs; display
-  images sharp at real size; responsive images text-free.
-- **LinkedIn:** verifiable claims, stats attributed, professional tone; hype reads as
-  spam here.
-- **TikTok:** no fake UI elements or platform-logo watermarks; native or it dies;
-  synthetic media disclosed.
-- **AI content (all platforms):** apply the platform's AI label where required;
-  AI-generated people are never presented as real customers (full rules:
-  talking-head mode's disclosure section); keep prompts/assets on record (the manifest does
-  this).
-
-Check every cell silently. In the delivery, name only the cells that need a review, one
-line each with the issue; clean cells carry no flag.
-
-## Ad copy fields
-
-When the matrix's copy fields are empty (or Quick Mode), write them with the asset.
-The hook taxonomy carries through the copy:
-
-- **Meta:** primary text (first 125 chars do the work), headline ~40 chars,
-  description ~30, CTA button from the platform's fixed set.
-- **Google responsive display:** up to 5 short headlines (≤30), 1 long headline (≤90), up to 5 descriptions (≤90). Google Ads help lists the current limits.
-- **LinkedIn:** intro text ~150 chars, outcome-focused headline ≤70.
-- **TikTok:** ≤100 chars, native voice.
-
-Deeper persuasion work belongs to `/direct-response-copy`. Hand off, don't duplicate.
-
-## QA additions for this mode
-
-Standard loop plus the ad gates: hook legible in the first glance at feed size ·
-safe-zone collision check against the placement table · policy gate · brand
-palette/avoid-list · (video) hook lands before the skip/scroll moment · (carousel)
-card 1 stands alone · cell-name correctness (downstream tracking depends on it).
+**Recurring batches.** When this mode runs on a cadence, check the last week of concepts first:
+don't reuse a format from the last ~3 days or an angle from the last ~5 unless it is a deliberate
+iteration of a winner; never open two hooks with the same first three words; give every concept a
+one-line reason it is new. Default mix: ~40% proven family (winning format and angle, new hook),
+~40% adjacent test (change format or angle), ~20% new bet (a gap from the scan).
 
 ## Output
 
-Assets under `./campaigns/<campaign>/ads/` (or `creative-output/ad-creative/<campaign>/`
-when no campaign dir exists), named by cell ID; `ad-matrix.json` updated
-(`asset_paths`, `status: creative-ready`); version the old json per the brand-memory
-spec (`${CLAUDE_SKILL_DIR}/../start-here/references/brand-memory.md`); manifest + `./brand/assets.md` per asset.
-Delivery = the standard contract with the ads first (each ad's file, hook, format and
-headline and CTA as filled), review lines for any cell that needs one, then a short test
-plan (which hook or format runs against which, one variable at a time, nothing judged
-under ~1,000 impressions, and the file name used as the ad name so results map back).
-Matrix status, QA scores and cell bookkeeping stay in the json and the manifest; the
-chat carries no status table.
+Assets under `./campaigns/<campaign>/ads/` (or `creative-output/ad-creative/<campaign>/` when no
+campaign folder exists), named by cell ID; `ad-matrix.json` updated (`asset_paths`, `status:
+creative-ready`), with the old json versioned per the brand-memory spec
+(`${CLAUDE_SKILL_DIR}/../start-here/references/brand-memory.md`); manifest and `./brand/assets.md`
+per asset. Shot lists and creator briefs save as files beside the batch plan
+(`./campaigns/<campaign>/ads/briefs/<cell-id>.md`); the scan stays in `research/`.
+
+The client sees, in order: the ads (file, format, hook, headline and CTA for each), the shot lists
+and briefs for anything still to be filmed, one line for any piece that needs a review, then a short
+test plan (which angles and formats run first, one variable at a time, nothing judged under ~1,000
+impressions, the file name as the ad name). Script paths, commands, visual-check results, QA scores
+and cell bookkeeping stay out of the deliverable.
 
 **What's next:** `/paid-ads` to build campaigns from the creative-ready cells ·
-`/performance-review` after spend to map results back to cells · `/direct-response-copy`
-for the landing page the ads point at.
+`/performance-review` after spend to map results back to cells · `/direct-response-copy` for the
+landing page the ads point at.

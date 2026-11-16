@@ -1,11 +1,11 @@
 ---
 name: paid-ads
 description: Turn the ad-matrix into platform-ready paid campaigns (Meta, Google, LinkedIn, and TikTok ad copy plus creative briefs per matrix cell, campaign structure and budget judgment, UTM conventions, policy compliance, and results review with kill/scale/iterate math). Use when launching or managing paid ads, turning a positioning matrix into live campaigns, checking ads against platform policy, or deciding what to kill and scale from an ads export. Includes the small-budget rule that one campaign able to learn beats a split.
-when_to_use: write my ads, paid ads, launch a campaign, Meta ads, Google ads, LinkedIn ads, TikTok ads, ad copy for X, turn the matrix into ads, RSA headlines, will this ad get rejected, policy check my ads, review my ad results, kill or scale, what should my ad budget be, how many campaigns should I run, should I split campaigns by city, small ad budget structure
+when_to_use: write my ads, paid ads, launch a campaign, Meta ads, Google ads, LinkedIn ads, TikTok ads, ad copy for X, turn the matrix into ads, RSA headlines, will this ad get rejected, policy check my ads, review my ad results, kill or scale, what should my ad budget be, how many campaigns should I run, should I split campaigns by city, small ad budget structure, creative fatigue, how many new ads to launch, which angle to test first, iterate on a winning ad
 argument-hint: "[campaign name or product] | policy <copy or path> | results <export path>"
 metadata:
   boring:
-    version: 4.0.0
+    version: 4.1.0
     layer: distribution
     reads: [positioning#chosen-angle, voice-profile#voice-summary, audience, learnings]
     writes: [assets]
@@ -78,10 +78,19 @@ If no matrix exists, two routes:
 
 **Cell selection.** Load `references/ads-judgment.md` now; the budget math there
 decides how many cells this account can honestly test. Default is NOT all 12. Under
-roughly $50/day, pick 4-6 cells: cover at least 3 hook types before adding a second
-format of the same hook (hook variation drives more performance difference than format
-variation). Write which hooks and formats go first, and why, into the plan in plain
-words; mark the rest `planned` in `ad-matrix.json` for round 2.
+roughly $50/day, pick 4-6 cells. We test in this order: angles (the reason to buy), then
+formats, then hooks. We settle what the ad says before how it is packaged, and save hook
+rewrites for tuning an ad that already works. If the angle is unproven and the budget is
+small (under roughly $50/day), round 1 puts one angle in each hook row and holds one
+format so the read is clean, a documented deviation in the matrix's `test_plan`; the
+batch's other formats ship in round 2 behind the winning angle. With budget for the full
+batch (the diversity rule in creative step 3), run the mixed batch and read results by
+angle first, then by format, and say in the plan that round 1 mixes the two. With a proven angle, cover at least 3 hook types before adding a second
+format of the same hook. The batch plan and its format mix, mapped onto cell IDs, are in
+`${CLAUDE_SKILL_DIR}/../creative/modes/ad-creative.md` (step 3), and the formats themselves in
+`${CLAUDE_SKILL_DIR}/../creative/references/ad-formats.md`. Write
+which angles, hooks and formats go first, and why, into the plan in plain words; mark
+the rest `planned` in `ad-matrix.json` for the next round.
 
 ### Phase 2: Campaign structure
 
@@ -176,11 +185,15 @@ For each selected cell, write:
 ### Phase 4: Creative briefs per cell
 
 One brief per selected cell, saved to
-`./campaigns/<name>/ads/creative-briefs/<cell-id>.md`, each containing: the format,
+`./campaigns/<name>/ads/creative-briefs/<cell-id>.md`, each containing: the format, named
+from the creative formats file (review static, us vs them, customer UGC, hands demo;
+`${CLAUDE_SKILL_DIR}/../creative/references/ad-formats.md`),
 the visual concept from the matrix cell, the hook as on-asset text (≤6 words), ratios
 needed for the chosen placements, safe-zone notes from platform-specs, and the asset
 naming contract: `<cell-id>-<ratio>-v<n>.<ext>` (e.g. `MA-H2-B-9x16-v1.mp4`). Hand to
-`/creative`, which reads the same matrix and names assets by cell ID.
+`/creative`, which reads the same matrix and names assets by cell ID. A video cell cut
+from the business's own or generated footage, with captions, review cards and an end card,
+is edited in code by `/creative`'s motion-ads mode, free; say so in the brief.
 
 ### Phase 5: Quality check (silent)
 
@@ -306,8 +319,14 @@ Then, per cell that clears the threshold:
   day**, not doubling; large jumps reset the learning phase and the winner's CPA too.
 - **ITERATE**: the diagonal reads: if one hook wins across formats, write new
   formats/creative for that hook; if one format wins across hooks, run the untested
-  hooks in that format. Name the recommended round-2 cells explicitly (existing
-  `planned` cells from the matrix, or `-v2` variants of winners).
+  hooks in that format. From a single winner, two moves: keep the angle and change the
+  format, or keep the format and change the hook (the first line or first 3 seconds).
+  Name the recommended round-2 cells explicitly (existing `planned` cells from the
+  matrix, `-v2` variants of winners, or `var-format-<name>` and `var-hook-<n>` variants).
+- **REFRESH**: a winner whose cost per result has climbed. Check the delivery column
+  for Meta's "Creative limited" or "Creative fatigue" label and the frequency trend
+  ("Creative volume, cadence and fatigue" in `references/ads-judgment.md`). The fix is a
+  materially different ad on the same angle, not a recolor or a crop.
 
 Output:
 
@@ -329,7 +348,12 @@ Output:
 ## Mode 4: AD RECON (handoff)
 
 Competitor ad intelligence is `/competitive-intel`'s ad-recon mode. Don't duplicate
-it. It pulls 5-8 advertisers' live ads and classifies every hook into this same
+it. For a quick look before a round, the free 10-minute Ad Library check (search the
+brand's Page, filter to active ads, read the "Started running on" dates, log format,
+angle, hook and offer) is step 1 of `${CLAUDE_SKILL_DIR}/../creative/modes/ad-creative.md`,
+with `${CLAUDE_SKILL_DIR}/../creative/scripts/ad_library.py` to pull the ads and
+`${CLAUDE_SKILL_DIR}/../creative/references/ad-formats.md` to name their formats.
+`/competitive-intel` pulls 5-8 advertisers' live ads and classifies every hook into this same
 taxonomy (direct/question/proof/contrarian), writing
 `./campaigns/ad-recon/<date>-<category>.md`. Use that brief here to weight the matrix:
 hook rows the category over-buys are saturated (win only on proof or specificity);
@@ -365,6 +389,13 @@ PAUSED creation, tracking proof), hand off to `/meta-ads`. For Google Ads conver
 goal biddability and the bid strategy switch, hand off to `/google-ads-tracking`.
 
 ---
+
+## When the user edits your work
+
+Apply the edit, then make it stick: save a gold case to `./brand/gold/<this skill>/` and
+one to three yes/no checks to `./brand/checks.md`, and confirm in one line. Before handing
+over any work, answer the checks the context block loaded, silently, and fix every no.
+How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 
 ## What's next
 
