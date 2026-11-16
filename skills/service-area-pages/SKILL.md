@@ -42,7 +42,7 @@ If `./campaigns/local-seo/plan.md` exists, read it first. Its market map already
 A town gets its own page only when all three hold:
 
 1. **The business really serves it.** Job addresses, the Google profile's service areas and an honest drive time from the base. Google's own limit for a profile's service area is about 2 hours of driving from the base, and a page for a town the crew won't drive to is a doorway page by definition.
-2. **There is something to win.** Demand evidence for the service in that town and no page of the business winning it (from the plan, or a quick check: the town and state in the query, the map pack checked from the town).
+2. **There is something to win.** Demand evidence for the service in that town and no page of the business winning it (from the plan, or a quick check: the town and state in the query for organic results, and "[service] near me" checked from the town's center for the map pack, since that's how most local buyers search).
 3. **There is real local proof.** At least one element from the list below. Two is a good default for a full page.
 
 Local proof that counts:
@@ -99,7 +99,7 @@ Load `references/page-anatomy.md` before writing. Default section order:
 8. **Call to action.** Tap to call, text if they answer texts, hours.
 
 **The filler trap.** Tell a writer, human or AI, "never invent a fact" and it fills the space with procedure: what to have ready when you call, what happens after you book, questions like "What areas do you serve?". It reads as safe and says nothing. When a service business rebuilt its copied town pages and retired the rest with redirects, both drafting rounds drifted into this filler.
-What fixed it was pointing the writer at the substance of the work itself. If a paragraph would make sense on a page for a different trade, cut it.
+What fixed it was pointing the writer at the substance of the work itself. If a paragraph would make sense on a page for a different trade, cut it. Enforce it mechanically across the set: at most one "when you call" block per page, two sentences or fewer; no questions about the call or the booking itself; review excerpts verbatim, 40 words or fewer, each tagged with its town and month.
 
 ## Phase 5. Technical checks
 
@@ -116,15 +116,16 @@ Load `references/technical-checks.md`, which carries the commands that settle ea
    `python3 ${CLAUDE_SKILL_DIR}/scripts/overlap.py <pages-dir-or-files> --names "Dallas,Garland,Mesquite,Richardson"`
    It masks the town names, then reports the share of sentences any two pages have in common. Default bar: under 30% for every pair. Over the bar, fix the template or the proof behind it, never one page by hand, because the same defect sits on every sibling. If proof can't close the gap, the town goes back to the hub.
 2. **The read test.** Pick two town pages at random. Would someone who read the first learn something on the second? If not, they are one page.
-3. **Claim trace.** Every factual claim maps to the ledger, a fetched source, or the owner-confirm list. Anything else comes out.
-4. **Markup matches the page.** Nothing in the JSON-LD that a visitor can't see.
+3. **Claim trace.** Every factual claim maps to the ledger, a fetched source, or the owner-confirm list. Anything else comes out. Prices, guarantees and response times appear only as the owner confirmed them.
+4. **Filler count.** Search the set for the procedural phrases the filler trap produces ("have your address ready", "what to expect", "next step", "when you call"). More than one short call block on any page fails the set.
+5. **Markup matches the page.** Nothing in the JSON-LD that a visitor can't see.
 
 Rewrite and re-check up to three rounds. If the set still fails, ship fewer pages and say so. Eight real pages beat twenty where twelve are padding.
 
 ## Phase 7. Publish, retire and measure
 
 - Publish the hub and the 3-5 strongest town pages first. Add more when those are indexed and showing impressions.
-- **FIX EXISTING:** for each old town page, rebuild it (it qualifies), merge it into the hub with a 301, or redirect it to the nearest real town page. One hop, then update internal links and the sitemap. Town pages that are literal copies of each other tend to lose ground first when rankings drop, so fix the copies before a drop, not after.
+- **FIX EXISTING:** for each old town page, rebuild it (it qualifies), merge it into the hub with a 301, or redirect it to the nearest real town page. Decide by what each page earns in Search Console: a copied page that still earns clicks gets rebuilt, not deleted; one that earns nothing redirects, with both the slash and no-slash versions of its URL covered. One hop, then update internal links and the sitemap. Town pages that are literal copies of each other tend to lose ground first when rankings drop, so fix the copies before a drop, not after.
 - Record a baseline per page in Search Console (with `GOOGLE_APPLICATION_CREDENTIALS` and `GSC_SITE_URL` set, read it directly; otherwise ask for a Performance export). After 60-90 days indexed, a page with no impressions gets more proof, a merge into the hub, or a redirect. Leaving it costs the pages that work.
 
 ## Output
@@ -137,7 +138,8 @@ Write `./campaigns/service-area-pages/<YYYY-MM-DD>-pages.md`, the handoff for th
 4. Per page: the spec, the full copy, and its JSON-LD block.
 5. The duplicate check output and the read-test notes.
 6. Owner to confirm: every claim that needs a yes before publishing.
-7. Measurement baseline.
+7. Measurement baseline: Search Console for each page's query group, and the near-me map pack position from each town's center, recorded with the date and device so next month's check is comparable.
+8. Built from, and what's missing: the ledger rows, sources and checks the set rests on, and when proof is thin, the one gap that would unlock the next town ("three more jobs and one review naming Rowlett") with one offer to gather it.
 
 If the project has a codebase, also write the pages into it, the way the project already builds pages, and list the paths. Never publish. Append one line to `./brand/assets.md`.
 

@@ -47,6 +47,7 @@ These are what make an audit worth re-running:
 - **Four states per answer and entity:** CITED (its own site is a source), MENTIONED (named, but its site isn't a source, so others tell its story), ABSENT (the answer was observed and it isn't there), NOT OBSERVED.
 - **Answers vary run to run.** Repeated runs of the same prompt share only a minority of their sources (figures in `references/aeo-facts.md`). Run the top questions twice or across engines, and treat one run as a sample.
 - **Claims are about the answers collected,** not about "what ChatGPT thinks". Say which engine, which date, which location.
+- **A failed capture is never a finding.** A timeout, an out-of-credit error or a page that wouldn't load is NOT OBSERVED. One audit tool once counted errors as gaps and told well-known brands they were missing from answers they were in. Never write "you're invisible" over a run with failed or unobserved captures, and never claim a site is blocked or unreadable because your own fetch failed.
 
 ## Mode 1: AUDIT
 
@@ -54,11 +55,15 @@ These are what make an audit worth re-running:
 
 **If `keyword-plan.md` exists,** start from its commercial and comparison families. Rewrite each keyword as the question a buyer would type into an assistant, because the phrasing changes which sources get retrieved. "crm for freelancers" and "what's the best CRM for a solo freelancer?" pull different citation sets; keep both when they plausibly diverge.
 
+Keep the set on one topic when you can. Fifteen questions on the topic the business is committing to beat fifteen spread across everything it sells, because the result has to pick a fix. Include the AI-native forms: the long, conversational questions with near-zero Google volume (from `keyword-plan.md`, `voc.md`, call notes, reviews and forums). They often decide who gets recommended.
+
 **If not,** derive from `positioning.md` across four kinds, skewed toward where the money is:
 1. **Category:** "best <category> for <buyer>" (3 to 5)
 2. **Comparison:** "<brand> vs <competitor>", "<leader> alternatives" (2 to 4)
 3. **Problem:** the pain in the buyer's words before they know the category exists (3 to 4)
-4. **Brand:** "what is <brand>", "is <brand> worth it" (2)
+4. **Brand:** "what is <brand>", "is <brand> worth it", "<brand> alternatives" (2 to 3)
+
+**Run the entity probe first.** Before the set, ask each engine "what is <brand>?" and "what is <domain>?". If the answer describes a different company, a product with a similar name, or something unrelated, that's the first finding: until the engines tie the name to the site, no content fix compounds. The alternatives question shows who the engines think the brand competes with, which is sometimes not who the brand thinks.
 
 Example, a proposal tool for freelancers: "best proposal software for freelance designers", "<competitor> vs <brand>", "how do I stop clients ghosting after I send a quote", "is <brand> worth it for a solo freelancer".
 
@@ -92,17 +97,26 @@ Wrong facts (local): <field: what the answer said vs the truth> or none
 
 ### Phase 3. Score
 
-Per question and entity (the brand and each competitor), assign CITED, MENTIONED, ABSENT or NOT OBSERVED. Share of model is the share of observed answers where the entity is CITED, with MENTIONED counting half. Report it per question kind too. Brands are often cited on their own brand questions and absent on category questions, and the category number prices the opportunity. Name who is recommended instead wherever the brand is absent.
+Before scoring a gap, check what the engine thought the question meant. A brand absent from "best <term>" may be absent because the engine read <term> as a different product category. That's a query-sense finding, not a visibility gap. An answer that names no business at all is an empty slot: nobody to displace, and often the cheapest win in the set.
+
+Per question and entity (the brand and each competitor), assign CITED, MENTIONED, ABSENT or NOT OBSERVED. Count a business as named only when its distinctive name words appear (strip the place and trade words: "Hartline" counts, "plumbing in Dallas" doesn't), and match its site whatever the domain ending. An answer that wandered into a general explainer instead of answering the question is observed, but name no winners from it. The businesses the answers actually name, in two or more answers, are the real competitor set: add them to the table even if nobody listed them. Share of model is the share of observed answers where the entity is CITED, with MENTIONED counting half. Report it per question kind too. Brands are often cited on their own brand questions and absent on category questions, and the category number prices the opportunity. Name who is recommended instead wherever the brand is absent.
 
 **Local branch.** Report per engine and per city. Engines disagree, and the fix differs by engine. In one check, some engines named a local service business for its main "best <service> in <city>" question and another never did.
 A business can be the answer in Perplexity and invisible in ChatGPT.
 
 ### Phase 4. Diagnose why the winners win
 
-Load `references/aeo-judgment.md` first. Then, for the 3 to 5 pages that win citations where the brand is ABSENT, fetch them (schema, answer format and dates are facts from the page source, never guesses) and check, in this order:
+Load `references/aeo-judgment.md` first. Read every gap through three layers, in order, because a fix at the wrong layer does nothing:
+
+1. **Found.** Can the engines reach and rank the brand's best page for this question? AI crawlers allowed in robots.txt, the content in server-rendered HTML, and where the page ranks organically for the search version of the question (one batch rank check from the right location). On Google's AI surfaces, organic rank sits upstream of most citations, so a page outside the top results rarely gets lifted however well it's formatted.
+2. **Worth citing.** Does the page give an answer worth lifting? The checks below.
+3. **Cited elsewhere.** Do the answers lean on outside sources the brand isn't in? Classify every cited source by kind: roundup or list, community thread, reference (Wikipedia, government, standards), comparison or review site, product or brand page, local listing or directory, video. Count the kinds per question kind. The dominant kind sets the fix lane: lists and threads mean citation earning, reference sources mean entity work, generic copyable content means original data, and product pages mean the page itself can win. "Absent from the roundups that win this topic" is a finding; "absent" alone isn't.
+
+For layer 2, fetch the 3 to 5 pages that win citations where the brand is ABSENT (schema, answer format and dates are facts from the page source, never guesses) and check, in this order:
 
 - **Answer format:** a self-contained 40 to 80 word answer right under the heading that matches the question.
 - **Original data:** a number the author generated rather than collected.
+- **Quotes and sources:** a quotable line from a named person and the sources behind its numbers. In the one controlled experiment on generated answers, these lifted visibility; stuffing in keywords didn't.
 - **Entity clarity:** products, companies and people named consistently.
 - **Freshness:** a visible updated date and current facts.
 - **Community presence:** a Reddit or forum thread among the citations (a beatable source).
@@ -110,7 +124,9 @@ Load `references/aeo-judgment.md` first. Then, for the 3 to 5 pages that win cit
 
 **Local branch.** Local answers draw on a different source mix. Record the kinds of sources each answer cites or leans on: the Google profile and its reviews, review sites and directories, local news and "best of" lists, Reddit and neighborhood forums, competitor sites. The kind that wins decides the fix. If answers lean on "best plumbers in Dallas" lists the business isn't on, no amount of on-site editing closes the gap.
 
-One diagnosis line per gap question: what the winner has that the brand's best candidate page or listing lacks. No candidate page at all is a /seo-content job, not a retrofit. Say so.
+One diagnosis line per gap question: what the winner has that the brand's best candidate page or listing lacks. No candidate page at all is a /seo-content job, not a retrofit. Say so. Don't claim why a competitor wins unless you read its page; until then the reason is a hypothesis, labeled that way.
+
+**Type every finding** so the fix follows from it: **defend** (cited now, keep it), **expand scope** (named in some towns or segments, absent in others), **missing page** (no candidate page exists), **page not liftable** (a page exists and ranks, but buries the answer), **outside-source gap** (the answers read lists, threads or reference sites the brand isn't on), **wrong or merged facts** (the answer gets the business wrong or confuses it with another), **unmeasured** (what this run couldn't see, said out loud, never left silent). When the gap is scope-shaped (present at home, absent elsewhere), run the scope drill in `references/local-prompt-sets.md` or its segment equivalent before recommending pages.
 
 ### Audit output
 
@@ -119,6 +135,13 @@ Write `./campaigns/ai-search/audit-<YYYY-MM-DD>.md`:
 ```markdown
 ## AI SEARCH AUDIT for <brand>, <date>
 Data: LIVE (<n> questions, <engines>) + RETRIEVAL PROXY where labeled · ground-truth answers: <yes/no> · location: <city or n/a>
+
+### The read
+What I found: <one finding over the observed denominator, naming who is recommended instead>
+Why it matters: <the customer consequence, in the buyer's words>
+Why now: <the observed urgency, or "This does not look urgent yet.">
+What I checked: <dates, engines, location, observed of attempted questions, what wasn't measured>
+What I recommend: <one move, and how we'll know it worked>
 
 ### Share of model (over observed answers)
 | Entity | Overall | Category | Comparison | Problem | Brand | (Local: Urgent, Cost) |
@@ -129,11 +152,17 @@ Data: LIVE (<n> questions, <engines>) + RETRIEVAL PROXY where labeled · ground-
 ### Wrong facts found (local)
 | Engine | Question | Field | Answer said | Truth | Where the wrong fact likely comes from |
 
-### Gap list (brand ABSENT, ordered by money value)
-1. "<question>": winner <page or listing>, they have <driver>, we lack <...>, fix <retrofit / new content / listing / list placement>
+### Where the answers come from
+| Question kind | Roundups | Community | Reference | Comparison sites | Product pages | Local listings | Video | What it means for the fix |
+
+### Findings (typed, costliest first)
+1. [<type>] "<question>": winner <page or listing>, they have <driver>, we lack <...>, fix <retrofit / new content / listing / list placement>. Evidence: <the capture lines it rests on>
 
 ### Fix plan
-1 to 5 items: action, the gap questions it addresses, the mode or skill that does it
+1 to 5 items, in leverage order: action, the gap questions it addresses, the mode or skill that does it, and the acceptance check (the answer state that proves it worked)
+
+### Built from, and what's missing
+<the captures this rests on, with dates and labels>. <When thin: a named diagnosis, e.g. "Gemini and Ask Maps were never captured", and one offer to fill it.>
 
 ### Monitor baseline
 The exact question list (verbatim), engines, location, per-question state per entity, capture date.
@@ -144,11 +173,15 @@ AI citations churn heavily month to month (see references/aeo-facts.md). This is
 Single gains or losses between two runs are mostly noise; trends across 3 or more monthly runs are signal.
 ```
 
-Append one line to `./brand/assets.md`. In chat: the share-of-model table, the top 3 gaps (and any wrong facts), **Files saved**, **What's next**.
+**Writing the read.** Lead with who wins instead, in the buyer's words and backed by the captures: "When people in Dallas ask ChatGPT for a water heater company, it names two competitors and not you, in 0 of 6 answers we observed." Never lead with a score. Call it urgent only when at least two observed money questions show the same gap, or one high-intent question hands the business's customer to a named competitor; otherwise write "This does not look urgent yet." and recommend the smallest useful next check. A surprising, fixable finding (an engine giving the business's phone number under another company's name) outranks a percentage. Recommend one move. A second path appears only if it genuinely rivals the first; never a menu of three. Load `references/audit-examples.md` for a strong and a weak read of the same audit.
+
+Append one line to `./brand/assets.md`. In chat: the read, the share-of-model table, the top 3 findings (and any wrong facts), **Files saved**, **What's next**.
 
 ## Mode 2: OPTIMIZE
 
 Run the audit's fix plan in leverage order. Load `references/aeo-judgment.md` before recommending anything. If no audit exists, run Phases 1 to 3 compressed (about 10 questions, no competitor diagnosis) first.
+
+Fix before you build: improving two pages that already rank is often the whole month's recommendation, and it's a real deliverable. When the findings cluster on one topic, the fixes below are one play, not separate tasks: citation earning aimed at the sources the answers use, the page or pages, and the structural work, sequenced by leverage (/keyword-research's `references/topic-plays.md` has the composition rules).
 
 ### Fix 1. A citable asset (highest leverage per piece)
 
@@ -158,7 +191,7 @@ For a local business the asset is usually smaller and just as citable: "what wat
 
 ### Fix 2. Answer-block retrofits (existing pages only)
 
-New content is /seo-content's job. From the gap list, take questions where the brand has a candidate page that isn't citable. Per page: a self-contained 40 to 80 word answer directly under the heading that matches the question. The first sentence answers. Entities are named in full (no "it", no "our tool"). One concrete number with its date if there is one. No warm-up. If the heading doesn't match the question's phrasing, fix the heading too. Deliver as a per-page diff (heading before and after, the block, where it goes) in `./campaigns/ai-search/retrofits-<date>.md`.
+New content is /seo-content's job. From the findings typed "page not liftable", take the questions where the brand has a candidate page that ranks but isn't citable. Per page: a self-contained 40 to 80 word answer directly under the heading that matches the question. The first sentence answers. Entities are named in full (no "it", no "our tool"). One concrete number with its date if there is one, and its source named. Where a real person at the business can say it, one quotable line attributed by name. No warm-up. If the heading doesn't match the question's phrasing, fix the heading too. Deliver as a per-page diff (heading before and after, the block, where it goes) in `./campaigns/ai-search/retrofits-<date>.md`.
 
 ### Fix 3. Entity and schema consistency
 
@@ -180,7 +213,7 @@ Reddit and forums carry a real share of citations, and the temptation is astrotu
 
 - **L1. Fix wrong facts at the source.** For each wrong fact, find where it lives (the Google profile, an old directory listing, a stale page on the site, a copycat site) and correct it there, then re-ask the question in a few weeks. Changing the site alone rarely fixes an answer that reads a directory.
 - **L2. Listings consistency.** The same name, address or service area, phone and hours on the Google profile, Apple Business Connect, Bing Places, Yelp, Facebook, the BBB and the trade's own directories. Answers lean on these, and a wrong phone number in one of them is a lost call.
-- **L3. Lists and local press.** If answers lean on "best of" lists, build a placement plan: which lists the winners appear on, who edits them, and the real proof to send (reviews, years, licenses, a local story). Pay-to-play lists get named as such. No fake reviews, no fake awards.
+- **L3. Lists and local press.** If answers lean on "best of" lists, build a placement plan: the specific lists the engines cite, who runs each, what they require, and a ready pitch with the real proof (reviews, years, licenses, a local story). Every target is one you saw cited; an unknown contact stays unknown rather than a guessed email. Pay-to-play lists get named as such. No fake reviews, no fake awards. Don't answer a list-shaped gap by publishing the business's own "best plumbers in Dallas" list: the answers cite third-party lists. Weak versions to reject: "get more backlinks", invented contacts.
 - **L4. A facts block on the site.** One plain, citable paragraph on the about or contact page: services, towns served, hours, licenses, years in business, how to reach them. AI answers lift exactly this kind of passage.
 - **L5. The profile and reviews.** Ask Maps and Google's AI summaries read the Google profile and its reviews. Route to /google-business-profile and /reviews.
 
@@ -194,8 +227,9 @@ Zero questions, ever.
 
 1. **Baseline:** read the newest `./campaigns/ai-search/audit-*.md` or `monitor-*.md` and its `Monitor baseline` section. If none exists, write a one-paragraph report saying AUDIT must run first, then stop. Never invent a question set here.
 2. **Re-capture** with the same fan-out, the same questions verbatim, the same engines and, for a local business, the same location. A changed location breaks the comparison; note it instead of diffing.
-3. **Diff** per question and entity: GAINED (absent or mentioned to cited), LOST (cited to absent or mentioned), HELD, NOT OBSERVED this run, and **new entrants** (domains or businesses now winning that weren't before). For local, also: wrong facts fixed, still wrong, newly wrong.
-4. **Report** to `./campaigns/ai-search/monitor-<YYYY-MM-DD>.md`: movement with likely causes, new entrants, the held count against the base churn rate in `references/aeo-facts.md`, up to 3 recommended reactions only if warranted, and proposed learnings. Losing 1 or 2 citations in a month is weather. Flag a pattern only when the same question is lost two runs in a row, or losses cluster in one question kind.
+3. **Diff** per question and entity: GAINED (absent or mentioned to cited), LOST (cited to absent or mentioned), HELD, NO CHANGE (absent both runs), INDETERMINATE (either side not observed; a failed re-check is never LOST), NEWLY OBSERVED (not observed last run, present now, which is not a gain), and **new entrants** (domains or businesses now winning that weren't before). For local, also: wrong facts fixed, still wrong, newly wrong. Before calling anything an improvement, look for one untouched repeat (the same question re-asked with nothing changed) to see how much moves on its own. Monitoring detects change; it doesn't prove a fix caused it, so say "after the fix shipped", never "because of the fix".
+4. **Report** to `./campaigns/ai-search/monitor-<YYYY-MM-DD>.md`, in this order: **last decision** (what the previous run recommended and what happened to it: shipped, declined, still open), **one decision now** or the words "Nothing needs your decision this month.", **what changed** (only what changed: gains, losses, new entrants, wrong facts fixed or new), the held count against the base churn rate in `references/aeo-facts.md`, and proposed learnings. A quiet month is a complete report, but only when the re-capture actually succeeded; a run with failed captures says which ones and never calls itself quiet. Losing 1 or 2 citations in a month is weather. Flag a pattern only when the same question is lost two runs in a row, or losses cluster in one question kind. Track each fix from the audit on one line: planned, shipped, watching, then won or missed, read at 2, 4 and 8 weeks after it shipped. `references/audit-examples.md` has a strong and a weak update.
+   The question set improves by proposal, never by silent edit, and only after two complete runs: a business newly named in two runs earns a proposed comparison question; three runs with no movement earn a proposed slower cadence. The user approves; then the new set becomes a new baseline, labelled as such, because an edited question set compared with the old one is a new baseline pretending to be a trend.
 5. **Memory:** update the `Monitor baseline` section in the report and append one line to `./brand/assets.md`. Draft learnings entries only for movements with a traceable cause, for example `- [YYYY-MM-DD] [ai-search] answer-block retrofit on /pricing-guide, CITED on "how much does <category> cost" within 3 weeks (n=1, source: monitor diff)`, under `### Proposed learnings`, and route them to /performance-review, which owns `learnings.md`. Append directly only if the user explicitly says to.
 
 ## Output

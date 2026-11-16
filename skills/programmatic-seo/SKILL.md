@@ -77,6 +77,8 @@ is it one head term wearing costumes? Verify, don't assume:
 
 We use DataForSEO for the spread check: real monthly search volumes for each modifier, so you see whether demand fans out instead of inferring it from autocomplete. It's pay as you go with no subscription ($50 minimum top-up that does not expire, plus a $1 trial credit on sign-up). Without it, the autocomplete spread and the sample SERPs above are the evidence, and no volume number gets printed.
 
+**Prove the pattern from a sample; never enumerate it.** Two or more observed substitutions of the same frame prove the shape exists. Size the modifier list from the dataset you could build (Test 3), not from a volume tool's tail. With a volume API: one bounded expansion of the stem (location, language and a minimum volume set in the request, 10 to 25 rows), one batch volume call for your candidate modifiers (never one call per modifier), then filter in code before judging anything: keep rows that match the frame, collapse close variants (they're one intent, never added together), drop junk (jobs, free downloads, other countries, navigation to someone else's site). A phrase the tool returned "no results" for is an observed zero; one that errored is unknown. Pulling the whole tail and asking a model to sort it is the expensive way to learn what a sample already showed.
+
 **Test 2: The anti-doorway test.** Pick two random modifiers and draft the honest
 one-paragraph answer for each. If the two answers differ only by the noun, this is one
 page pretending to be fifty, a doorway farm and the #1 PSEO failure. Each page must
@@ -97,7 +99,10 @@ batches wait on indexing evidence (Phase 4). A 15-page site wanting 300 pages ge
 phased plan measured in months, and you say so now, not after the build.
 
 **Verdict** (saved to `./campaigns/pseo-<slug>/validation.md`, with the data label
-`Data: LIVE (n sources)`):
+`Data: LIVE (n sources)`, and a receipt: what the verdict rests on, the dates, how many
+modifiers were sampled and how, and, when the evidence is thin, one named gap with one
+offer to fill it, e.g. "unique facts were spot-checked for 3 rows only; want me to check
+10 more before we commit?"):
 - **GO**: all four pass; record the approved modifier list and target page count.
 - **RESHAPE**: the pattern is right but the scope is wrong: narrow the modifier set to
   where unique data exists, or pivot to an adjacent archetype from the judgment file.

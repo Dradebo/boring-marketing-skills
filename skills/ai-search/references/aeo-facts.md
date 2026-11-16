@@ -1,7 +1,7 @@
 # AEO Facts (perishable: check the header before relying on anything below)
 
-last-verified: 2026-09-02 · ttl-days: 90 · refresh: web-search "AI Overviews citation study {current year}", "ChatGPT search weekly queries {current year}", "AI search zero-click rate study {current year}", "LLM citation source churn rate", and "Google rich results changelog FAQ HowTo", then update every figure below and bump last-verified. Per-brand observations (which queries the brand wins, which subreddits get cited in its category) go to `./brand/algo-cache.md`, not this file.
-changes: 2026-09-02. AIO/AI Mode reach (2.5B/1B MAU, I/O May 2026); zero-click now 68% of US Google searches and AIO cuts CTR ~60%; FAQ rich results removed for all sites May 7 2026; Google's May 2026 AI-features guide (no special markup, no chunking, llms.txt not needed, spam policies apply to AI answers); schema on cited pages ~53% with no citation lift in a matched-control test; churn sharpened (only ~11% of cited URLs persist 28 days); Reddit share is per-engine and collapsed on ChatGPT Search mid-Aug 2026; ChatGPT no longer rides Bing's index.
+last-verified: 2026-09-02 · ttl-days: 90 · refresh: web-search "AI Overviews citation study {current year}", "rank-controlled AI citation study", "generative engine optimization experiment", "ChatGPT search weekly queries {current year}", "AI search zero-click rate study {current year}", "LLM citation source churn rate", and "Google rich results changelog FAQ HowTo", then update every figure below and bump last-verified. Per-brand observations (which queries the brand wins, which subreddits get cited in its category) go to `./brand/algo-cache.md`, not this file.
+changes: 2026-11-16 added "What the controlled studies say" (research pass, Jun 2026; re-check on the next refresh). 2026-09-02. AIO/AI Mode reach (2.5B/1B MAU, I/O May 2026); zero-click now 68% of US Google searches and AIO cuts CTR ~60%; FAQ rich results removed for all sites May 7 2026; Google's May 2026 AI-features guide (no special markup, no chunking, llms.txt not needed, spam policies apply to AI answers); schema on cited pages ~53% with no citation lift in a matched-control test; churn sharpened (only ~11% of cited URLs persist 28 days); Reddit share is per-engine and collapsed on ChatGPT Search mid-Aug 2026; ChatGPT no longer rides Bing's index.
 
 Load this file at the start of every /ai-search mode. If today is past last-verified + ttl-days, refresh FIRST and tell the user in one line: `Refreshed AEO facts (cache was N days old).`
 
@@ -20,6 +20,12 @@ Load this file at the start of every /ai-search mode. If today is past last-veri
 3. **Freshness:** cited passages show a visible 2025-26 date 80% of the time vs 53% for uncited ones; pages not refreshed quarterly are ~3x likelier to lose citations. Stale pages rotate out.
 4. **Entity clarity:** consistent, unambiguous naming of products, companies, and people. Engines cite what they can confidently attribute.
 5. **Structured data:** present on ~53% of AI-cited pages, but a matched-control test of 1,885 pages that added JSON-LD (Aug 2025-Mar 2026) found no citation lift on ChatGPT or AI Mode and a small decline on AI Overviews. Google: "no special schema.org markup you need to add" for AI features. Keep schema for rich results and entity attribution; never sell it as a citation lever.
+
+## What the controlled studies say
+
+- **Rank is upstream on Google.** A rank-controlled study (SSRN, 2026) found the top organic result was cited for about 43% of queries, falling to about 5% by position 7, and that generic schema and entity richness showed no effect once rank was held constant. Most "AI ranking factors" correlations are rank in disguise.
+- **The one controlled experiment** (Princeton's generative engine optimization study) found that adding quotations, statistics and cited sources lifted visibility in generated answers by roughly 30 to 40%, while keyword stuffing did nothing or hurt.
+- **Mentions beat links, correlationally.** Brand mentions across the web correlate with AI visibility about three times as strongly as backlinks (Ahrefs, 2025). It's a correlation that rank partly explains, not a lever proven on its own.
 
 ## Concentration and churn (why monitoring is the product)
 

@@ -65,6 +65,10 @@ Pull out two lists. **Striking distance:** queries with 50 or more impressions a
 
 **Data label.** Every deliverable carries one line: `Data: LIVE (suggest + N result pages + Search Console)` or `Data: MODEL KNOWLEDGE (verify before spending)`. Without a volume source, print no volume numbers. Use demand evidence (autocomplete richness, Search Console impressions, how much competitors invest) and prefix any estimate with `~`.
 
+**Three states, never merged.** A source that answered "zero" or "no results" for a phrase observed zero, for that place and period. A phrase missing from the rows a source returned was not observed, which is unknown, not zero. A call that errored or timed out failed: record it, name it in the plan's gaps, and don't re-run a paid call just to fill the hole. A plan that turns unknowns into zeros drops real topics, and one that turns failures into "no demand" reports an outage as a finding.
+
+**Tight sourcing, cheap filters, then judgment.** With a volume API, ask narrow questions: the related-keywords and keyword-suggestions calls around one seed, with the location, language and a minimum volume set in the request (plus an intent or difficulty band when the decision needs one) and a hard cap of 10 to 25 rows per seed. The broad keyword-ideas call returns the most junk; use it only for a family nothing else has reached. Then filter in code before any model reads the list: drop rows sharing no word with the six-circle seeds, collapse duplicates and close variants, drop junk (jobs, salaries, free downloads, other countries, DIY when the business sells the service, competitor navigation unless it's a comparison target). Judgment goes to what survives. Expanding broadly and asking a model to clean the result is the expensive, fragile way, and it's the habit this method replaces. A rank or volume question about several keywords is one batch call, never a chain of one-keyword calls. Before a run that will cost more than a few calls, say how many calls and roughly what they cost, from the provider's current price page, and let the user choose the depth. Endpoint quirks that trip people up live in `references/facts.md`.
+
 ## Two query spaces
 
 Treat both as first-class from the first seed:
@@ -72,7 +76,7 @@ Treat both as first-class from the first seed:
 1. **Search-visible demand.** What people type into Google: autocomplete, Search Console, volume tools.
 2. **AI-native questions.** The longer, conversational questions people ask ChatGPT, Perplexity, Gemini or Google's AI Mode ("is a proposal tool worth it if I only send three proposals a month?"). Many show near zero Google volume and still decide who gets recommended. Free sources: the question forms autocomplete returns (`--mode questions`), the questions Google shows in results, forum and Reddit threads, long queries in Search Console (six words or more are often conversational), `voc.md`, support tickets, sales call notes and reviews.
 
-The two spaces disagree, and that disagreement is signal. A family that is strong in AI-native questions but modest on Google can outrank a high-volume head term for a business that wants to be the cited answer. Without a paid AI-volume source, record AI-native demand as "observed phrasing, no volume". Never invent a number for it.
+The two spaces disagree, and that disagreement is signal. AI-native demand leans toward comparison and how-do-I questions and away from brand and navigation terms, so a family that is strong in AI-native questions but modest on Google can outrank a high-volume head term for a business that wants to be the cited answer. DataForSEO, our pick for volumes, also returns an estimated AI search volume per phrase; label it an estimate. Without it, record AI-native demand as "observed phrasing, no volume". Never invent a number for it.
 
 ## Phase 1. Seed with the six circles
 
@@ -85,7 +89,7 @@ Default: 20 to 30 seeds from six lenses. Each lens exists because teams reliably
 5. **Adjacent topics,** where the audience already spends attention (`audience#watering-holes`). "freelance pricing", "first client onboarding"
 6. **Entities to be named next to:** tools, frameworks, people, competitors. AI answers work by association, so the entities you consistently appear beside shape which conversational questions cite you. "value-based pricing", named competitors for comparison pages
 
-Label each seed with its circle and its likely intent (informational, commercial, transactional). Group the seeds into 4 to 8 **topic family candidates**: areas broad enough for one hub piece and 3 to 7 supporting pieces. They are hypotheses until Rung 1 tests them.
+Label each seed with its circle and its likely intent (informational, commercial, transactional). Group the seeds into 4 to 8 **topic family candidates**: areas broad enough for one hub piece and 3 to 7 supporting pieces. Families partition the business: each answers a different business question, and two candidates that answer the same question are one family. They are hypotheses until Rung 1 tests them.
 
 ## Phase 2. The depth ladder
 
@@ -99,7 +103,7 @@ For each family's head term and its strongest one or two seeds:
 
 It queries Google's suggest endpoint across alphabet, question, preposition and comparison probes (about 50 requests, free, no key). Use `--mode questions,prepositions` for secondary seeds. Harvest: phrasings you didn't think of, recurring modifiers, question forms (for the AI-native space), year modifiers, brand mentions. Match the families against Search Console rows if you have them.
 
-Record per family: autocomplete richness, Search Console impressions, the AI-native questions found, and any volume figures with their source. Then cut. Families with no demand evidence in either space drop here, before anything expensive happens.
+Record per family: autocomplete richness, Search Console impressions, the AI-native questions found, and any volume figures with their source. Then cut. Families with no demand evidence in either space drop here, before anything expensive happens. Breadth comes before depth: every candidate family gets this cheap probe before any family gets Rung 2. Stopping early with families never probed is the narrow-run failure, so name why each skipped family was skipped.
 
 **Spot patterns from a sample.** A programmatic shape ("X for [industry]", "[tool A] vs [tool B]", "[service] in [town]") needs at least two different observed substitutions of the same frame. Record the shape and its examples. Never enumerate the missing substitutions to prove it.
 
@@ -112,13 +116,15 @@ Each subagent, for its family:
 2. **AI-surface capture.** Whether an AI Overview appears, whether it fully answers the query, which domains it cites. Then ask the conversational version through web search and note who gets cited for that phrasing.
 3. **Competitor coverage.** `site:{domain}` searches per family for the domains in `competitors#competitor-profiles`: what they cover, how well, what they skip.
 
-Pack format per subagent: `{family, keywords: [{kw, suggest_hits, results: [...], features, questions: [...], ai_overview: {present, fully_answers, cited_domains}, competitor_coverage}], ai_native_questions: [...], discoveries: [...]}`.
+4. **Winnability and a sampled tail** (with a volume API only). One bounded expansion from the family's strongest seed (the tight-sourcing rules above), then organic keyword difficulty for its 5 to 10 strongest terms in one batch call. Lower difficulty is more winnable. The ads "competition" field describes the paid auction, not ranking difficulty. Without a volume API, the results capture is the winnability evidence.
+
+Pack format per subagent: `{family, keywords: [{kw, suggest_hits, difficulty, results: [...], features, questions: [...], ai_overview: {present, fully_answers, cited_domains}, competitor_coverage}], ai_native_questions: [...], cited_source_kinds: [...], discoveries: [...]}`. Questions are copied verbatim, never tidied into "better" questions. `cited_source_kinds` classifies what the AI Overview and the conversational results lean on (roundup, community thread, reference, comparison site, product page, local listing, video), because that mix decides the play in Phase 4.
 
 Merge the packs and surface the 3 to 5 discoveries that change a decision ("a Reddit thread ranks third for X and no good article exists", "competitor A has nothing on Y").
 
 ### Rung 3. Go deep on what you commit to
 
-Briefs, full outlines and the coverage map (every sub-question, the entities to name, the answer each heading must give) only for NOW families. That is Phase 4.
+The play, the briefs and the coverage map (every question, where the citation is winnable, the entities to name, the answer each heading must give) only for the family the user commits to. That is Phase 4.
 
 ## Local branch
 
@@ -136,6 +142,8 @@ Six-circle seeds for the sample plumber: sell ("water heater replacement"), prob
 ## Phase 3. Cluster and validate
 
 **Cluster** the surviving keywords inside each family, intent first and wording second. "best crm software" and "what is a crm" share words but are different pages. Attach each cluster's questions (they become H2s), result evidence, AI Overview status and competitor coverage.
+
+**Type each family.** One type per family, matched to its evidence, with one line on why: **content** (out-answer what's cited), **commercial** (a money page the results already reward), **comparison** ("best X for Y", "X vs Y"), **page generation** (one frame, many pages), or **citation** (the answers lean on outside sources the brand isn't in, so the work is getting into them). The type sets the route. Load `references/topic-plays.md` for the menu, how evidence types the work, and the routes.
 
 **Programmatic check.** A cluster with a substitutable slot, at least 10 slot values with demand evidence, and a dataset that makes each page genuinely different is tagged `route: /programmatic-seo`. Town and service-area variants for a local business are tagged `route: /service-area-pages` instead. Variants that need different arguments per page stay `route: /seo-content`.
 
@@ -174,6 +182,10 @@ Score each surviving family on three axes.
 
 A high-demand informational family with `zero_click_risk: HIGH` and `citation_path: NO` drops to HOLD whatever its volume: it would be traffic-free content. A modest family with a clear citation path moves up, because AI-referred visitors convert better and few competitors are working for those citations yet. (Current figures: /ai-search's `references/aeo-facts.md`.)
 
+**The visibility gap, where it was measured.** Real demand where the brand is absent from the answers is the sharpest opportunity, and it's more winnable when the businesses named instead are peers rather than national giants. "Named at home, absent in the next towns or segments" is the best shape of all, because it says both what to build and where.
+
+**Rationale and confidence.** Each verdict's one-line reason quotes only what was observed ("difficulty 12, commercial intent, absent from 3 of 4 observed answers while two regional peers are named"). A metric nobody measured is named as a gap, never guessed. Give each family a confidence (high, medium, low) for how well its verdict is evidenced, not how exciting it feels: high needs demand checked in both spaces plus observed winnability.
+
 **The decision queue:**
 
 | Business value | Opportunity | AI visibility | Verdict |
@@ -187,15 +199,17 @@ A high-demand informational family with `zero_click_risk: HIGH` and `citation_pa
 | Low | any | any | HOLD |
 | fails validation, or a service the business can't deliver | | | DROP or HOLD with its unlock |
 
-NOW and NEXT are few by design. Commitment is the user's move, and the queue hands them exactly that decision instead of a calendar pretending ten topics start at once.
+NOW and NEXT are few by design. NOW holds one family, two at most; if the table yields more, rank them by business value, then confidence, and move the rest to NEXT. Every NEXT names the one observation that would move it ("check the AI answers for the three comparison questions"). Commitment is the user's move, and the queue hands them exactly that decision instead of a calendar pretending ten topics start at once. Recommend the family to commit, with its strongest caveat, and wait for a yes on that exact family before building its play.
+
+**The play for the committed family.** One family, one coordinated set of moves: a hub, spokes from the coverage map, citation earning aimed at the sources the answers actually use, and the structural fixes that make it all liftable. The source mix sets the weighting (answers built from roundups and threads need citation earning before a new page), difficulty sets the size (a full play, or a thin one of structural fixes plus one spoke), and every move carries its targets, its evidence and an acceptance check. Load `references/topic-plays.md` for the composition rules and a worked example, and write the play to `./campaigns/content-plan/play-{family-slug}.md`.
 
 **Backlog.** An ordered list, not dated slots: rank, piece title, family, route, a one-line reason, status `planned`. Striking-distance fixes rank above new pieces of equal value.
 
-**Briefs** for every NOW family routed to /seo-content, written to `./campaigns/content-plan/{keyword-slug}.md` following the content-brief schema when the folder `${CLAUDE_SKILL_DIR}/../start-here/references/schemas/` is present (otherwise the same fields as plain markdown): results analysis (top results with fetched word counts, strengths, weaknesses, `content_gap`), the questions verbatim, recommended structure, search intent and the call to action. Leave out monthly volume unless a real number came from Search Console or a volume tool.
+**Briefs** for the committed family's hub and spokes routed to /seo-content, written to `./campaigns/content-plan/{keyword-slug}.md` following the content-brief schema when the folder `${CLAUDE_SKILL_DIR}/../start-here/references/schemas/` is present (otherwise the same fields as plain markdown): results analysis (top results with fetched word counts, strengths, weaknesses, `content_gap`), search intent and the call to action. The core of each brief is its **coverage map**: the questions verbatim and grouped by the job they do, each with its answer shape, the gaps first with the observed reason for each, the page structure, a depth benchmark, the entities to name and a claim contract (may say, must not say, needs checking first). Load `references/coverage-map.md` for the fields, the failure modes and a worked example. Leave out monthly volume unless a real number came from Search Console or a volume tool. NEXT families get a one-paragraph note, not a brief.
 
 Brief craft that separates a usable brief from a keyword with headers:
 - The content type follows the results. If the top 5 are all comparisons, a long guide won't rank. Match the format and beat it on substance.
-- Target length is the median of the fetched top results, plus or minus 20%.
+- Depth follows the measured winners on the surface you're targeting (the cited sources for AI answers, the top results for Google): their count of standalone answers and concrete facts as much as their word count. Completeness and liftable density are the bar, not length.
 - Questions become H2s phrased as the question. Open with a 40 to 60 word direct answer to the main query.
 - `must_include` carries the advantage from Phase 3 and the `conversational_targets` as answer blocks.
 - `content_gap` is specific ("no result shows real numbers from a finished project"), never "could be more comprehensive".
@@ -204,9 +218,19 @@ For families routed to /programmatic-seo or /service-area-pages, write one routi
 
 ## Output
 
-Write `./brand/keyword-plan.md` (version the old copy first). Sections: business context; sources and data label; the topic map (each family with its hub, clusters, both demand spaces, validation and verdict); a table under the heading `## Cluster Priorities` with priority (NOW maps to high, NEXT to medium, HOLD to low), intent, route, `zero_click_risk` and `citation_path` (keep that heading exactly; /performance-review reads it by anchor); competitor gaps; the ordered backlog; the brief index. Append one line per brief to `./brand/assets.md`.
+Write `./brand/keyword-plan.md` (version the old copy first). It reads top-down as a decision, not a dump:
 
-In chat, following the four-section output contract: the family verdicts, the 3 to 5 discoveries, the top of the backlog, and one **start here** recommendation with its evidence, then **Files saved** and **What's next**.
+1. **The verdict.** Start here (the one family to commit, with the line that makes the case), up next (each with the one observation that would settle it), hold, leave out. The case quotes observed numbers and beats the obvious alternative: "strong in AI-native questions though mid-table on Google, commercial intent, and a fraction of the difficulty of the bigger head term" (with the observed numbers in place) says why the plan isn't chasing the biggest volume.
+2. **Business context, sources and the data label.**
+3. **The topic map,** families grouped by type (content, commercial, comparison, page generation, citation). Per family: position in the queue, intent, demand in each space with its source, difficulty, the opening in one line (who the checked answers name instead, or which result is beatable), a small table of its observed terms (term, Google volume, AI volume, difficulty, intent; blank where unmeasured), the observed questions, confidence, and the verdict.
+4. **A table under the heading `## Cluster Priorities`** with priority (NOW maps to high, NEXT to medium, HOLD to low), intent, route, `zero_click_risk` and `citation_path`. Keep that heading exactly; /performance-review reads it by anchor.
+5. **Competitor gaps, the ordered backlog, the brief index,** and the play file for the committed family.
+6. **What changed** since the previous plan, on a refresh: new, moved, gone, or "no movement".
+7. **The receipt and what's missing.** What the plan is built from (sources, date ranges, how many terms observed, engines and location for any AI check), then, when the plan is thin, a named diagnosis rather than a vague caveat ("AI answers were never checked for this business, so no family can be typed as a citation play yet") and **one** offer to fill it ("want me to run the 12-question check? About 20 minutes, no paid tools"). The oldest source sets the plan's freshness date; offer a refresh when it's about a month old.
+
+Append one line per brief to `./brand/assets.md`.
+
+In chat, following the four-section output contract: the verdict, the 3 to 5 discoveries, the top of the backlog, and one **start here** recommendation with its evidence and its strongest caveat, then **Files saved** and **What's next**. If one missing observation could reverse the recommendation, recommend collecting that observation instead. If nothing is supportable, recommend holding rather than manufacturing a commitment. Never end on a menu of options.
 
 ## What's next
 

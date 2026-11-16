@@ -82,6 +82,34 @@ Internal links: [real URLs from a sitemap or local site materials]
 CTA: [one appropriate next step]
 ```
 
+Sample coverage map for the sample price guide (illustrative, not a real research run):
+
+```text
+Angle: the cited answers quote national averages and a two-year-old cost survey. Hartline can
+publish what water heater replacement actually cost its Dallas customers, from its own jobs.
+Where the answer comes from today: two national cost sites and one forum thread. A table with
+a real local range and what moves it wins the lift.
+
+Questions, grouped by the job they do
+  Budgeting ("how much should I expect to pay?")
+    "how much does water heater replacement cost in dallas"   Search Console  table   GAP: answer incomplete, cited sources give national averages only
+    "tankless vs tank water heater cost"                      People Also Ask comparison  covered well by two guides
+  Deciding repair or replace
+    "is it worth repairing a 12 year old water heater"        AI-native       direct  GAP: brand absent from 3 of 3 observed answers
+  Avoiding surprises
+    "do you need a permit to replace a water heater in dallas" derived        direct  not checked; the city's permit page is the source
+
+Depth benchmark: the two cited cost pages carry 6 and 9 standalone answers and one price table
+each, around 1,400 words. Match the answers and the table; the words follow.
+
+Claim contract
+  May say: "We replace tank and tankless water heaters across Dallas, Garland, Mesquite and Richardson."
+  Must not say: "Dallas's most trusted plumber"; any guarantee the owner hasn't written down.
+  Needs checking first: the price range (needs the owner's export of the last 12 months of jobs),
+  "same-day replacement" (owner to confirm how often it's true).
+Open items: the job export; one customer story of repair versus replace, with permission.
+```
+
 Example outline:
 
 ```text

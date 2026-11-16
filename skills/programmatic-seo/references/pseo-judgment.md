@@ -106,7 +106,10 @@ from a real feature/pricing dataset. Wins only when the matrix data is genuinely
 collected (scraped + verified per row, dated), the verdict is honest per pairing (the
 answer-first block names who wins for whom; a comparison that always crowns the
 house product reads as the ad it is), and pairings are limited to ones people actually
-compare. These are heavily cited by LLMs answering "X vs Y" questions.
+compare. These are heavily cited by LLMs answering "X vs Y" questions. A pairing earns
+a verdict only when each side has at least two facts across at least two of the
+dimensions the reader weighs; below that, the page shows the matrix and says the
+verdict is pending, or the pairing waits.
 
 **3. Location pages with real local data**: wins only above the thin-local bar:
 market-level stats (real prices, counts, wait times in that metro), city-specific

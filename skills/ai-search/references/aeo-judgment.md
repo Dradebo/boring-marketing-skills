@@ -14,6 +14,12 @@ Load before AUDIT Phase 4 (diagnosis) and before recommending anything in OPTIMI
 
 The diagnostic consequence: when a competitor wins a citation, check format first, data second, entity third, schema last. An audit that concludes "add more schema" without checking the winner's answer blocks has diagnosed in the wrong order.
 
+Three things sit around that hierarchy:
+
+- **On Google's AI surfaces, organic rank comes first.** The most careful study so far held organic rank constant and found most of the apparent effect of schema and entity richness disappeared, while the top organic results got the bulk of the citations (figures in `aeo-facts.md`). So before diagnosing format on a Google question, check where the brand's best page ranks for the search version of it. A page on page three needs ranking work, not answer blocks. ChatGPT and Perplexity retrieve more widely, so rank matters less there.
+- **Where the answer comes from sets the lane.** If the answers lean on roundups, threads or reference sites, on-site edits can't close the gap: the work is getting into those sources. If they lean on brand and product pages, the page itself can win. Read the source kinds before choosing between a retrofit and an outreach plan.
+- **What the one controlled experiment found.** Adding quotations from named people, original statistics and cited sources lifted a page's visibility in generated answers; keyword stuffing and an "authoritative" tone did nothing or hurt. That's the craft side of formats and data, and it's cheap.
+
 ## Snake-oil detection (tools, agencies, guides)
 
 The AI-visibility vendor market is where the SEO vendor market was in 2005. Tells that a tool, agency or guide is selling cargo cult:
@@ -24,6 +30,7 @@ The AI-visibility vendor market is where the SEO vendor market was in 2005. Tell
 - **"Proprietary AI-optimization markup" or secret tags.** There is no secret channel. The levers are public: format, data, entities, freshness, distribution.
 - **Reports mentions as wins without separating CITED from MENTIONED.** Being described by sources you don't control is exposure, not authority, and it can be negative exposure.
 - **Reports a percentage without a denominator.** "You're 40% visible" over which questions, which engines, which city, observed how many times? No denominator, no finding.
+- **Topic-level share of voice for a niche or local topic.** Check what the tool resolved the topic to. At that granularity, corpus tools often match the wrong thing (a mobile repair trade read as a consumer product), and the share is about something else.
 - **Volume promises** ("500 AI-optimized pages"). Cited pages are dense, sourced and current. Thin programmatic pages are the opposite. For local businesses the same pitch arrives as "a page for every town", which is a doorway page by Google's definition.
 
 ## Why businesses with original data win out of proportion
@@ -42,6 +49,10 @@ Local buyers now ask assistants and Google Maps for recommendations by city ("wh
 - **The levers differ.** The Google profile, the volume and text of reviews, consistent listings across directories, local "best of" lists and press, and a plain facts block on the site move local answers more than answer-block retrofits do.
 - **Wrong facts are the urgent finding.** A wrong phone number or a service the business doesn't offer, repeated by an AI answer, costs calls directly. Fix those before chasing citations.
 - **The map pack still matters more for "near me".** Route profile and review gaps to /google-business-profile and /reviews; this skill measures and diagnoses the answer layer.
+
+## Where the click lands
+
+When an assistant does send someone, it often sends them past the homepage. For a store, AI-referred shoppers frequently land straight on a product page, so specs, compatibility, real questions and reviews on the product page matter more than another editorial post. For a service business that's researched before buying (equipment repair, a renovation, a specialist clinic), the equivalent is the service page: scope, how pricing works, the questions buyers actually ask, proof. Weight the audit's page checks toward those pages.
 
 ## When NOT to bother (say so, save their money)
 

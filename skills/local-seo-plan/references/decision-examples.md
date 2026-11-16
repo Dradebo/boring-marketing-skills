@@ -30,7 +30,7 @@ Load before Phase 7 of /local-seo-plan. Hartline Plumbing, Dallas TX is a sample
 | Gas line repair | ~4 | Dallas | 1 (paid records only) | None | License confirmation pending | Not yet |
 | Sewer line replacement | 0 | | | | Subcontracted | No |
 
-**Market map (excerpt).** Each cell: demand evidence / map pack top 3 from that town / organic for "[service] [town]" / business page / local proof.
+**Market map (excerpt).** Each cell: demand evidence / map pack position for "[service] near me" from the town's center, and who holds the top 3 / organic for "[service] [town]" / business page / local proof.
 
 | | Dallas | Garland | Plano |
 |---|---|---|---|

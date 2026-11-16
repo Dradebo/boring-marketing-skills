@@ -118,17 +118,27 @@ Give every set of close variants one group id. "water heater repair", "hot water
 
 ## Phase 6. Map who wins, service by town
 
-Build the market map: services down the side, towns across the top. Bound it to the 3-5 services that matter and the 5-8 towns the business actually serves. Checking every combination is how a plan turns into a spreadsheet nobody reads.
+Build the market map: services down the side, towns across the top. Bound it to the 3-5 services that matter and the 5-8 towns the business actually serves. Checking every combination is how a plan turns into a spreadsheet nobody reads. Tag each service row **urgent** (people call now: burst pipe, no heat, breakdown), **planned** (they compare and book: replacement, install) or **research** (they read first: cost, symptoms). The tag decides what gets built: urgent rows live and die in the map pack, planned rows need service pages with proof, research rows feed articles.
+
+**What one cell measures.** Most local buyers type "[service] near me" and let their phone's location do the rest, so the main check is the map pack position for "[service] near me" searched from the town's center. Demand is the near-me volume plus "[service] [town]" (near-me volume is metro-wide, so it belongs to the row, not the cell). Organic position for "[service] [town]" is the second check. The AI check is one question per service per town with the town written into the question ("who's the best water heater company in Garland, TX?"), because assistants don't take a location setting the way a phone does. Proof is the jobs and reviews that name the town.
+
+**Go only as deep as the decision.** Three depths, and the user picks:
+- **Quick** (a first look or a prospect): the 1 or 2 main services checked from the main city's center, plus one AI question.
+- **Standard** (a plan or a pitch audit): up to 5 services by 5 towns, the AI question on 2 or 3 engines, demand per row.
+- **Full** (a client baseline or the monthly refresh): every cell, plus a small rank grid (3 by 3 points) around the main town for the top 2 services.
+
+Before a Standard or Full run with a paid tool, say roughly how many checks it takes and what they cost from the provider's price page, and let the user choose. Say which depth you ran in the plan. Checking every service in every town at every depth is the tripwire: it buys a spreadsheet, not a decision.
 
 Run one web search in the main thread first; if it works, fan out one research subagent per service, in parallel (Task tool, `general-purpose` when the plugin's research type is unavailable), each checking its towns within the research budget (40 fetches, 8 minutes, no sub-agents of its own) and returning facts with URLs, not prose. If web access is denied, build the map from the exports and label the observations unobserved.
 
 For each cell with demand evidence, record:
-- who holds the top 3 of the map pack, checked from that town;
+- the business's map pack position for "[service] near me" from the town's center, and who holds the top 3;
 - who ranks organically for "[service] [town]";
+- who the AI answer names for the service in that town;
 - whether the business has a page that targets it, and which one;
 - proof in that town (jobs from the ledger, reviews that name the town).
 
-**Every check names the place.** Results change with the searcher's location, so a check from the wrong city is mislabeled evidence. For organic results, search with the town and state in the query. The map pack needs a location: ask the owner to check on a phone from the town, use a browser with its location set to the town, or use a paid map-pack grid tool or local results API (several exist, priced per check). Record the query, date, location and device for every observation, and label anything you couldn't observe as unobserved, never as "not ranking".
+**Every check names the place.** Results change with the searcher's location, so a check from the wrong city is mislabeled evidence. For organic results, search with the town and state in the query. The map pack needs a location: ask the owner to check on a phone from the town, use a browser with its location set to the town, or use a local results API. We use DataForSEO's Google Maps results, called with the town center's coordinates, pay as you go; several grid tools do the same job priced per check. Record the query, date, location and device for every observation, and label anything you couldn't observe as unobserved, never as "not ranking".
 
 Distance is the one map-pack factor no page can move. A service-area business whose map pin sat well outside the city didn't appear in the top 20 at any check point across the metro.
 For towns far from the pin, the website is how the business shows up, which is what makes this plan worth doing.
@@ -158,13 +168,34 @@ Load `references/decision-examples.md`. The reason a cell is lost picks the fix:
 Holding is the senior move when the proof isn't there. A home service business held a page for a related trade with thousands of monthly searches because no one on the crew did that work.
 The same process can turn a list of attractive service categories into one new parent page, one job story, a couple of improvements to existing pages and several holds.
 
-## Phase 8. Set the measurement before anything ships
+## Phase 8. Turn the decisions into this month's moves
 
-For each page decision, record a baseline: Search Console impressions, clicks and average position for its query group over the last 28 days, plus profile calls. Tag incoming calls by service if the call tool allows it. Re-read at 30 and 90 days. Re-open a hold when the ledger changes, not on a calendar.
+A plan of fifteen decisions doesn't ship. A **move** is one outcome (say, "rank top 3 for water heater repair near me in Garland") holding the steps that get it there, each with an owner. Default: 3 to 5 moves a month, capped by the owner's time (plan on about two hours of owner approvals a month unless they say otherwise) and the doer's capacity, not by how many cells are red. Order:
+
+1. **Foundations.** Profile categories and services matched to the real services, with prices where the owner publishes them; the same name, phone and hours on the top listings; wrong facts in AI answers fixed at their source; the backlog of unanswered reviews.
+2. **Money cells.** Cells where the business already sits at map pack position 4 to 10 for an urgent or planned service. They're closest to paying.
+3. **AI picks.** Getting onto the "best of" lists the answers cite, and a plain facts block on the about page.
+4. **Proof-backed pages.** The service, town and job-story pages Phase 7 approved, strongest proof first.
+5. **Habits.** A compliant review-request routine and weekly profile posts.
+
+Every move names its target and ends in a check someone can read (a position from the same town, a named-in-the-answer state, a listing that's live). Guardrails: no page for a place the business doesn't serve, and no move without a target. Each month, refresh the map at the depth agreed, report move by move, and pick the next moves from what changed.
+
+## Phase 9. Set the measurement before anything ships
+
+For each page decision, record a baseline: Search Console impressions, clicks and average position (weighted by impressions) for its query group over the last 28 days, plus profile calls. Tag incoming calls by service if the call tool allows it. Re-read at 30 and 90 days. Re-open a hold when the ledger changes, not on a calendar.
+
+Before the baseline means anything, close the leaks that make local numbers lie:
+- **Tag the profile's website link** (`?utm_source=google&utm_medium=organic&utm_campaign=gbp_listing`), or profile visits land in Direct and organic looks smaller than it is.
+- **Split customers from job applicants** in form tracking. A lead event fires only for a customer inquiry; an application gets its own event.
+- **Find every phone number in the wild.** An old number in a profile description or an old listing is calls nobody counts.
+- **Keep a dated log** of ad changes, profile edits and site releases, so a later drop can be read against what actually changed.
+
+For a business that's already sliding, or before promising a recovery, load `references/recovery-lessons.md`: it separates a demand drop caused by an ads change from a real ranking loss, covers map pack absorption, and sets up the fixed-cohort scoreboard.
 
 ## Quality gate
 
 Before handoff, check the plan against these and fix what fails:
+- The headline names who wins instead and points at a dated check. A score or a list of twenty findings fails.
 - Every page or section decision cites demand evidence, a ledger row and a dated observation of who wins.
 - Every number keeps its geography, its date range and its null or zero.
 - No cell says "page" because of volume alone.
@@ -175,16 +206,19 @@ Before handoff, check the plan against these and fix what fails:
 
 Write `./campaigns/local-seo/plan.md` (version an older copy to `./campaigns/local-seo/.history/` first). It is written for the owner or the client, in plain words:
 
-1. `## LOCAL SEO PLAN for <business>` with the date, the data label and the sources used.
-2. The decision in one paragraph, then the top 5 things to build or fix, in order, each with its evidence.
-3. The market map table (services × towns, one decision per cell).
-4. The capability ledger.
-5. Holds, each with what would unlock it.
-6. Evidence watermarks (source, date range, coverage, limits).
-7. Measurement baseline.
-8. "Owner to confirm" list.
+1. `## LOCAL SEO PLAN for <business>` with the date, the depth run (Quick, Standard or Full), the data label and the sources used.
+2. **The headline.** One sentence naming who wins instead, in the owner's words, with the check behind it: "When someone in Garland searches 'water heater repair near me', <competitor> comes up first and Hartline isn't in the top 20."
+3. **Three vitals,** short values the owner can repeat: "outside the top 20 in 4 of 5 towns", "named in 0 of 6 AI answers", "11 of the last 40 reviews unanswered".
+4. **The market map:** services × towns, each cell with its map pack position and status (**win** at 1 to 3, **close** at 4 to 10, **losing** at 11 or absent, **not served**, **unknown** when the check failed) and its decision.
+5. **Who the AI answers name instead,** per service.
+6. **The three costliest gaps,** costliest first: the fact, why it costs in one sentence the owner would nod at, the competitor who wins it, the evidence.
+7. **Fix first:** the one move to start with, what it involves, the owner's time, and how we'll know it worked within a month or two. Say so plainly when part of it is a longer climb (a map pin far from the town).
+8. This month's moves (Phase 8), the capability ledger, holds with their unlocks, evidence watermarks (source, date range, coverage, limits), the measurement baseline, and the "owner to confirm" list.
+9. **Built from, and what's missing.** What the plan rests on, and when it's thin, one named gap ("no job records yet, so every town decision rests on reviews alone") with one offer to fill it.
 
-Append one line to `./brand/assets.md`. In chat: the decision paragraph, the top 5, the holds count, **Files saved**, **What's next**.
+Say positions the way an owner hears them: 4 to 7 is "just outside the top three", 8 or lower is "well below the top three that get most of the calls". No scores, no dollar figures for what they're losing, and never "optimize your Google Business Profile" where the exact change (this category to that one, these services with these prices) belongs. Load `references/quality-bar.md` for a strong and a weak version of the plan and of each deliverable it hands off.
+
+Append one line to `./brand/assets.md`. In chat: the headline, the three vitals, the fix-first move, the holds count, **Files saved**, **What's next**.
 
 **The offer line.** In chat, after the What's next list, add one optional line matched to `role` in `./brand/preferences.md` (`role: owner | agency | builder`):
 

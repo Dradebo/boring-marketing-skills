@@ -21,6 +21,8 @@ Dallas city sits inside Dallas County, which sits inside the Dallas-Fort Worth m
 
 Keyword tools often return the same number and the same monthly series for phrasings Google treats as one intent, for example "water heater repair near me" and "hot water heater repair near me". That is one family observed twice. When the difference matters, request each form separately, keep a shared group id, show them side by side, and use one representative or the group maximum. Never produce a total by adding them.
 
+When you validate demand town by town, send one representative phrase per group, not every variant, and send the variants separately only when the difference changes a decision. It keeps the request small and stops variants from being read as separate markets.
+
 ### Keep null, zero and the floor apart
 
 - **No estimate returned** means the tool had nothing reportable. Write "no reportable estimate", never 0.
@@ -28,6 +30,8 @@ Keyword tools often return the same number and the same monthly series for phras
 - **The lowest reporting tier** (often 10 in local data) is a rounding floor, not ten people.
 
 A plan that turns a null into a zero will drop real towns. A plan that reads the floor as a count will promise traffic that was never there.
+
+Errors are a fourth state. A request that timed out or failed observed nothing, so it stays unknown, never zero, and it's named in the plan's gaps. A "no results" reply is different: the tool looked and found none, which is an observed zero.
 
 ### CPC is not difficulty
 
@@ -45,6 +49,8 @@ Don't let one month become the baseline. Plumbing demand jumps after a hard free
 - "Near me" queries carry no reliable city. Don't assign them to towns.
 - Exports are capped at the top rows. Say so in the watermark ("top 5,000 page-query rows, Jan 1 to Jul 12").
 - Strip competitor brand queries before reading totals.
+- Sort every query into exactly one bucket, in a fixed order, so nothing is counted twice: brand, then near-me, then town plus service, then informational, then service only. The first bucket that matches wins.
+- Average position across many queries is weighted by impressions (the sum of position times impressions, divided by total impressions). A plain average lets a query with three impressions move the number as much as one with three thousand.
 
 ## Job records and invoices
 
