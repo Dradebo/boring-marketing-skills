@@ -75,8 +75,8 @@ what converts. Get both with parallel subagents, never from memory.
 
 Identify 3-5 direct competitors (from `competitors.md`, positioning context, or a quick
 search of the niche; for local, the businesses that show up for "[service] [city]"). Run
-one WebSearch in the main thread first; if it's denied, write a `Data: MODEL KNOWLEDGE`
-draft instead of fanning out. Then, all in parallel:
+one WebSearch in the main thread first; if it's denied, write a draft from model knowledge
+instead of fanning out and say so once in the note. Then, all in parallel:
 
 - **One subagent per competitor (3-5):** read their homepage, blog sidebars and popups,
   `/free*`, `/resources`, `/tools`, the footer, and for local businesses any "price",
@@ -84,7 +84,8 @@ draft instead of fanning out. Then, all in parallel:
   read these pages in full, JavaScript-built ones included (free tier of 1,000 credits a
   month, `FIRECRAWL_API_KEY`), and Exa to find competitors and resource pages a keyword
   search misses (free tier, then pay as you go, `EXA_API_KEY`). Return an evidence pack: every opt-in offer found, with the verbatim
-  hook, format, what's gated and what's free, and the URL.
+  hook, format, what's gated and what's free, and the URL. Save the packs to
+  `./campaigns/{name}/notes.md`; they are working data, not chat.
 - **One subagent for the ad libraries:** search facebook.com/ads/library (and
   adstransparency.google.com) for each competitor plus 1-2 category keywords. Magnets
   running as paid ads are the strongest conversion signal available; nobody keeps paying
@@ -94,8 +95,10 @@ draft instead of fanning out. Then, all in parallel:
 Synthesize a short landscape: each competitor's magnet, hook and format; what's
 **paid-promoted** (the proven converters); what's saturated (3 of 4 have a PDF guide, so
 don't ship a fourth); and the open gap (no interactive tool, no one targets segment X,
-every hook is generic). Label it `Data: LIVE (n pages, n ads)`, or if scraping failed,
-`Data: MODEL KNOWLEDGE (verify before spending)` and say which subagents came back empty.
+every hook is generic). Show it in a few lines. Never present model knowledge as live
+research: the note says what it rests on ("Read 6 competitor pages and 4 ads live on Nov
+13", or "Competitor read is from model knowledge; verify before spending"), naming any
+subagent that came back empty.
 
 ## Phase 3. Concept generation
 
@@ -104,8 +107,8 @@ or different bridge mechanics, not five titles for the same PDF.
 
 ### The five tests
 
-Every concept passes all five before it's presented. One that fails gets fixed or cut, not
-padded with rationale.
+Every concept passes all five before it's presented. Run them silently: one that fails gets
+fixed or cut, not padded with rationale, and the client sees no test grid.
 
 1. **Specificity.** Specific outcome, audience, timeframe, named method. Could a
    competitor use the exact same title? If yes, sharpen it.
@@ -146,7 +149,7 @@ argues otherwise.
 
 For hooks and conversion psychology (reciprocity, curiosity gap, commitment ladder,
 identity), load `references/psychology.md` and use its seven triggers and its closing checklist as
-the bar for concept copy.
+the bar for concept copy, applied silently.
 
 Seven hook shapes cover nearly every magnet: the Shortcut ("X without the usual pain"),
 the Secret ("the hidden thing behind the result"), the System ("the NAMED method for the
@@ -157,35 +160,37 @@ that phrase.
 
 ### Present the concepts
 
-For each: **name · hook headline · format · bridge** (one sentence: the magnet delivers X,
-which creates desire for the paid offer) **· defensibility · effort** (what BUILD MODE will
-produce) **· best for** (channel or situation). Star one with a one-line rationale citing
-the gap it exploits and the paid-promoted competitor format it improves on. Close with:
-pick one to build, tweak one, or ask for more.
+Lead with the Quick Pick block (the starred concept, one line). Then for each: **name ·
+hook headline · format · bridge** (one sentence: the magnet delivers X, which creates
+desire for the paid offer) **· what gets built · best for** (channel or situation). The
+star's rationale names the gap it exploits, the paid-promoted competitor format it
+improves on, and why AI can't replace it. Do not print per-concept test results. Close
+with: pick one to build, tweak one, or ask for more.
 
 Calibration example. Say the offer is a $497 course teaching freelance designers to price
 by value; research found three competitor PDF guides, one of them paid-promoted, and no
 interactive tools:
 
-> **① The Underpricing Calculator** ★
+> **Quick Pick: ★ Concept 1: The Underpricing Calculator**
+> The niche's proven converter is a pricing PDF running as an ad. Same pain, but a
+> calculator uses their own numbers, so it converts better and an AI summary can't copy it.
+>
+> **1. The Underpricing Calculator** ★
 > "Find out how much your hourly rate is costing you, in 90 seconds"
 > Format: calculator (working app). Bridge: their own numbers show the gap between hourly
-> and value pricing, and the course closes it. Defensibility: their inputs, their number.
-> Effort: BUILD MODE ships the app and the email gate. Best for: paid social and bio link.
-> ★ because the niche's proven converter is a pricing PDF running as an ad; same pain, but
-> interactive beats it on conversion and defensibility.
+> and value pricing, and the course closes it. Built: the app and the email gate. Best
+> for: paid social and bio link.
 >
-> **② The Pricing Confidence Quiz.** "What's your pricing personality?" Quiz. Bridge: the
+> **2. The Pricing Confidence Quiz.** "What's your pricing personality?" Quiz. Bridge: the
 > profile names the habit keeping them cheap and maps to course modules. Best for organic
 > social and segmented follow-up.
 >
-> **③ The Proposal Teardown Swipe File.** "11 real proposals that closed at 3x the market
-> rate, annotated line by line." Bridge: shows the artifacts the course teaches. Medium
-> defensibility, and only because the proposals and notes are real. Best for newsletter
-> swaps.
+> **3. The Proposal Teardown Swipe File.** "11 real proposals that closed at 3x the market
+> rate, annotated line by line." Bridge: shows the artifacts the course teaches. Holds up
+> only because the proposals and notes are real. Best for newsletter swaps.
 
-That's the bar. Each concept names its gap, its bridge and its defensibility honestly, and
-② and ③ are not restatements of ①. A SaaS version of the same bar: an invoicing tool's
+That's the bar. Each concept names its gap and its bridge honestly, and 2 and 3 are not
+restatements of 1. A SaaS version of the same bar: an invoicing tool's
 "Late Payment Cost Calculator" (their invoices and terms in, the cash tied up out) beats
 a "10 tips for getting paid" PDF for the same reasons.
 
@@ -276,13 +281,13 @@ user's data, examples, opinions and numbers until it couldn't have come from any
 
 ### Quality gate
 
-Before presenting, check the magnet against its own promises: the quick win is achievable
+Before presenting, check the magnet against its own promises, silently: the quick win is achievable
 in the stated time; the bridge reads as a natural next step, not a pitch; the voice matches
 `voice-profile#tone-spectrum` (read result-profile and bridge copy against it); interactive
 apps passed the QA walk; no fabricated statistics anywhere, and every number is the
-user's real number or clearly marked illustrative. Fix what fails, then present. If
-learnings.md holds relevant priors (a hook or format that performed), cite which ones
-shaped the build.
+user's real number or clearly marked illustrative. Fix what fails, then present only the
+passing magnet. If learnings.md holds a prior (a hook or format that performed) that
+changed the build, give it one line in the note; otherwise say nothing about it.
 
 ## Output
 
@@ -295,6 +300,7 @@ Files first, chat second.
   prompt.md          ← automated report magnets only: the full prompt and the Zap steps
   brief.md           ← goal, format, hook, audience, bridge, paid offer,
                        differentiation vs researched competitors, distribution plan
+  notes.md           ← working file: competitor evidence packs, ad hooks, URLs, QA results
 ```
 
 Magnet name: lowercase-kebab from the concept ("The Dallas Water Heater Price Check" →
@@ -302,9 +308,11 @@ Magnet name: lowercase-kebab from the concept ("The Dallas Water Heater Price Ch
 bridge_to, target_audience, consumption time, status, date. Append one line per asset to
 `./brand/assets.md`.
 
-Chat delivery per `start-here/references/output-format.md`: `## LEAD MAGNET BUILT` plus the date, a
-content summary (what's in it, the bridge in one line, and for apps how to deploy and
-where the ESP key goes), **Files saved** with (new)/(updated) markers, **What's next**.
+Chat delivery per `start-here/references/output-format.md`: `## LEAD MAGNET: {name}` plus
+one line of date and what it is for, a content summary (what's in it, the bridge in one
+line, and for apps how to deploy and where the ESP key goes), one short **Sources and
+assumptions** note (10 lines max, including any real numbers the owner still has to
+supply), **Files saved**, **What's next**. The QA walk stays in `notes.md`.
 
 ## What's next
 

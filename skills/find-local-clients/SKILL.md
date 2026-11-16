@@ -27,9 +27,9 @@ Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherw
 `python3 ${CLAUDE_SKILL_DIR}/../start-here/scripts/brand_context.py --for find-local-clients`
 (`${CLAUDE_SKILL_DIR}` is this skill's folder; outside Claude Code use the folder this file was read from, e.g. `.agents/skills/find-local-clients`. If the script or python3 is unavailable, read the brand folder directly: `./brands/<slug>/` when `./brands/active` names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files in `reads:`. If none exist, proceed standalone and ask only for the trade, the town, and, if they want, what they sell.)
 
-The brand files here are the agency's own. `positioning#chosen-angle` says what the agency sells, so problems it can fix rank above problems it can't. If `learnings.md` has `[find-local-clients]` or `[pitch-the-fix]` entries (which problems got replies), apply them and say which.
+The brand files here are the agency's own. `positioning#chosen-angle` says what the agency sells, so problems it can fix rank above problems it can't. If `learnings.md` has `[find-local-clients]` or `[pitch-the-fix]` entries (which problems got replies), apply them. One line in the note, and only if one changed a ranking or a pick.
 
-Prospect facts go in the campaign folder only. Never save a business, an owner or a score to the assistant's own memory or notes (prospect data stays in the workspace). Before any fan-out, run one WebSearch in the main thread. If it is denied, work only from a list the user provides and say so in the data label. Never build a business list from model knowledge; a list from memory is an invented list.
+Prospect facts go in the campaign folder only. Never save a business, an owner or a score to the assistant's own memory or notes (prospect data stays in the workspace). Before any fan-out, run one WebSearch in the main thread. If it is denied, work only from a list the user provides and say so in the note. Never build a business list from model knowledge; a list from memory is an invented list.
 
 ## Phase 1: Pick the cell
 
@@ -41,7 +41,7 @@ If the user hasn't picked a trade, apply three checks and recommend one:
 2. **Urgency.** Emergencies and seasons force a fast call, so a leak at the phone costs real money. Plumbing, HVAC, roofing after storms, garage doors, restoration, towing, locksmiths.
 3. **Owner-run.** Crews of about 3 to 30 with one decision maker. Franchise locations often can't touch their own site or ads; list them, but mark them `franchise` and keep them out of the top ten unless the user sells to franchisees.
 
-Write the cell to `./campaigns/prospects-{trade}-{town}/cell.md`: trade, town and its edges, the search phrases you'll use, and today's date.
+Write the cell to `./campaigns/prospects-{trade}-{town}/cell.md`: trade, town and its edges, the search phrases you'll use, and today's date. That file is also the working log: the searches run, sources skipped, and which fields were checked by hand for which businesses. It is saved, not pasted.
 
 ## Phase 2: Gather the businesses
 
@@ -106,13 +106,13 @@ Optional: boringfunnels (made by the author of this library, paid Pro with a fre
 
 ## Phase 6: The quality gate
 
-Before writing the list:
+Run these checks silently before writing the list. Fix what fails and show only the passing list:
 
 - **Re-check three rows** at random against their evidence. If one fails, re-check the whole shortlist for the same mistake.
 - **Every problem is re-checkable** by a stranger: a URL, a date, and what to look at. "Site feels dated" is not evidence.
 - **No invented money.** You can't see their call volume or revenue. A row never says "losing $X a month". The pitch does the math with the owner's own numbers.
 - **Inferences are labeled.** "Probably owner-operated (one name on every review reply)" is fine with the word "probably".
-- **The data label** goes once at the top: `Data: LIVE (n businesses, n hand-checked, sources)`, adding what was missing or budget-capped. A list built only from the user's own file says so.
+- **The note** closes the list, once, in plain words (see Output). A list built only from the user's own file says so.
 
 ## What this list can't tell you
 
@@ -124,7 +124,7 @@ Write `./campaigns/prospects-{trade}-{town}/ranked-list.md`, with `businesses.cs
 
 ```
 ## PROSPECT LIST: {Trade}, {Town}
-{date} · Data: LIVE (n sources; missing: ...) · cell: {n} businesses, {n} hand-checked
+{date} · for pitching {trade} in {town}
 
 **The town in three lines:** leaders' baseline (rating, reviews, pace) · the most common
 leak in town · how many tier A businesses have it
@@ -134,12 +134,15 @@ leak in town · how many tier A businesses have it
 
 **Parked:** {business: reason}
 **Tier C (not pitched):** {count, one line why}
-**Checked by hand:** {which fields, which businesses}
+
+**Sources and assumptions:** {10 lines at most, plain words: how many businesses were
+found and from which sources, how many were checked by hand and on what date, fields that
+could not be checked, anything built only from the user's own file, inferences to confirm}
 ```
 
 If Places API data appears in the file, add "Source: Google Maps" under the header. Keep the most common leak in town. It makes the opening line of a post, an article or a talk to the local trade group.
 
-Files first, then the chat summary (top five rows, the town's most common leak, the data label). Append one line to `./brand/assets.md` if a brand folder exists.
+Files first, then the chat summary (top five rows, the town's most common leak, the note). Line codes and point sums from `references/scoring.md` are working notes and stay out of the list. Append one line to `./brand/assets.md` if a brand folder exists.
 
 ## What's next
 

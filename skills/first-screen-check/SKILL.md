@@ -39,6 +39,10 @@ ad's text if the page is an ad's landing page.)
 Checking a prospect's site rather than the user's own? Don't load or write brand files
 for it. The report lands in `./campaigns/` and nothing else changes.
 
+No URL given, or only a placeholder (example.com, yourdomain.com)? Ask for the URL in one
+line. Never run the checks or the redirect and structured-data commands against a
+placeholder.
+
 ## What the data says
 
 From hundreds of local business sites checked on a phone in November 2026.
@@ -81,7 +85,8 @@ the hours, the services, the rating shown beside the listing.
 
 ## Phase 2: See the first screen on a phone
 
-Take the best path the agent has. Say in the report which one you used.
+Take the best path the agent has. The report says only whether it rests on a phone
+screenshot or on the page HTML.
 
 **A. A browser on the machine (best).** Playwright takes a phone-size screenshot from
 the command line. The first time on a machine, download its browser with
@@ -124,8 +129,9 @@ screen. Without python3, WebFetch the page and read the same things by hand.
 **Estimating the first screen from HTML.** It usually holds the header, the headline and
 somewhere between 20 and 70 words of copy, fewer when a big photo, video or offer banner
 sits above the headline. Anything the script places past about word 80 is usually below the
-first screen. Label the report `Data: HTML ONLY (first screen estimated)` and
-say that popups and JavaScript-built parts can't be seen this way.
+first screen. In Sources and assumptions, say once in plain words that the first screen is
+estimated from the page HTML and that popups and JavaScript-built parts can't be seen this
+way.
 
 Two traps that make a page look better or worse than it is:
 - **Call tracking swaps numbers.** The HTML can carry one number and the rendered page
@@ -211,7 +217,7 @@ with that reason in one sentence.
 
 Every item names what the customer sees (quote the page or point at the screenshot),
 why it costs calls in plain words, the fix (the actual words or element to add), and
-rough effort. No item rests on a guess: if you couldn't see it, say so.
+rough effort. No item rests on a guess: if you couldn't see it, say so in the note.
 
 ## Output
 
@@ -220,29 +226,40 @@ Write `./campaigns/<business-slug>-first-screen/first-screen-check.md`, plus
 line to `./brand/assets.md` when a brand folder exists (never for a prospect). Then the
 chat summary: header, the ranked list, **Files saved**, **What's next**.
 
-Write the report for the owner, in plain words, with the screenshot first.
-A sample, for the sample business Hartline Plumbing, Dallas TX (illustrative, not a
-real site):
+Write the report for the owner, in plain words, with the screenshot first. Length: the
+plan budget (about 1,200 to 2,500 words) is a ceiling, and five to seven items usually
+need far less. **Fix first** carries item 1 in full and the table holds the rest in order,
+so nothing is said twice. Sources and assumptions closes the report, 10 lines at most:
+what the report rests on (page, date, screenshot or HTML), what was not checked, and what
+the owner should confirm. A sample, for the sample business Hartline Plumbing, Dallas TX
+(illustrative, not a real site):
 
 ```markdown
 ## FIRST SCREEN CHECK: hartlineplumbing.com (sample)
-Nov 13, 2026 · page the ad opens: /emergency-plumber-dallas · 390px phone screenshot · Data: LIVE (rendered page + HTML)
+Nov 13, 2026 · the page the ad opens, /emergency-plumber-dallas, on a 390px phone
 
 ![First screen on a phone](first-screen.png)
 
-**Fix first:** put "24/7" and "same-day" in the headline. The ad promises both and the
-first screen says "Quality Plumbing Since 1998". Ten minutes of work on the page every
-paid click lands on.
+**Fix first:** put "24/7" and "same-day" in the headline. The ad says "24/7 Emergency
+Plumber, Same-Day" and the first screen says "Quality Plumbing Since 1998". A click that
+doesn't see what the ad promised goes back to Google, and the click is still paid for.
+New headline: "24/7 Emergency Plumber in Dallas. Same-Day Service." Ten minutes of work
+on the page every paid click lands on.
+
+**Then, in this order:**
 
 | # | What a customer sees | Why it costs calls | Fix | Effort |
 |---|---|---|---|---|
-| 1 | Ad: "24/7 Emergency Plumber, Same-Day". First screen: "Quality Plumbing Since 1998" | A click that doesn't see what the ad promised goes back to Google, and the click is still paid for | Headline: "24/7 Emergency Plumber in Dallas. Same-Day Service." | 10 min |
 | 2 | The number is in the header as plain text | A caller who can't tap it rings the next result | Make it a tap-to-call link and add a call bar that stays on scroll | 15 min |
 | 3 | 4.8 stars from 312 Google reviews, shown only in the footer | Their best proof never reaches the person choosing who to call | One line under the headline: "4.8 stars from 312 Google reviews" | 15 min |
 | 4 | A chat bubble covers the call button after 3 seconds | The first thing they see is something to close | Move the bubble left or delay it until scroll | 5 min |
 | 5 | The FAQ data says "$89-$149 per hour"; the owner quotes a flat price after seeing the job | A customer quoted differently feels baited, and AI answers can repeat the wrong price | Replace with the real pricing in words | 20 min |
 
-Not checked: booking flow past the first step (needs a test booking).
+**Sources and assumptions:**
+- Based on a phone-size screenshot and the rendered page taken Nov 13, 2026, and the ad
+  text the owner pasted.
+- Not checked: the booking flow past the first step (needs a test booking).
+- Confirm with the owner what they actually charge before changing the pricing text.
 ```
 
 ## What's next

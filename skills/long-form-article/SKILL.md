@@ -29,7 +29,7 @@ Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherw
 `python3 ${CLAUDE_SKILL_DIR}/../start-here/scripts/brand_context.py --for long-form-article`
 (`${CLAUDE_SKILL_DIR}` is this skill's folder; outside Claude Code use the folder this file was read from, e.g. `.agents/skills/long-form-article`. If the script or python3 is unavailable, read the brand folder directly: `./brands/<slug>/` when `./brands/active` names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files in `reads:`. If none exist, proceed standalone and ask only for the point, the reader and the platform.)
 
-`voice-profile` governs how it sounds; `positioning#chosen-angle` keeps the piece on the author's lane; `audience#pain-language` supplies the reader's own words for the title and the opening. Cite any `[long-form-article]` learnings you apply (which titles, sections or links performed).
+`voice-profile` governs how it sounds; `positioning#chosen-angle` keeps the piece on the author's lane; `audience#pain-language` supplies the reader's own words for the title and the opening. Apply any `[long-form-article]` learnings (which titles, sections or links performed). One that changed the piece gets one line in the Sources and assumptions note, only if it did.
 
 ## Modes
 
@@ -98,7 +98,7 @@ First drafts run long. One article was cut by almost half and got better. Cut se
 
 Run the mechanical scan first: `python3 ${CLAUDE_SKILL_DIR}/scripts/scan.py article.md`. It reports word count and read time, every dash, every leftover placeholder ([confirm], TODO, TK, $X), paragraphs with a number and no source in parentheses, paragraphs with more than one link, and the H2 list for the skim test. Fix what it finds.
 
-Then score six dimensions, 1 to 5:
+Then score six dimensions, 1 to 5, as a silent internal check. The author sees only the passing piece:
 
 | Dimension | 5 looks like |
 |---|---|
@@ -109,7 +109,7 @@ Then score six dimensions, 1 to 5:
 | Plain | Reads like one person explaining it; none of the tells in `references/writing-rules.md` |
 | Shape | A skimmer gets the whole argument from the H2s and the four-step list |
 
-Ship at 25 of 30 with nothing under 4. Below that, rewrite the weakest dimension and rescore, up to three passes, then present the best with its score history.
+Ship at 25 of 30 with nothing under 4. Below that, rewrite the weakest dimension and rescore, up to three passes. If a weakness survives the third pass, say what it is in one line in the Sources and assumptions note. No scores or score history are shown.
 
 **The fresh-eyes pass.** Give a second agent only the brief and the draft, and ask what a stranger would trip on, where a claim outruns its source, and which link or prompt overpromises. On one long article it returned more than a dozen fixes.
 
@@ -131,15 +131,18 @@ Load `references/platform-notes.md` for the platform's dated facts (who can publ
 
 ```
 ## LONG-FORM ARTICLE: {Title}
-{date} · {platform} · {n} words, ~{n} min read · gate {n}/30 · Data: LIVE ({n} sources)
+{date} · a {platform} article for {the reader}
 
 **The point:** {one sentence}
+**The piece:** {n} words, about {n} minutes to read, ready to paste.
 **For the author to confirm:** {every [confirm] line}
+
+**Sources and assumptions:** {10 lines at most}
 **Files saved:** ...
 **What's next:** ...
 ```
 
-Files first, then the chat summary. Append one line to `./brand/assets.md` if a brand folder exists.
+Files first, then the chat summary, which never pastes the article. The Sources and assumptions note says in plain words what the numbers rest on (government and study data, vendor data, the author's own counts, each with how many), what the author must confirm, and what is missing. The gap-aware receipt is at most 3 of those lines: what was checked at the source, what could not be, and the one input that would unlock the next step (for example "the three first-hand counts need your real numbers"). No score, no data tag, no tool names. Append one line to `./brand/assets.md` if a brand folder exists.
 
 ## What's next
 

@@ -17,7 +17,7 @@ metadata:
 
 # Pitch the Fix
 
-This skill turns one prospect into one email the owner answers. The email names ONE thing that is broken, shows the evidence from their own phone screen or their own ad, and offers one fix small enough to say yes to, with a way to show it worked. Done means the owner's name and a real address, an email under about 120 words that passes the rubric below, two follow-ups with dates, and the fix scoped well enough to deliver in days.
+This skill turns one prospect into one email the owner answers. The email names ONE thing that is broken, shows the evidence from their own phone screen or their own ad, and offers one fix small enough to say yes to, with a way to show it worked. Done means the owner's name and a real address, an email under about 120 words that passes the rubric below (checked silently), two follow-ups with dates, and the fix scoped well enough to deliver in days.
 
 Owners don't answer "AI automation", "digital marketing services" or an audit listing fourteen problems. They answer their own screen with one thing circled and a fix they can picture. The first email sells the first fix, never the retainer. This is a floor, not a ceiling. When the prospect in front of you argues for a better path, take it and say why in one line.
 
@@ -27,9 +27,9 @@ Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherw
 `python3 ${CLAUDE_SKILL_DIR}/../start-here/scripts/brand_context.py --for pitch-the-fix`
 (`${CLAUDE_SKILL_DIR}` is this skill's folder; outside Claude Code use the folder this file was read from, e.g. `.agents/skills/pitch-the-fix`. If the script or python3 is unavailable, read the brand folder directly: `./brands/<slug>/` when `./brands/active` names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files in `reads:`. If none exist, proceed standalone and ask only for the prospect, the sender's name and business, and a mailing address for the footer.)
 
-The brand files are the agency's own: `positioning#chosen-angle` says what it sells, and `voice-profile` is how the sender sounds. If `learnings.md` holds `[pitch-the-fix]` entries (which problems got replies, which subject lines), apply them and cite them.
+The brand files are the agency's own: `positioning#chosen-angle` says what it sells, and `voice-profile` is how the sender sounds. If `learnings.md` holds `[pitch-the-fix]` entries (which problems got replies, which subject lines), apply them. One line in the note, and only if one changed the email.
 
-If `./campaigns/prospects-*/ranked-list.md` exists, start from its row for this business: the one problem and its evidence are already there. Prospect and owner facts stay in the campaign folder, never in the assistant's own memory.
+If `./campaigns/prospects-*/ranked-list.md` exists, start from its row for this business: the one problem and its evidence are already there. Prospect and owner facts stay in the campaign folder, never in the assistant's own memory. If the business, domain or sender is a placeholder (a sample name, yourdomain.com, [Business Name]), name what is missing in one line, write the draft with bracketed fields, and run no lookup, DNS or deliverability check against the placeholder.
 
 ## Phase 1: Pick the one thing
 
@@ -68,7 +68,7 @@ Load `references/owner-lookup.md`. Sources in the order that usually works for a
 
 WebFetch reads the public pages on this list for free. We use Firecrawl for About and Team pages that build themselves with JavaScript, which a plain fetch can return empty (free tier of 1,000 credits a month, no card). Without it, the other sources on this list fill the gap.
 
-Label the result: **confirmed** (two sources agree), **likely** (one good source), or **guess**. Send to a guess only with "Hi there" and no name.
+Rate the result: **confirmed** (two sources agree), **likely** (one good source), or **guess**. Send to a guess only with "Hi there" and no name. The rating goes beside the name in the Owner and address line, in plain words.
 
 **The address.** Use one you found published (the site, a directory, the registry filing) or one a finder tool verified. Never send to a guessed pattern: bounces hurt the sending domain for every email after. If only a general inbox exists, send there with the owner's first name in the opening line; in a five-person shop the owner often reads it.
 
@@ -112,7 +112,7 @@ Sam Reyes, Reyes Web Co.
 If this isn't useful, reply "no" and I won't email again.
 ```
 
-**The quality gate.** Load `references/email-rubric.md` (two calibrated emails, a 3 and an 8) before the first score of a session. Score five dimensions 1 to 5: **specific** (their thing, their words), **evidence** (re-checkable), **one thing** (one problem, one fix), **proof** (how both of you will know), **plain** (no jargon, no "AI", under ~120 words, sounds like a person). Ship at 21 of 25 with nothing under 4. Below that, rewrite the weakest dimension and rescore, up to three times, then show the best with its score history.
+**The quality gate (silent).** Load `references/email-rubric.md` (two calibrated emails, a 6 and a 23) before the first score of a session. Score five dimensions 1 to 5: **specific** (their thing, their words), **evidence** (re-checkable), **one thing** (one problem, one fix), **proof** (how both of you will know), **plain** (no jargon, no "AI", under ~120 words, sounds like a person). Ship at 21 of 25 with nothing under 4. Below that, rewrite the weakest dimension and rescore, up to three times. Show only the email that passes, with no scores. If it still can't pass, show the best and name the weak spot in one line of the note.
 
 Honesty is pass or fail, not a score. These are hard rules:
 - **No fake personalization.** Never say you're a customer, that you drove by, that someone referred you, or that you know them. No AI video or voice pretending to be a personal visit. No fake "Re:" or "Fwd:".
@@ -146,22 +146,29 @@ Optional: boringfunnels (made by the author of this library, paid Pro with a fre
 
 ## Output
 
-Write `./campaigns/prospects-{trade}-{town}/pitches/{business-slug}.md` (or `./campaigns/pitches/{business-slug}.md` with no list):
+Write `./campaigns/prospects-{trade}-{town}/pitches/{business-slug}.md` (or `./campaigns/pitches/{business-slug}.md` with no list). Finished emails first, then what the user needs to send them:
 
 ```
 ## PITCH: {Business}, {Town}
-{date} · source row: {ranked-list.md #n | none} · owner: {name} ({confirmed|likely|guess})
+{date} · first email and two follow-ups for {Business}
 
-**The one thing:** {owner's words}
-**Evidence:** {screenshot file, ad text quoted, URLs, dates}
-**Owner and address:** {name, role, address, where each was found}
-**Email 1** (score {n}/25: specific n, evidence n, one thing n, proof n, plain n)
-**Follow-up, day 3 or 4** · **Follow-up, day 9 or 10**
+**Email 1:** {subject line and body}
+**Follow-up, day 3 or 4:** {body}
+**Follow-up, day 9 or 10:** {body}
+
 **The fix:** {scope, delivery date, price placeholder}
 **Proof plan:** {baseline, source, window}
+**Owner and address:** {name, role, confidence in plain words, address, where each was found}
+**Evidence to attach:** {screenshot file, ad text quoted, URLs, dates}
+**To fill in before sending:** {price, mailing address, anything missing}
+
+**Sources and assumptions:** {a few lines: what the one problem rests on, anything that could
+not be re-checked, what to confirm}
 ```
 
-Files first, then the chat summary: the subject line, the score, and what the user must fill in (price, address). Append one line to `./brand/assets.md` if a brand folder exists.
+Length: the three emails plus about 200 words of notes. Sending setup (a second domain, SPF, DKIM, DMARC) is one line of advice at most, and never an audit of a domain the user did not give.
+
+Files first, then the chat summary: the subject line, the first email, and what the user must fill in (price, address). Append one line to `./brand/assets.md` if a brand folder exists.
 
 ## What's next
 

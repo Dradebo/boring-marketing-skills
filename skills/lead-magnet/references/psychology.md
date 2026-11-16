@@ -279,4 +279,4 @@ Before launching, verify:
 - [ ] **Friction:** Is conversion as easy as possible?
 - [ ] **Peak-end:** Does it end memorably?
 
-Score each 1-5. Anything below 3 needs work before launch.
+Score each 1-5 silently. Anything below 3 needs work before launch. The client sees the fixed magnet, never the scores.

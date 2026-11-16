@@ -14,7 +14,7 @@ metadata:
 
 # Performance Review
 
-Generators make bets: a ★ Quick Pick, a priority-1 cluster, a recommended A/B. This skill checks the bets against real numbers, writes what held up into `./brand/learnings.md` as priors every generator must cite, and names the one bottleneck worth fixing next. Done means a diagnosis a skeptic would sign, priors a generator can apply without interpretation, and 3-5 next actions ranked by expected impact, never a wall of charts. The pipeline below is a floor, not a ceiling. Better judgment for the data in hand wins, stated in one line. The two hard rules below are not defaults.
+Generators make bets: a ★ Quick Pick, a priority-1 cluster, a recommended A/B. This skill checks the bets against real numbers, writes what held up into `./brand/learnings.md` as priors every generator reads and applies, and names the one bottleneck worth fixing next. Done means a diagnosis a skeptic would sign, priors a generator can apply without interpretation, and 3-5 next actions ranked by expected impact, never a wall of charts. The pipeline below is a floor, not a ceiling. Better judgment for the data in hand wins, stated in one line. The two hard rules below are not defaults.
 
 Two hard rules govern everything below:
 
@@ -62,11 +62,11 @@ Mixed or mangled exports (Excel re-saves, locale decimal commas, "1.2K" abbrevia
 
 ### 1b. Screenshots
 
-Read the image. Transcribe every legible metric into the normalized shape. Rules: transcribe, never interpolate (a partially obscured number is `UNVERIFIED`, not estimated); record the visible date range, and if none is visible, ask (REVIEW mode) or mark the period `unknown` (MONTHLY mode). Screenshots are the lowest-fidelity source; say so once in the data label.
+Read the image. Transcribe every legible metric into the normalized shape. Rules: transcribe, never interpolate (a partially obscured number is `UNVERIFIED`, not estimated); record the visible date range, and if none is visible, ask (REVIEW mode) or mark the period `unknown` (MONTHLY mode). Screenshots are the lowest-fidelity source; say so once, in plain words, in the Sources and assumptions note.
 
 ### 1c. Live API pulls (read-only, where keys exist)
 
-Pull only from sources whose keys are present; skip the rest silently and note coverage in the report. Default window: last 28 days plus the prior 28 for comparison (calendar month in MONTHLY mode). Widen or narrow it when the question in hand spans a different period.
+Pull only from sources whose keys are present; skip the rest silently and say the coverage once in the Sources and assumptions note. Default window: last 28 days plus the prior 28 for comparison (calendar month in MONTHLY mode). Widen or narrow it when the question in hand spans a different period.
 
 **GSC**: we use Google Search Console for query and page data. It is free with your Google account and adds your real queries, impressions and click-through rates. Without the API pull, paste its export (1a) and the review runs on that. The pull needs `GOOGLE_APPLICATION_CREDENTIALS` (a service account added as a user on the Search Console property, or your own login) + `GSC_SITE_URL`. The token must carry the Search Console read scope, so set up application-default credentials with `gcloud auth application-default login --scopes=https://www.googleapis.com/auth/webmasters.readonly,https://www.googleapis.com/auth/cloud-platform`, then get the token with `gcloud auth application-default print-access-token` (or google-auth). Send the header `x-goog-user-project: <your-project-id>` and URL-encode the site (for example `sc-domain%3Aexample.com`, or the encoded URL-prefix):
 
@@ -110,7 +110,8 @@ All calls above read reports. The two POST verbs are Google's query endpoints, w
 
 ### 1d. Normalize
 
-Everything lands in one shape, one row per entity × metric × period:
+Everything lands in one shape, one row per entity × metric × period. This is working data:
+save it to `./campaigns/performance/<YYYY-MM-DD>-notes.md`, never paste it.
 
 ```
 | source | period | entity | entity_match | metric | value | flag |
@@ -129,7 +130,7 @@ This is why the other skills enforce naming conventions: matching is mechanical,
 4. **Email subject** → the variant lists in `./campaigns/<sequence>/emails/*.md`.
 5. **Fuzzy fallback** → `assets.md` registry by name/date proximity.
 
-Unmatched rows stay in the analysis labeled `UNMATCHED`; never force a match. An unmatched rate above roughly a third means naming-convention drift. Flag it as its own finding ("ads launched without cell IDs can't feed the loop, so name round-2 assets from the matrix").
+Unmatched rows stay in the analysis labeled `UNMATCHED`; never force a match. An unmatched rate above roughly a third means naming-convention drift. Flag it as its own finding, in plain words ("some ads can't be traced back to the plan, so name round-2 ads from the matrix").
 
 ### 1f. The denominator: the business's own record
 
@@ -159,7 +160,7 @@ Period discipline: compare like windows only. When sources disagree on windows (
 
 ### 2a. Predicted vs actual
 
-Every ★ Quick Pick, priority rank, and recommended A/B a generator made is a falsifiable prediction. Collect them from the matched artifacts (the starred ad-matrix cell, keyword-plan cluster priorities, recommended subject tests in email files, scored copy variants) and score each: **confirmed** / **refuted** / **untestable** (no data reached it). Refuted predictions are the most valuable rows in the whole review: they become the priors that change the next generation run. Untestable predictions are a distribution problem, not a verdict, so say which ones never got traffic and why.
+Every ★ Quick Pick, priority rank, and recommended A/B a generator made is a falsifiable prediction. Collect them from the matched artifacts (the starred ad-matrix cell, keyword-plan cluster priorities, recommended subject tests in email files, scored copy variants) and judge each: **confirmed** / **refuted** / **untestable** (no data reached it). Refuted predictions are the most valuable rows in the whole review: they become the priors that change the next generation run. Untestable predictions are a distribution problem, not a verdict, so say in one line which ones never got traffic and why.
 
 ### 2b. Honest statistics for small samples
 
@@ -219,7 +220,7 @@ Write what the data proved to `./brand/learnings.md` (append-only: read it first
 
 ```markdown
 - [YYYY-MM-DD] [email-sequences] subject-pattern=question outperformed curiosity 2.3x (n=4 sends, source: kit-api)
-- [YYYY-MM-DD] [paid-ads] hook=contrarian (H3) beat proof (H2) ~2.1x on CPA, video only (n=214 clicks, source: meta-csv spring-launch)
+- [YYYY-MM-DD] [paid-ads] hook=contrarian beat proof ~2.1x on CPA, video only (n=214 clicks, source: meta-csv spring-launch)
 - [YYYY-MM-DD] [seo-content] comparison-format pages earn AI referrals; how-to pages don't (n=6 pages, source: ga4-api)
 ```
 
@@ -231,9 +232,11 @@ Write what the data proved to `./brand/learnings.md` (append-only: read it first
 - The same direction across 3+ independent instances (sends, posts, weeks), **or**
 - A refuted prediction, even directional. These always get recorded, marked `(directional)`.
 
-Never write a prior from model knowledge or from a single ambiguous send, and never write "channel X works" from platform conversions alone (2e). An empty review writes zero entries and says so.
+Never write a prior from model knowledge or from a single ambiguous send, and never write "channel X works" from platform conversions alone (2e). An empty review writes zero entries and says so in one line.
 
-**Compaction protocol.** This skill is the one that runs it. When learnings.md exceeds ~50 entries: promote durable, repeatedly-confirmed findings to a `## PRIORS` section at the top (one line each, with confirming dates); merge near-duplicates into the strongest entry (largest n, most recent); archive stale or superseded entries to `./brand/.history/learnings.<YYYY-MM-DD>.md`, moved and never deleted. Report the compaction in one line.
+Draft learnings other skills left under "Draft learnings" in a matched campaign's `notes.md` are candidates: they enter `learnings.md` only if they clear this bar. The entries themselves live in `learnings.md`; the report does not paste them, and Files saved shows the count.
+
+**Compaction protocol.** This skill is the one that runs it. When learnings.md exceeds ~50 entries: promote durable, repeatedly-confirmed findings to a `## PRIORS` section at the top (one line each, with confirming dates); merge near-duplicates into the strongest entry (largest n, most recent); archive stale or superseded entries to `./brand/.history/learnings.<YYYY-MM-DD>.md`, moved and never deleted. Note the compaction in the Files saved line for `learnings.md`.
 
 **Bookkeeping in the artifacts reviewed** (campaign files, not brand memory): write each ad cell's numbers into its `results` block in `ad-matrix.json` (spend, impressions, clicks, conversions, notes; schema: `${CLAUDE_SKILL_DIR}/../start-here/references/schemas/ad-matrix.schema.json`), and flip `assets.md` statuses the data proves (`draft`→`live` for anything with traffic, `live`→`retired` for anything killed).
 
@@ -244,13 +247,13 @@ Never write a prior from model knowledge or from a single ambiguous send, and ne
 3-5 next actions, ranked by **expected impact = size of the leak × confidence in the data × cheapness of the fix**. A medium win you're sure of outranks a big win read from 30 clicks. Each action names its evidence and its concrete skill invocation. The recommendation is finished when the user can run it without thinking:
 
 - "12 queries sitting at position 8-15 with real impressions, mapped to 3 pages → `/seo-content` refresh on those 3 (striking distance: the cheapest clicks in SEO)."
-- "Cell MA-H3-B beat the matrix on CPA ~2.1x → `/paid-ads` round 2 scaling the H3 hook into fresh creative before fatigue."
+- "The proof-hook video beat the other ads on CPA ~2.1x → `/paid-ads` round 2 scaling that hook into fresh creative before fatigue."
 - "Lead magnet page converts ~1.9% vs ~4.1% sitewide. That is a magnet-offer mismatch, not a traffic problem → `/lead-magnet` with the VoC objections that surfaced."
 - "AI referrals are ~3% of sessions but convert ~2x organic → `/ai-search` to find which queries cite you and widen the footprint."
 
 - "Performance Max is credited with most conversions, but answered calls per day didn't move when its budget was cut last month → `/ads-incrementality-check` with a planned 4-week pause before renewing it."
 
-(Cells, rates, and counts above are illustrative.)
+(Rates and counts above are illustrative.)
 
 The #1 recommendation must address the Phase 2d bottleneck. The rest are opportunistic wins from the same data. Anything the data can't support yet becomes a measurement recommendation instead ("variant B never got enough sends to call, so rerun the test before changing anything").
 
@@ -266,23 +269,24 @@ Called by the shipped monthly-review routine. **Zero questions, ever.** Every de
 4. **Write** `./campaigns/performance/<YYYY-MM>.md`:
 
 ```markdown
-## Performance review: <Month YYYY>
-Data: LIVE (<sources pulled>; <sources skipped, no key>) · vs <prior month>
+## PERFORMANCE REVIEW: <Month YYYY>
+<date> · the monthly read, vs <prior month>
 
 ### The bottleneck
 <one paragraph: the stage, the math, the classification>
 
-### Predicted vs actual
-<confirmed / refuted / untestable, one line each>
+### Recommended actions
+<ranked, each with evidence + /skill invocation>
 
 ### Channel notes
 <per channel with data: the 2-3 metrics that matter, direction vs last month>
 
-### Learnings written
-<the appended entries, verbatim, or "none cleared the bar">
+### Predicted vs actual
+<refuted first, then confirmed, one line each; the untestable ones in one line>
 
-### Recommended actions
-<ranked, each with evidence + /skill invocation>
+### Sources and assumptions
+<10 lines at most: what was pulled and what was skipped for lack of a key, in plain
+words; the data quality; what to confirm; a learning that changed the read, only if one did>
 ```
 
 5. Append one `assets.md` row for the report. A thin month produces a short report. Never pad.
@@ -291,7 +295,7 @@ Data: LIVE (<sources pulled>; <sources skipped, no key>) · vs <prior month>
 
 ## Output
 
-REVIEW mode follows the four-section contract (`${CLAUDE_SKILL_DIR}/../start-here/references/output-format.md`): deliverable header (`## PERFORMANCE REVIEW: <scope>` + date + data label naming every source and its form: `Data: LIVE (gsc-api, meta-csv pasted, screenshot)`); content (bottleneck first, then predicted-vs-actual, channel notes, learnings written, recommendations, with summaries in chat and the full table in the file); **Files saved**; **What's next**.
+REVIEW mode follows the four-section contract (`${CLAUDE_SKILL_DIR}/../start-here/references/output-format.md`): deliverable header (`## PERFORMANCE REVIEW: <scope>` plus one line of date and what the review is for); content (bottleneck first, then recommended actions, channel notes, predicted vs actual, and one Sources and assumptions note that names every source in plain words, such as "Search Console pulled live Nov 13, Meta export pasted, one screenshot, the lowest fidelity"); **Files saved**; **What's next**. Length: about 1,200 to 2,500 words in the file, shorter for a thin month. Chat carries the bottleneck, the actions and the note, with the full tables in the file. No normalized rows, script paths or pull commands in either.
 
 | Mode | Writes |
 |---|---|

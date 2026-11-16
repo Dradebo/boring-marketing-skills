@@ -286,5 +286,6 @@ prompt or switch family; mid-clip quality dip → shorter clips, stitch.
 `creative-output/videos/<product>/{drafts,production,premium,sequence,approved}/`,
 named `[style]-[model-shortname]-[ratio]-v[N].mp4`, manifest updated per clip with
 prompt/seed/cost/qa_score, one line per asset to `./brand/assets.md`. Delivery =
-standard contract, drafts presented pre-ranked, finals with QA critique. Route onward:
+standard contract, drafts presented pre-ranked with a one-line reason each, finals shown as
+passing with a flaw named only if one remains (scores and cost stay in the manifest). Route onward:
 needs a speaking human → talking-head mode; ad cells → ad-creative mode naming.

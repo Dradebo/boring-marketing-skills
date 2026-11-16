@@ -44,8 +44,9 @@ competitors as mining seeds. If `audience.md` or `voc.md` already exist (check `
 - **Refresh** ("refresh my audience research"): diff new mining against existing files.
   See Refresh mode.
 - **Interview fallback**: no URL, web access failing, or the user explicitly wants a fast
-  draft. See Interview fallback. Output is labeled `Data: MODEL KNOWLEDGE`. Never let it
-  masquerade as mined research.
+  draft. See Interview fallback. The audience.md header carries `Data: MODEL KNOWLEDGE`, and
+  the chat note says in plain words that this is a draft from category knowledge, not mined
+  research. Never let it masquerade as mined research.
 - **Quick Mode**: a narrow ask ("what do customers say about onboarding?", "mine pricing
   objections") gets a targeted mine of 2-3 sources on that theme only, appended to voc.md
   under the matching section. No source map ceremony, no full synthesis. Deliver, then
@@ -90,8 +91,9 @@ Rules that govern the map:
   no sub-agents. A miner that hits its cap returns its pack as-is, labelled
   `budget-capped`.
 
-Present the source map in one short table (source, type, why it's on the map), then move.
-Do not ask permission to mine unless access is ambiguous (private community, login wall).
+Keep the source map as working notes (source, type, why); it becomes Watering Holes in
+audience.md, not chat output. Do not ask permission to mine unless access is ambiguous
+(private community, login wall).
 
 ## Phase 2: Parallel mining
 
@@ -143,8 +145,9 @@ including them.
 **25 verbatim quotes across ≥3 source types is the bar for synthesis**. Reach it and
 stop mining. Only if the first wave came back thin (under 15) run one second wave on the
 two richest sources (competitor #2, "best alternative to X" threads). Still under 25?
-Synthesize anyway and label the confidence: `Data: LIVE (n quotes, below the 25 bar;
-segment claims are provisional)`.
+Synthesize anyway. Record the confidence in the voc.md header (`Data: LIVE (n quotes, below
+the 25 bar; segment claims are provisional)`) and say it once in plain words in the chat
+note.
 
 ## Phase 3: Synthesis
 
@@ -188,7 +191,7 @@ about a different product than they appear to be (common on Amazon variant listi
 
 ## Phase 4: Output
 
-Write files first, then summarize. If `audience.md` or `voc.md` exist, auto-version the
+Write files first, then summarize. Data lines and VOC IDs stay in the files, not chat. If `audience.md` or `voc.md` exist, auto-version the
 old copy to `./brand/.history/<file>.<YYYY-MM-DD>.md`, then write; show a 3-line summary
 of what changed. Update `brand.yaml` timestamps for both files.
 
@@ -231,11 +234,14 @@ Data: LIVE (...) · Updated: YYYY-MM-DD
 The `## Pain Language` heading is load-bearing. Other skills read
 `audience#pain-language` by anchor.
 
-Then deliver in chat per the output contract: `## AUDIENCE RESEARCH` header with date and
-data label; **the 5 most actionable findings** on one screen (lead pain + its phrase,
-dominant emotion, sharpest switching trigger, the headline-ready vocabulary, the biggest
-surprise), each with one verbatim quote; **Files saved** with paths and (new)/(updated)
-markers; **What's next**.
+Then deliver in chat per the output contract: `## AUDIENCE RESEARCH: {Brand}` with one line
+of date and what the research is for (no data label); **the 5 most actionable findings** on
+one screen (lead pain + its phrase, dominant emotion, sharpest switching trigger, the
+headline-ready vocabulary, the biggest surprise), each with one verbatim quote and where it
+was said ("Google review, Mar 2026"), never a VOC ID; one **Sources and assumptions** note
+in plain words (how many quotes from how many sources, read live on what date; any source
+skipped or budget-capped; segment claims that are provisional; what to confirm); **Files
+saved** with paths and (new)/(updated) markers; **What's next**.
 
 ## Refresh mode
 

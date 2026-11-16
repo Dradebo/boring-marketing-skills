@@ -45,8 +45,9 @@ names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files 
 `reads:`. If none exist, proceed standalone and ask only for: the campaign under suspicion, its monthly
 spend, what the platform credits it with, and a call log export covering at least 60 days.)
 
-If `learnings.md` holds an earlier pause result for this business, say how this test
-differs from it before planning.
+If `learnings.md` holds an earlier pause result for this business, plan around how this
+test differs from it. Mention it only if it changed the plan, as one line in the Sources
+and assumptions note.
 
 ## When to run it
 
@@ -110,6 +111,8 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/call_log.py pause-test calls.csv \
   --before 2026-03-02:2026-03-29 --during 2026-03-30:2026-04-26 \
   --after 2026-04-27:2026-05-24 --line "Main" --exclude staff-numbers.txt --utc-offset -6
 ```
+
+The columns it guessed and the numbers it excluded go in `notes.md`, never in the readout.
 
 Cleaning that changes the answer:
 
@@ -195,20 +198,27 @@ phone log.
 
 ## Output
 
-Write `./campaigns/<business-slug>/incrementality-<campaign-slug>-<YYYY-MM>.md`:
+Length: about 1,200 to 2,500 words. Write
+`./campaigns/<business-slug>/incrementality-<campaign-slug>-<YYYY-MM>.md`:
 
-1. `## INCREMENTALITY CHECK: <campaign>` with dates and a data label
-   (`Data: LIVE (call log export, GBP Performance, Google Ads UI)`).
-2. **Plan** (written before the pause): campaign, spend, the platform's claim per day,
+1. `## INCREMENTALITY CHECK: <campaign>` and one line: the dates and what the check is for.
+2. **Decision and recheck date,** first once a readout exists. Before the pause it reads
+   "Pause planned, waiting on the owner's yes."
+3. **Plan** (written before the pause): campaign, spend, the platform's claim per day,
    measures, windows, decision rule, owner's yes and date.
-3. **Change log** for the windows.
-4. **Readout:** the before, during and after table, normal swing, season adjustment if
-   available, verdict, cost per extra call when there is a drop.
-5. **Decision and recheck date.**
+4. **Change log** for the windows.
+5. **Readout:** the before, during and after table, normal swing, season adjustment if
+   available, verdict, cost per extra call when there is a drop, and the caveats that limit
+   the verdict.
+6. **Sources and assumptions:** one short note. The call log's date range and lines, the
+   platform report used for the claim, in plain words. No call log or campaign given
+   means one line saying what is missing and a plan only, with no verdict.
 
-Draft one learnings line for `/performance-review` in its format, for example
+Draft one learnings line for `/performance-review` in its format and save it under
+"Draft learnings" in `./campaigns/<business-slug>/notes.md`, for example
 `- [YYYY-MM-DD] [ads-incrementality-check] pmax=not incremental, answered-30s calls/day flat through a 4-week pause (n=28 days each side, source: call-log)`.
-Append one line to `./brand/assets.md`.
+Append one line to `./brand/assets.md`. No script paths, commands or column guesses in
+the readout.
 
 **What's next:**
 - `/google-ads-tracking`: make the actions that bid the ones that can be counted honestly,

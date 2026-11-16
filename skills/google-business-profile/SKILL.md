@@ -25,9 +25,9 @@ Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherw
 `python3 ${CLAUDE_SKILL_DIR}/../start-here/scripts/brand_context.py --for google-business-profile`
 (`${CLAUDE_SKILL_DIR}` is this skill's folder; outside Claude Code use the folder this file was read from, e.g. `.agents/skills/google-business-profile`. If the script or python3 is unavailable, read the brand folder directly: `./brands/<slug>/` when `./brands/active` names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files in `reads:`. If none exist, proceed standalone and ask only for what the task needs.)
 
-Load `references/gbp-facts.md` first and check its header. Google changes this product every month. If today is past last-verified plus ttl-days, refresh it as its header says and tell the user in one line before relying on it.
+Load `references/gbp-facts.md` first and check its header. Google changes this product every month. If today is past last-verified plus ttl-days, refresh it as its header says before relying on it. The refresh shows only if it changed a fix or a post.
 
-Ask once for what only the owner can see. With manager access or screenshots from the profile editor you get the secondary categories, the services list, the Performance report (calls, website clicks, direction requests, and the search terms that showed the profile), suggested edits and the Collected info tab. Without it, run the public-only audit and say which fields are unobserved.
+Ask once for what only the owner can see. With manager access or screenshots from the profile editor you get the secondary categories, the services list, the Performance report (calls, website clicks, direction requests, and the search terms that showed the profile), suggested edits and the Collected info tab. Without it, run the public-only audit and list the unobserved fields once, in the Sources and assumptions note. A missing profile link or business name is one line asking for it; never audit a placeholder.
 
 ## Phase 1. Set the search the way customers search
 
@@ -35,14 +35,14 @@ Ask once for what only the owner can see. With manager access or screenshots fro
 - **Main city** and **2-3 search points**: the city center, the area around the business's base, and one high-value suburb where they want more work. The map pack changes with the searcher's location, so the top 3 seen from the shop isn't what a customer eight miles away sees.
 - **Queries:** the service word alone, "[service] near me", and "[service] [city]".
 
-**Capturing the map pack, free path.** Web search tools rarely show the map pack, so get it one of these ways and say which:
+**Capturing the map pack, free path.** Web search tools rarely show the map pack, so get it one of these ways:
 1. The owner or agency searches on a phone at or near each point, in a private tab, and screenshots the top 3.
 2. A desktop browser with its location set to the point (in Chrome, DevTools, Sensors, Location). Google can still use the network location, so check the city shown at the bottom of the results.
 3. If the agent has a browser tool, it does option 2 itself.
 
 Optional paid path: map-pack grid trackers and local results APIs (several exist, priced per scan) check dozens of points at once. They show where the business drops out across the city, which three manual checks can't.
 
-Record query, point, date and device for each capture. Anything not captured is unobserved.
+Record query, point, date and device for each capture (they become the re-check line in the output). Anything not captured is unobserved.
 
 ## Phase 2. Read four profiles on the same fields
 
@@ -57,7 +57,7 @@ Load `references/audit-fields.md` for where each field lives and what good looks
 - the page the website button opens (homepage, service page or city page) and whether that page matches the service and city;
 - distance from the search point.
 
-Read competitors in parallel: one research subagent per competitor (Task tool, `general-purpose` when the plugin's research type is unavailable), each returning the fields above with sources and dates, within the research budget. Their websites are fetchable. Their profiles usually aren't, so fields read from the user's screenshots are labeled as such.
+Read competitors in parallel: one research subagent per competitor (Task tool, `general-purpose` when the plugin's research type is unavailable), each returning the fields above with sources and dates, within the research budget. Their websites are fetchable. Their profiles usually aren't, so fields read from the user's screenshots are noted once in Sources and assumptions.
 
 Secondary categories aren't shown on public profiles. Several free browser extensions reveal them for any profile. For the business itself, read them in the editor.
 
@@ -86,7 +86,7 @@ Google names three local ranking factors: relevance, distance and prominence, an
 
 **Distance** is named, never fought. If the business sits 12 miles from the city center, the center's map pack may be out of reach. Say so, focus the map pack work on the area near the base, and send the far towns to /local-seo-plan, because the website is how a business shows up far from its pin. Never suggest a second address the business doesn't staff.
 
-Each gap gets one line: what we found, what the top 3 have, the fix, the effort, and whether Google's own guidance backs it or it is practitioner experience. Ten gaps at most. A longer list is a checklist, not a plan.
+Each gap gets one line: what we found against the top 3 (a few words, the table holds the numbers), the fix, the effort, and in plain words whether Google's own guidance backs it or it is practitioner experience. Ten gaps at most. A longer list is a checklist, not a plan.
 
 A competitor breaking the rules (a keyword-stuffed name, a fake address) can be reported with "Suggest an edit" or Google's redressal form. Report facts, keep screenshots, and don't promise the client it will change anything.
 
@@ -103,20 +103,20 @@ Rules for every post: short (the length limit is in `references/gbp-facts.md`), 
 
 Photos come from the crew's phones, and the team's text threads are a fast source of real job photos. Screen every photo for faces, house numbers, plates and paperwork before upload.
 
-**Gate each post:** true (from a real job or a real offer), specific (names the problem and the place), one action, a real photo, policy-safe. Rewrite failures, two rounds at most. Posts are drafts. The owner publishes them, or schedules them with the profile's built-in scheduler, which is the free path. To post and schedule from one place, we use Zernio: one API and MCP for about 18 platforms, Google Business Profile among them, priced by plan (`ZERNIO_API_KEY`). Either way the owner approves the exact text first, and the agent publishes nothing itself.
+**Check each post silently:** true (from a real job or a real offer), specific (names the problem and the place), one action, a real photo, policy-safe. Rewrite failures, two rounds at most, and show only the passing posts. Posts are drafts. The owner publishes them, or schedules them with the profile's built-in scheduler, which is the free path. To post and schedule from one place, we use Zernio: one API and MCP for about 18 platforms, Google Business Profile among them, priced by plan (`ZERNIO_API_KEY`). Either way the owner approves the exact text first, and the agent publishes nothing itself.
 
 ## Output
 
-Write `./campaigns/google-business-profile/<YYYY-MM-DD>-audit.md`, written so the owner can read it:
+Write `./campaigns/google-business-profile/<YYYY-MM-DD>-audit.md`, written so the owner can read it. Length: plan budget, about 1,200 to 2,500 words, the four posts included.
 
-1. `## GOOGLE PROFILE AUDIT for <business>` with the date and the data label (for example `Data: LIVE (3 map pack captures, owner editor screenshots)`).
-2. The search setup: service, city, points, queries, date, device.
-3. The comparison table: the business and the top 3, one column each.
-4. Risks found in Phase 3.
-5. The ranked gap list (up to 10).
-6. Four weeks of posts, each with type, text, button, link and photo brief.
-7. Next month's re-check: same points, same queries, same fields.
-8. Owner to confirm: facts the posts or fixes depend on.
+1. `## GOOGLE PROFILE AUDIT for <business>`, then one line with the date and what the audit is for.
+2. The comparison table: the business and the top 3, one column each, only the fields that differ or move calls.
+3. Risks found in Phase 3.
+4. The ranked gap list (up to 10).
+5. Four weeks of posts, each with type, text, button, link and photo brief.
+6. Next month's re-check: the service, city, search points, queries and device used, so the same fields can be read the same way.
+7. Owner to confirm: facts the posts or fixes depend on.
+8. Sources and assumptions, 10 lines at most: what the audit rests on (captures and screenshots, with dates), fields not observed, and what is missing.
 
 Append one line to `./brand/assets.md`. In chat: the top 3 gaps, the risks found, **Files saved**, **What's next**.
 

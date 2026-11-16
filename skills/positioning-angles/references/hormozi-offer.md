@@ -63,6 +63,11 @@ missed deadlines, callbacks, churn in the first 90 days. A guarantee the busines
 keep becomes a bad review with the guarantee quoted in it. Stacking works when each
 guarantee answers a different fear; three or more reads like a gimmick on a small price.
 
+A guarantee the business doesn't offer today never goes in shipped copy, however well it
+answers the complaint. Write it under **To make this true** with the numbers to check and
+who signs off. The same holds for any offer piece (a bonus, a faster window, a feature)
+the business can't deliver yet.
+
 ## Naming the offer (MAGIC)
 
 Magnet (a reason to act now), Avatar (who it's for), Goal (the outcome), Interval (a

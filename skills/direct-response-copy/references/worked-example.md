@@ -43,14 +43,17 @@ Traffic: a Google ad that says "Same-Day Water Heater Replacement, Dallas".
 > Your installed price in writing before we touch anything. Call by noon, hot water
 > tonight.
 >
-> 4.9 from ____ Google reviews · Haul-away and permit included
+> 4.9 from 312 Google reviews · Haul-away and permit included
 >
 > Call now, a person answers →
 
 **What changed:** the headline repeats the ad's promise in the ad's words. The price fear gets
 a specific answer instead of another "upfront pricing" claim. "Family owned" and
 "quality workmanship" moved to a small trust strip, because every competitor says them.
-The button says what happens when you tap it.
+The button says what happens when you tap it. Every line is something the sample business
+already does: the ad promises same-day, the crew prices in writing before starting, and
+haul-away and permit are on its price sheet. In a real job, a line with no source in the
+brief, the site or the reviews comes out and goes on the To make this true list.
 
 ## Coach: an online running coach for runners over 40 (fictional)
 

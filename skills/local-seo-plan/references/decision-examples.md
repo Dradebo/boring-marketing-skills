@@ -14,7 +14,7 @@ Load before Phase 7 of /local-seo-plan. Hartline Plumbing, Dallas TX is a sample
 
 **5. Article.** Symptom and how-to demand ("water heater popping noise", "why is my water heater leaking from the bottom") where the business can explain the diagnosis safely, whether or not a specialist service page is justified.
 
-**6. Hold.** No operational proof; license, insurance, safety or disposal not resolved; the search intent belongs to another trade; or the page would be one more thin variant of an existing page. Every hold names what would unlock it.
+**6. Hold.** The business doesn't do the work; license, insurance, safety or disposal not resolved; the search intent belongs to another trade; or the page would be one more thin variant of an existing page. Missing data is not on this list: a town the business serves goes on the page list behind the publishing standard instead. Every hold is one line naming why and what would unlock it.
 
 ## Worked example
 
@@ -45,15 +45,32 @@ Load before Phase 7 of /local-seo-plan. Hartline Plumbing, Dallas TX is a sample
 3. **Slab leak, Dallas: improve the existing page.** It ranks #5 on a thin page. Add the job substance, a review, the reroute-only scope and a photo.
 4. **Slab leak, Garland: section.** Floor-tier volume and six jobs. A Garland mention inside the slab leak page and a line on the areas-we-serve page. Re-check if jobs or impressions grow.
 5. **Tankless installation: section on the water heater page, plus one job story.** About 12 jobs at proof grade 2 doesn't clear the subpage bar (three approved outcomes, photos, a distinct search intent). The best-documented install becomes a job story.
-6. **Plano: line on the areas-we-serve page only.** Two jobs, far from the map pin, no local proof. Unlock: five or more jobs and one review that names Plano.
+6. **Plano: town page in week 10, behind the publishing standard.** The trucks go there, but there are two jobs, the town is far from the map pin, and no review names it yet. If the standard isn't met in week 10, Plano stays a line on the areas-we-serve page and the slot goes to the next town.
 7. **Gas line repair: hold.** Paid records exist but the license confirmation is pending and there are no photos. Unlock: license confirmed in writing, three documented jobs, owner sign-off.
 8. **Sewer line replacement: hold.** The business subcontracts it. A page would claim work the crew doesn't do. Unlock: the business brings it in-house.
 9. **Brand pages (Rheem, A.O. Smith): hold.** Brand results are dominated by manufacturers and authorized dealers, and the ledger has no brand-specific outcomes. A job story naming the brand beats a thin brand page.
 
+## From decisions to the page list
+
+The decisions become the plan's page list, in build order, with dates for a plan written Monday, Nov 16 (week 1 starts that day). Holds stay one line each below it.
+
+| # | Page | Type | URL | Title tag | Week |
+|---|---|---|---|---|---|
+| 1 | Water heater repair and replacement, with a tankless section | New service page | /water-heater-repair/ | Water Heater Repair in Dallas, TX - Hartline Plumbing | 2 (Nov 23) |
+| 2 | Slab leak detection and repair, with a Garland section | Improve live page | /slab-leak-repair/ | Slab Leak Detection and Repair in Dallas - Hartline | 3 (Nov 30) |
+| 3 | A tankless install in Richardson | Job story | /jobs/tankless-install-richardson/ | Tankless Water Heater Install in Richardson, TX - Hartline | 4 (Dec 7) |
+| 4 | Garland | Town page, behind the standard | /service-areas/garland-tx/ | Plumber in Garland, TX - Hartline Plumbing | 5 (Dec 14) |
+| 5 | Areas we serve | Improve live page | /service-areas/ | Plumbing Service Areas Around Dallas - Hartline Plumbing | 5 (Dec 14) |
+| 6 | Why a water heater leaks from the bottom | Article | /blog/water-heater-leaking-from-bottom/ | Water Heater Leaking From the Bottom? What It Means | 7 (Dec 28) |
+| 7 | Plano | Town page, behind the standard | /service-areas/plano-tx/ | Plumber in Plano, TX - Hartline Plumbing | 10 (Jan 18) |
+
+Holds: gas line repair (license confirmation pending), sewer line replacement (subcontracted), brand pages (dealer results, no brand-specific jobs). Three lines, against seven pages built.
+
 ## Mistakes these examples avoid
 
 - Building a page for every service × town cell because the template makes it easy.
-- Building a page for Plano because Plano has the bigger population.
+- Publishing a Plano page early because Plano has the bigger population, instead of letting the standard decide when it goes live.
 - Adding Dallas, Dallas County and DFW volumes together to justify a page.
 - Reading a high CPC on "gas line repair" as a reason to build the page.
 - Treating the homepage ranking #9 for a service as "covered".
+- Holding every town page until job records arrive, when the publishing standard already decides which ones go live.

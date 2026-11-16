@@ -98,11 +98,12 @@ batch should not multiply the site's indexed page count by more than ~2-3×, and
 batches wait on indexing evidence (Phase 4). A 15-page site wanting 300 pages gets a
 phased plan measured in months, and you say so now, not after the build.
 
-**Verdict** (saved to `./campaigns/pseo-<slug>/validation.md`, with the data label
-`Data: LIVE (n sources)`, and a receipt: what the verdict rests on, the dates, how many
-modifiers were sampled and how, and, when the evidence is thin, one named gap with one
-offer to fill it, e.g. "unique facts were spot-checked for 3 rows only; want me to check
-10 more before we commit?"):
+**Verdict** (saved to `./campaigns/pseo-<slug>/validation.md`, with a short Sources and
+assumptions note at its foot: what the verdict rests on in plain words, the dates, how
+many modifiers were sampled and how. The gap-aware receipt is at most 3 lines of that
+note: what was checked, what could not be, and, when the evidence is thin, one named gap
+with one offer to fill it, e.g. "unique facts were spot-checked for 3 rows only; want me
+to check 10 more before we commit?". Never present model knowledge as live research):
 - **GO**: all four pass; record the approved modifier list and target page count.
 - **RESHAPE**: the pattern is right but the scope is wrong: narrow the modifier set to
   where unique data exists, or pivot to an adjacent archetype from the judgment file.
@@ -146,8 +147,8 @@ Add a `sources` column (URLs per row) and a `last_verified` date column. Phase 5
 future refreshes depend on both.
 
 **Output:** `./campaigns/pseo-<slug>/dataset.csv` (or `.json` for nested data), plus a
-one-paragraph data dictionary at the top of `validation.md`. Run a completeness check:
-report rows total, rows passing the ≥3-fact bar, and rows dropped.
+one-paragraph data dictionary at the top of `validation.md`. Run a completeness check and
+report one line: rows total, rows passing the ≥3-fact bar, and rows dropped.
 
 ## Phase 3: Template
 
@@ -214,8 +215,9 @@ Detect the target and actually generate. This skill ships pages, not specs.
   `./campaigns/pseo-<slug>/pages/<slug>.md` with frontmatter (title, meta description,
   schema JSON-LD block) ready to paste/import, plus an import note for their CMS.
 
-**Quality gate, template level.** After generating, sample 5 random pages
-(random, not the 5 best rows) and score each against the uniqueness bar:
+**Quality gate, template level.** After generating, silently sample 5 random pages
+(random, not the 5 best rows) and score each against the uniqueness bar. The per-page
+results go in `./campaigns/pseo-<slug>/notes.md`; the client sees only the passing library:
 - Page-7-vs-page-3 test passes (distinct facts a reader couldn't get elsewhere in the set)
 - ≥3 row-unique facts visibly rendered, boilerplate ≤50%
 - Answer-first block actually answers, names the entity, uses row data
@@ -225,7 +227,7 @@ Detect the target and actually generate. This skill ships pages, not specs.
 If ANY sampled page fails, the fix is the **template or the dataset, not that page**:
 hand-patching one sampled page leaves the same defect on the 295 you didn't sample.
 Fix, regenerate, resample. About 3 rounds is the practical ceiling; past that the dataset
-is too thin, so go back to Phase 2 or cut scope, and say so honestly.
+is too thin, so go back to Phase 2 or cut scope, and say so in one line in the note.
 
 **Ramp / publish guidance.** Publish in batches of 20-50 pages. Start with the hub plus
 the strongest-data batch. Before releasing the next batch: check GSC (or
@@ -259,13 +261,18 @@ Write the measurement plan into `validation.md` at ship time; execution belongs 
 
 Per the four-section contract (`start-here/references/output-format.md`):
 
-1. Header: `## PSEO LIBRARY: <pattern>` + date, verdict, data label.
-2. Content: verdict summary, dataset stats (rows kept/dropped, uniqueness coverage),
-   template decisions, quality-gate scores for the 5 sampled pages, batch plan.
+1. Header: `## PSEO LIBRARY: <pattern>` plus one line of date and what the library is
+   for. The verdict goes in the content, not the header.
+2. Content: verdict and why, dataset stats in one line (rows kept and dropped),
+   template decisions, the batch plan, then the Sources and assumptions note (10 lines
+   at most, gap-aware receipt at most 3 of them). No sample scores, data tags or tool
+   names. `validation.md` runs about 1,200 to 2,500 words; the dataset, template and
+   pages are their own files.
 3. **Files saved:**
    - `./campaigns/pseo-<slug>/validation.md`
    - `./campaigns/pseo-<slug>/dataset.csv`
    - `./campaigns/pseo-<slug>/template.md`
+   - `./campaigns/pseo-<slug>/notes.md` (sampled-page checks, evidence packs)
    - generated pages (repo paths or `./campaigns/pseo-<slug>/pages/`)
    - `./brand/assets.md` (1 entry appended)
 4. What's next (below).

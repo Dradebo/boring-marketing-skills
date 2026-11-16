@@ -32,7 +32,8 @@ task strictly requires.)
 The Segments and Desires & Buying Triggers sections are the read that matters.
 The job is knowing what this list cares about and how sophisticated it is. If
 `./campaigns/newsletters/` exists, list the last 3 editions (filenames + first heading + opening
-line); they feed subject dedup and the anti-template check in Phase 4.
+line, ignoring the `notes/` subfolder); they feed subject dedup and the anti-template check
+in Phase 4.
 
 ## Modes
 
@@ -91,7 +92,8 @@ Use them.
 pull the last 5-10 sends' stats: subject line, send date, recipients, opens, total clicks,
 and per-link clicks where the API exposes them. Endpoint shapes live in
 `references/newsletter-strategy.md` → "ESP API notes" (dated; refresh per its header). If the
-call fails, say so in one line and continue without it. Never block the edition on an API.
+call fails, say so in one line in the note and continue without it. Never block the edition
+on an API.
 
 How to read the numbers:
 
@@ -99,21 +101,23 @@ How to read the numbers:
   Rank past editions by CTR and clicks-per-link; never conclude anything from opens alone, and
   never recommend a subject-line test that's judged on opens.
 - **Per-link clicks tell you what the list actually wants.** If the tool links out-click the
-  essays 3:1, the curation is carrying the edition: weight the draft accordingly and say so.
+  essays 3:1, the curation is carrying the edition: weight the draft accordingly (one line in
+the note).
 - **Subject-line dedup:** collect the last 10-20 subjects (API history plus
   `./campaigns/newsletters/` metadata). No new variant may reuse a prior subject's structure
   AND topic. Same formula on a new topic is fine; same formula on an adjacent topic two sends
   running is not.
 
-**Priors:** if `learnings.md` has newsletter entries, apply them and cite them in the
-deliverable ("Applied: curated editions outperformed essays 1.6x on clicks, May data"). If this
-pull surfaces a pattern stable across 3+ sends, present it in learnings format,
+**Priors:** if `learnings.md` has newsletter entries, apply them. When one changed the
+draft, give it a single line in the note ("Curated editions outperformed essays 1.6x on
+clicks in May, so the links lead"); otherwise say nothing about it. If this pull surfaces a
+pattern stable across 3+ sends, hand it over in learnings format in the note,
 `- [date] [newsletter] deep-dive editions outperform roundups ~1.8x on clicks (n=6 sends,
 source: beehiiv-api)`, and route it to `/performance-review`, which owns writing learnings.
 This skill reads the file; it never appends to it.
 
-**No keys:** skim past edition files for topics and opening moves (anti-repeat), note that
-performance priors are unavailable, and move on. No ceremony.
+**No keys:** skim past edition files for topics and opening moves (anti-repeat), mention in
+the note that performance priors are unavailable, and move on. No ceremony.
 
 ## Phase 3. Sourcing (curated-links, news-briefing, roundup)
 
@@ -126,7 +130,8 @@ edition's topic) using the Task/Agent tool. WebSearch and WebFetch do this for f
 Exa to find sources a keyword search misses (free tier, then pay as you go) and Firecrawl to
 read each page as clean text (free tier of 1,000 credits a month, no card). Without them,
 WebSearch and WebFetch read what they can reach. Each subagent fetches actual pages and
-returns an evidence pack, not prose:
+returns an evidence pack, not prose. Save the packs to
+`./campaigns/newsletters/notes/{YYYY-MM-DD}-{topic-slug}.md`, never into the chat:
 
 ```yaml
 - headline: <as published>
@@ -138,9 +143,10 @@ returns an evidence pack, not prose:
   everyone_has_it: <true if every newsletter in the niche will cover it>
 ```
 
-Search with "current year" / "this week" phrasing, never a hardcoded year string. Label the
-deliverable `Data: LIVE (n sources)`; if web access is down, say `Data: MODEL KNOWLEDGE` and
-ask before shipping a sourced format on stale knowledge.
+Search with "current year" / "this week" phrasing, never a hardcoded year string. Say what the
+edition rests on once, in the note ("Based on 9 pages read live on Nov 13"). If web access is
+down, say the sourced items come from model knowledge and ask before shipping a sourced format
+on stale knowledge.
 
 Selection judgment. This is where a curator earns subscribers:
 
@@ -193,7 +199,7 @@ Craft rules worth stating once:
 
 ## Phase 5. Quality gate
 
-Score the draft 1-10 on five dimensions before presenting:
+Score the draft 1-10 on five dimensions before presenting, silently:
 
 1. **Open:** does the best subject variant earn an open from a busy subscriber?
 2. **Hook:** do the first two sentences make stopping feel costly?
@@ -203,10 +209,10 @@ Score the draft 1-10 on five dimensions before presenting:
    written them? If yes, the voice failed even if the prose is clean.
 
 Any dimension below 7: rewrite that dimension's material (not the whole draft) and rescore.
-~3 iterations is the practical ceiling; past that the material is the constraint, so say so.
-Always present the real score history, honestly. Before final, the default move is to cut
-~20%, because drafts run long and the cuts come from the middle of sections, not the ends. Cite which
-learnings priors shaped the draft.
+~3 iterations is the practical ceiling; past that the material is the constraint, so say so in
+one line in the note. The client sees the passing edition, never the scores or their history
+(keep the history in the notes file). Before final, the default move is to cut ~20%, because
+drafts run long and the cuts come from the middle of sections, not the ends.
 
 ## Output
 
@@ -216,7 +222,6 @@ Write the file first: `./campaigns/newsletters/{YYYY-MM-DD}-{topic-slug}.md`
 # {Title}
 - archetype: {name} · date: {YYYY-MM-DD} · read time: ~{X} min
 - subject: "{chosen}" · variants: "{v2}" / "{v3}" · preheader: "{text}"
-- data: LIVE (n sources) | MODEL KNOWLEDGE · priors applied: {list or none}
 
 {full edition body}
 
@@ -227,12 +232,15 @@ Write the file first: `./campaigns/newsletters/{YYYY-MM-DD}-{topic-slug}.md`
 ```
 
 Append one line to `./brand/assets.md`. Then deliver in chat per `start-here/references/output-format.md`:
-`## NEWSLETTER EDITION` + date, subject variants with one-line reasoning, the edition body,
-the send checklist below, **Files saved**, **What's next**.
+`## NEWSLETTER EDITION: {topic}` + one line of date and what it is for, subject variants with
+one-line reasoning, the edition body, one short **Sources and assumptions** note (10 lines
+max: what the edition rests on in a sentence, what to confirm, what is missing), **Files
+saved**, **What's next**.
 
-**Send checklist (verify, don't recite):** subject/preheader pair reads as one thought ·
-every link fetched and live · one CTA · sender is a person's name · mobile paragraph lengths ·
-one-click unsubscribe compliant (full preflight: `/email-sequences`) · A/B judged on clicks.
+**Send checklist (run silently, show only a failure you could not fix):** subject/preheader
+pair reads as one thought · every link fetched and live · one CTA · sender is a person's name
+· mobile paragraph lengths · one-click unsubscribe compliant (full preflight:
+`/email-sequences`) · A/B judged on clicks.
 
 ## What's next
 

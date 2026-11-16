@@ -17,7 +17,7 @@ metadata:
 One engine for every visual asset a brand ships. The judgment: match motion and style
 to positioning, spend pennies finding direction before spending dollars on finals, and
 never present an asset you haven't looked at yourself. Done = downloaded files,
-QA-scored, brand-consistent, named so downstream skills can find them. This is the
+QA-checked, brand-consistent, named so downstream skills can find them. This is the
 floor, not the ceiling. When the situation argues for a better path, take it and say why.
 
 ## Context
@@ -28,7 +28,8 @@ Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherw
 section-anchored where specified. If none exist, proceed standalone. Ask only for
 what the task strictly requires.)
 
-If learnings.md holds creative priors (hook formats, style winners), cite those you apply.
+If learnings.md holds creative priors (hook formats, style winners), apply them. Mention one
+only when it changed the work, as a single line in the note.
 
 ## Setup: 30 seconds, once
 
@@ -127,8 +128,8 @@ SPEECH
 └─ animate a still photo into a speaker → digital-human
 ```
 
-Don't ask the user which model to use. Pick the role; tell them what ran and what it
-cost in the delivery summary.
+Don't ask the user which model to use. Pick the role. Model names, seeds and per-asset
+cost go in the manifest; the chat shows one line of total spend in the note.
 
 ## The tier pipeline (default for all video)
 
@@ -162,17 +163,19 @@ You look at everything before the user does. No raw URL dumps.
 1. **Download immediately** (URLs die in 1 hour; api-workflow.md §1).
 2. **Look:** `Read` the image; for video extract first/mid/last frames via ffmpeg
    (mechanics in api-workflow.md §2; thumbnail fallback if ffmpeg is absent).
-3. **Score 1-10** against a rubric assembled from: the brand kit's palette/mood/
+3. **Score 1-10, silently,** against a rubric assembled from: the brand kit's palette/mood/
    avoid-list, the anti-slop checklist (VISUAL_INTELLIGENCE.md Part 4), and the
    request's own spec (ratio, text space, focal point, platform).
 4. **Below 7:** name the failure, fix THAT in the prompt, regenerate. About 2 retries is
    the practical ceiling; past that the prompt frame or model family is the constraint,
-   so present the best attempt with an honest score history instead of burning budget.
-5. **Present** the best asset WITH the critique: score, one strength, one residual
-   weakness. Multi-model comparisons arrive pre-ranked with stated reasons.
+   so present the best attempt with its flaw named instead of burning budget.
+5. **Present** the asset that passes: what it is and where it fits, in a line. Name a
+   residual flaw (a label warp at 3s) in one line only if one remains. Multi-model
+   comparisons arrive pre-ranked with a reason per option, no scores or model names.
 
-A 6 honestly labeled beats an unexamined 8. The QA notes per asset go in the manifest
-(`qa_score`) so /performance-review can later correlate scores with results.
+An asset that stays below 7 is shown with its flaw named, never passed off as clean. Scores
+go in the manifest (`qa_score`) so /performance-review can later correlate them with
+results; the client does not see them.
 
 ## Brand kit: `./brand/creative-kit.md`
 
@@ -216,18 +219,23 @@ failed batch resumes from the manifest. Skip `done`, retry `failed` once, run
 
 Files-first, per the api-workflow.md conventions: assets under `creative-output/…`
 (or the campaign's own tree), versioned names, ad assets named by matrix cell ID,
-one line per asset appended to `./brand/assets.md`.
+one line per asset appended to `./brand/assets.md`. Model, prompt, seed, cost and QA
+score per asset live in the manifest, not in chat.
 
 Delivery summary follows the standard contract:
 
-1. `## <DELIVERABLE>` + date/context line
-2. The assets, each with its path, what it is, QA score + one-line critique, model that
-   ran (named once here, from the registry) and actual cost
-3. `**Files saved:**` exact paths with (new)/(updated)
-4. `**What's next:**` (below)
+1. `## <DELIVERABLE>` + one line of date and what the work is for
+2. The assets, finished pieces first, each with its path, what it is, where it fits, and
+   a one-line flaw only if one remains
+3. One short **Sources and assumptions** note (10 lines max): total spend in one line,
+   what the work rested on (the kit, or a site read to build one), what to confirm, and
+   what was not made (prompt-only mode, no ffmpeg so thumbnails only)
+4. `**Files saved:**` exact paths with (new)/(updated)
+5. `**What's next:**` (below)
 
-If a creative brief came from another skill, return the `creative_delivery` block
-(api-workflow.md §5) pointing at the manifest.
+Ad sets: the ads plus a short test plan. If a creative brief came from another skill,
+hand the `creative_delivery` block (api-workflow.md §5) to that skill; never show it in
+the client-facing text.
 
 ## What's next
 

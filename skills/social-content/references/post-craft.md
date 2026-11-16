@@ -1,8 +1,8 @@
-# Post craft: the six rules with examples, and the tells
+# Post craft: the seven rules with examples, and the tells
 
 Load before the first draft of a session and before the first SCORE pass. Every example below is invented for this file. The examples rotate across three kinds of users: a SaaS founder, a creator or agency owner, and a local business.
 
-## The six rules
+## The seven rules
 
 ### 1. One finished post per request
 
@@ -18,7 +18,7 @@ Ask "what would someone come back to this post for?" before writing a word.
 - **SaaS.** A founder changed pricing. The opinion version argues why usage pricing is fair. The save version shows the old and new pricing page side by side and the exact email sent to customers, which other founders will copy.
 - **Creator.** A video editor has a take on hooks. The save version is the three opening lines that held viewers past ten seconds on their last twenty videos, with the retention graph.
 
-If the source has no usable part, go back to it or ask the user for one. Don't draft the opinion and hope.
+If the source has no usable part, build one from facts you already have: their process as numbered steps, a real price explained, the question customers ask most. Ask the user only when there is truly nothing. Don't draft the opinion and hope.
 
 ### 3. The reader's tool before your receipts
 
@@ -55,6 +55,22 @@ The screenshot is the receipt. It also makes rule 6 easy, because the reader can
 - The changelog says "beta, rolling out". The post doesn't say "now available to everyone".
 
 Check every verb, superlative and number against the source before delivering.
+
+### 7. Finished means ready to publish today
+
+A marketing agency asks for five launch posts. The weak delivery: three posts, plus two
+"templates" full of `[INSERT CLIENT RESULT]` and a note to spend 45 minutes researching
+competitors before filling them in. The user can't post those, so they were never posts.
+
+The strong delivery: five posts written from what the brief already holds (the services,
+the price, how the work gets done, a question prospects always ask), each publishable as
+is. One of them carries a single inline flag, `[verify: the 3-day turnaround is still
+true]`, and reads fine if the number changes.
+
+- At most one verify flag per post, and zero is better.
+- No blanks, no "insert X here", no research homework before a post can go out.
+- No scores, archetype labels or rubric notes in the delivery. One line at the end can
+  say what the posts are built from.
 
 ## The tells
 

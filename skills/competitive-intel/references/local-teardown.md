@@ -7,6 +7,9 @@ judgment for reading local rivals. `teardown-judgment.md` still applies to Phase
 
 ## Evidence pack (one per rival)
 
+Working data: saved to the evidence file, never pasted into chat. The chat shows the
+scoreboard and the gaps.
+
 ```markdown
 ## <Rival> (<domain>): local evidence pack, <date>
 **Map:** position <n> for "<search>" from <place> | <rating> stars, <total> reviews | ~<n> new in ~90 days | newest: <relative date> | replies: <n>/20 | category: <primary> | hours: <as claimed> [source: phone screenshot / browser / pasted]

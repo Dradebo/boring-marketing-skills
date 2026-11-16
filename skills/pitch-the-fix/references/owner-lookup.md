@@ -32,7 +32,7 @@ Free path, in order:
 
 1. Published on the site: the contact page, the footer, the privacy policy, a PDF form, the careers page.
 2. Published elsewhere: directory listings, the registry filing, a press release, a trade association listing.
-3. `dig MX {domain}` tells you whether the domain receives email at all and who hosts it. It does not tell you whether a person's mailbox exists.
+3. `dig MX {domain}` tells you whether the domain receives email at all and who hosts it. It does not tell you whether a person's mailbox exists. Run it only for a real domain the user gave, never a placeholder, and report it in one line at most.
 
 Paid options, when the free path runs out: Hunter, Apollo, Snov.io and Clay all find and verify work emails, priced by credits or a monthly plan, most with a small free allowance. They differ in coverage for very small businesses, so test one on ten known owners before buying a plan.
 

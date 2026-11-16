@@ -4,7 +4,8 @@ last-verified: 2026-11-13 · ttl-days: 90 · refresh: WebFetch support.google.co
 
 **Load this when** writing asks or replies, or when an owner asks "is this allowed?".
 Quotes are Google's and the FTC's own wording as of the date above. When in doubt, the
-current Google page wins over this file; say which you used.
+current Google page wins over this file; when they differ, use the page and give the
+difference one line in the plan's Sources and assumptions note.
 
 ## Google: what's not allowed
 

@@ -1,6 +1,6 @@
 ---
 name: local-seo-plan
-description: Decides which services and towns a local business should build pages for, which get a section on an existing page or a job story, and which to hold, by weighing search demand against proof that the business actually does that work in that place. Use when a plumber, roofer, HVAC company, dentist or any service-area business asks what pages to build, whether to make city pages, or why it isn't showing up in nearby towns.
+description: Builds a decided 90-day local SEO plan. Weighs search demand against proof that the business does the work in each place, then delivers the one fix-first move, the complete ordered page list (URL, title tag, target week), a field-by-field Google profile checklist and a dated week-by-week calendar, with town pages gated behind a publishing standard. Use when a plumber, roofer, HVAC company, dentist or any service-area business asks what pages to build, whether to make city pages, what to fix on its Google profile first, or why it isn't showing up in nearby towns.
 when_to_use: local seo plan, which city pages should I build, should I make a page for every town, what services need their own page, local SEO strategy, plan local pages for a client, not showing up on Google in nearby towns, which towns should we target, service area plan, local search plan for my business
 argument-hint: "[business name or site] [main service] [main city]"
 metadata:
@@ -19,7 +19,7 @@ metadata:
 
 # Local SEO Plan
 
-A local SEO plan answers one business question: which services and towns deserve a page, which deserve a section or a job story, and which have to wait. Search demand finds the opportunities. Proof that the business does the work, in that place, authorizes the claim. Done means a decision for every service and town worth checking, each tied to its evidence, with every hold named and what would unlock it. The method below is a floor. When the business in front of you argues for a better path, take it and say why in one line.
+A local SEO plan answers one business question: which services and towns get a page, what to fix on the Google profile, and what to do first. Search demand finds the opportunities. Proof that the business does the work, in that place, authorizes the claim. Done means the one fix-first move, the complete ordered page list (URL, title tag, target week), a field-by-field Google profile checklist and a dated week-by-week 90-day calendar, each decision tied to its evidence. Holds are rare and one line each. The method below is a floor. When the business in front of you argues for a better path, take it and say why in one line.
 
 ## Context
 
@@ -32,7 +32,7 @@ Ask once, in one message, for what you can't get from the web:
 - where the trucks or staff actually go (base location and the towns they serve);
 - whatever they can export: Search Console (Performance, last 16 months), Google Business Profile performance, job records or invoices from their job software (CSV), reviews, and a call log.
 
-Don't block on exports. With none, run the web-only path and label the plan `Data: LIVE (web only, no first-party data)`. With exports, the plan gets much better, and the label says which ones.
+Don't block on exports. With none, run the web-only path and label the plan `Data: LIVE (web only, no first-party data)`. The plan still decides every page: from the services and towns the owner named, the site, the reviews and the map, with town pages gated behind the publishing standard (Phase 7) instead of held. With exports, the plan gets much better, and the label says which ones.
 
 Load `references/reading-local-data.md` before interpreting any number. Load `references/decision-examples.md` before Phase 7.
 
@@ -52,7 +52,7 @@ The last line matters most. Anything on it stays off every page until the owner 
 
 ## Phase 2. Inventory the evidence and its limits
 
-Each source answers a different question and lies in a different way. Record the date range and coverage of every source you use. Those watermarks go in the plan, so a reader can tell a 16-month export from a 3-month one.
+Each source answers a different question and lies in a different way. Record the date range and coverage of every source you use. Those watermarks go in evidence.md, and the plan's "Built from" note names each source with its date range, so a reader can tell a 16-month export from a 3-month one.
 
 | Source | Question it answers | How it misleads |
 |---|---|---|
@@ -71,7 +71,7 @@ A call log is evidence only at the coverage it has. In one audit, a call log hel
 
 ## Phase 3. Establish operational truth first
 
-Build the capability ledger before any keyword work. One row per service (and per asset type where the trade has them):
+Build the capability ledger before any keyword work. It's working evidence: it lives in `./campaigns/local-seo/evidence.md`, never in the plan, which carries one "rests on" line per page instead. Without job records, fill it from what the owner said, the site and the reviews, and mark those rows owner-stated. One row per service (and per asset type where the trade has them):
 
 | Field | What goes in it |
 |---|---|
@@ -157,28 +157,51 @@ Load `references/decision-examples.md`. The reason a cell is lost picks the fix:
 | A page exists but is thin, or mixes two intents | Improve the existing page |
 | Page is fine and ranks organically, but the map pack is lost | Not a page problem. Route to /google-business-profile and /reviews |
 | Demand in a town, real jobs there, real local proof | Town page, written with /service-area-pages |
-| Demand in a town, no proof there yet | A line on the areas-we-serve page. A job story first, a town page later |
+| Demand in a town the business serves, little proof there yet | Town page on the list with a target week, published only when it meets the standard below; until then a line on the areas-we-serve page |
 | One standout job (asset, problem, town and outcome all documented) | Job story |
 | Symptom or how-to demand, service not proven | Article |
 | AI assistants name competitors for the service in that city | Route to /ai-search |
-| No proof, unsafe or unlicensed, another trade's intent, or one more thin variant | Hold, with what would unlock it |
+| Work the business doesn't do, unsafe or unlicensed work, another trade's intent, or one more thin variant | Hold, one line: why, and what would unlock it |
 
-**Proof threshold before splitting a parent page** into type, brand or town pages. Default bar: at least 3 approved outcome examples, real cleared photos, scope confirmed (tools, license, parts), owner sign-off, measurable demand from Search Console or calls, a search intent whose results differ from the parent's, and enough unique substance to avoid a doorway page. Never multiply brand × type × town.
+**Proof threshold before splitting a parent page** into type or brand pages (town pages use the publishing standard below). Default bar: at least 3 approved outcome examples, real cleared photos, scope confirmed (tools, license, parts), owner sign-off, measurable demand from Search Console or calls, a search intent whose results differ from the parent's, and enough unique substance to avoid a doorway page. Never multiply brand × type × town.
 
-Holding is the senior move when the proof isn't there. A home service business held a page for a related trade with thousands of monthly searches because no one on the crew did that work.
-The same process can turn a list of attractive service categories into one new parent page, one job story, a couple of improvements to existing pages and several holds.
+**The town page publishing standard.** A town page goes on the list with a URL, a title tag and a target week. In that week it publishes only if it has all four:
+1. the business works there regularly (jobs in the records, or the owner's word in writing);
+2. at least one local detail that changes the work (the age of the housing, hard water, clay soil, the permit office, HOA rules);
+3. one piece of proof from that town: a review that names it, a cleared job photo, or a job story;
+4. a first screen a reader could tell apart from every sibling town page.
 
-## Phase 8. Turn the decisions into this month's moves
+A page that misses the standard that week becomes a line on the areas-we-serve page, and its slot goes to the next town on the list. That's a decision with a date, not a hold.
 
-A plan of fifteen decisions doesn't ship. A **move** is one outcome (say, "rank top 3 for water heater repair near me in Garland") holding the steps that get it there, each with an owner. Default: 3 to 5 moves a month, capped by the owner's time (plan on about two hours of owner approvals a month unless they say otherwise) and the doer's capacity, not by how many cells are red. Order:
+**Decide, don't defer.** Every service and town the owner named gets a decision. A hold is right for work the business doesn't do or can't do safely and legally: a home service business held a page for a related trade with thousands of monthly searches because no one on the crew did that work. Missing data is never a reason to hold; decide from what you have and let the publishing standard catch what isn't ready. Each hold is one line (what, why, what unlocks it), and holds are never the bulk of the plan. The same process can turn a list of attractive service categories into one new parent page, one job story, a couple of improvements to existing pages and a few holds.
 
-1. **Foundations.** Profile categories and services matched to the real services, with prices where the owner publishes them; the same name, phone and hours on the top listings; wrong facts in AI answers fixed at their source; the backlog of unanswered reviews.
-2. **Money cells.** Cells where the business already sits at map pack position 4 to 10 for an urgent or planned service. They're closest to paying.
-3. **AI picks.** Getting onto the "best of" lists the answers cite, and a plain facts block on the about page.
-4. **Proof-backed pages.** The service, town and job-story pages Phase 7 approved, strongest proof first.
-5. **Habits.** A compliant review-request routine and weekly profile posts.
+## Phase 8. The page list, the profile checklist and the 90-day calendar
 
-Every move names its target and ends in a check someone can read (a position from the same town, a named-in-the-answer state, a listing that's live). Guardrails: no page for a place the business doesn't serve, and no move without a target. Each month, refresh the map at the depth agreed, report move by move, and pick the next moves from what changed.
+These three are the plan. Write all three in full every time; a plan that leaves page decisions for later hasn't done the job.
+
+**The page list.** Every page the plan builds or improves, in build order, one row each (the sample plumber, plan dated Monday, Nov 16; the full list is in `references/decision-examples.md`):
+
+| # | Page | Type | URL | Title tag | Week | Rests on |
+|---|---|---|---|---|---|---|
+| 1 | Water heater repair and replacement | New service page | /water-heater-repair/ | Water Heater Repair in Dallas, TX - Hartline Plumbing | 2 (Nov 23) | ~140 jobs, 9 reviews |
+| 2 | Slab leak repair | Improve existing | /slab-leak-repair/ (live) | Slab Leak Detection and Repair in Dallas - Hartline | 3 (Nov 30) | ~25 jobs, ranks #5 |
+| 3 | Garland | Town page, behind the standard | /service-areas/garland-tx/ | Plumber in Garland, TX - Hartline Plumbing | 5 (Dec 14) | 31 jobs, 4 reviews name Garland |
+
+- **Order:** parent service pages first, improvements to live pages in the same pass, then town pages behind the standard, then job stories and articles.
+- **URLs:** one simple scheme (`/service/` for services, `/service-areas/town-st/` for towns). Keep live URLs that already rank; never move them for tidiness.
+- **Title tags:** service, place and business name in about 60 characters, in the words searchers type, and true to the brief: no license, count or promise the brief doesn't state.
+- **Pace:** what the doer can write and the owner can approve. Default to 1 or 2 pages a week and about two hours of owner approvals a month unless they say otherwise.
+
+**The Google profile checklist.** Field by field, each row with the current value, the exact change, who does it and the week. Fields that are right get "keep". Cover: primary category, secondary categories, services (every real service, a one-line description, a price where the owner publishes one), service areas (the towns served, up to 20), hours and holiday hours, business name (as on the sign, nothing added), phone (a number the business controls, tracked), website link (tagged, see Phase 9), booking link (only if it works), description (up to 750 characters, facts from the brief only), photos (real jobs, crew and trucks, a monthly habit), attributes that are true, review replies (the backlog, then within two days), and posts (weekly, from real jobs). Changing the primary category can trigger re-verification, so change it once. The competitor comparison behind each change is `/google-business-profile`.
+
+**The 90-day calendar.** 13 weeks with real dates; week 1 starts the Monday on or after the plan date. Each week names what ships, who does it and the owner's minutes. Lighten holiday weeks. The default shape:
+
+- **Weeks 1-2:** the fix-first move, the profile checklist, the measurement leaks closed (Phase 9), baselines recorded.
+- **Weeks 2-6:** service pages in list order, improvements to live pages, the review-request routine running.
+- **Weeks 5-10:** town pages that meet the standard, job stories, the "best of" lists the AI answers cite.
+- **Weeks 11-13:** the remaining pages, the 90-day re-check from the same places, the next quarter's list.
+
+Inside that shape, order by what pays soonest: foundations (profile facts, consistent name, phone and hours on the top listings, wrong facts in AI answers fixed at their source, unanswered reviews), then money cells (already at map position 4 to 10 for an urgent or planned service), then AI picks, then proof-backed pages, then habits (review requests, weekly posts). Every week ends in something someone can check: a page live, a field changed, a position re-read from the same town. Guardrails: no page for a place the business doesn't serve. Each month, re-read the map at the agreed depth, report against the calendar, and adjust the coming weeks from what changed.
 
 ## Phase 9. Set the measurement before anything ships
 
@@ -194,31 +217,41 @@ For a business that's already sliding, or before promising a recovery, load `ref
 
 ## Quality gate
 
-Before handoff, check the plan against these and fix what fails:
+Before handoff, check the plan against these privately and fix what fails:
 - The headline names who wins instead and points at a dated check. A score or a list of twenty findings fails.
-- Every page or section decision cites demand evidence, a ledger row and a dated observation of who wins.
-- Every number keeps its geography, its date range and its null or zero.
-- No cell says "page" because of volume alone.
-- Every hold names its unlock condition.
+- The page list is complete and ordered: every page with its URL, title tag, target week and a "rests on" line. A plan that defers most page decisions fails.
+- The profile checklist goes field by field with the exact change, and the calendar has 13 dated weeks.
+- Every page decision rests on demand evidence, a ledger row and a dated observation of who wins (kept in evidence.md).
+- Every number keeps its geography, its date range and its null or zero. No cell becomes a page because of volume alone.
+- Holds are one line each, each with its reason, and fewer than the pages on the list.
+- **Client-ready text keeps the brief's facts exactly.** The headline, title tags, the profile description and page outlines use the brief's words for every count, license, year and promise. "22 techs" stays "22 techs"; it never becomes "22 licensed plumbers". Anything the brief or the site doesn't say goes on the owner-to-confirm list, not into the text.
 - The owner-confirm list is short, explicit and written in plain words.
 
 ## Output
 
-Write `./campaigns/local-seo/plan.md` (version an older copy to `./campaigns/local-seo/.history/` first). It is written for the owner or the client, in plain words:
+Write two files (version older copies to `./campaigns/local-seo/.history/` first):
+- `./campaigns/local-seo/plan.md`, for the owner or the client, in plain words;
+- `./campaigns/local-seo/evidence.md`, the working file: the capability ledger, the full market map, every observation with its query, place, date and device, and the evidence watermarks (source, date range, coverage, limits).
 
-1. `## LOCAL SEO PLAN for <business>` with the date, the depth run (Quick, Standard or Full), the data label and the sources used.
+The plan, in this order:
+
+1. `## 90-DAY LOCAL SEO PLAN for <business>` with the date, the depth run (Quick, Standard or Full) and the data label.
 2. **The headline.** One sentence naming who wins instead, in the owner's words, with the check behind it: "When someone in Garland searches 'water heater repair near me', <competitor> comes up first and Hartline isn't in the top 20."
 3. **Three vitals,** short values the owner can repeat: "outside the top 20 in 4 of 5 towns", "named in 0 of 6 AI answers", "11 of the last 40 reviews unanswered".
-4. **The market map:** services × towns, each cell with its map pack position and status (**win** at 1 to 3, **close** at 4 to 10, **losing** at 11 or absent, **not served**, **unknown** when the check failed) and its decision.
-5. **Who the AI answers name instead,** per service.
-6. **The three costliest gaps,** costliest first: the fact, why it costs in one sentence the owner would nod at, the competitor who wins it, the evidence.
-7. **Fix first:** the one move to start with, what it involves, the owner's time, and how we'll know it worked within a month or two. Say so plainly when part of it is a longer climb (a map pin far from the town).
-8. This month's moves (Phase 8), the capability ledger, holds with their unlocks, evidence watermarks (source, date range, coverage, limits), the measurement baseline, and the "owner to confirm" list.
-9. **Built from, and what's missing.** What the plan rests on, and when it's thin, one named gap ("no job records yet, so every town decision rests on reviews alone") with one offer to fill it.
+4. **The three costliest gaps,** costliest first: the fact, why it costs in one sentence the owner would nod at, the competitor who wins it, the evidence.
+5. **Fix first:** the one move to start with, what it involves, the owner's time, and how we'll know it worked within a month or two. Say so plainly when part of it is a longer climb (a map pin far from the town).
+6. **The page list** (Phase 8), complete and in build order.
+7. **The Google profile checklist** (Phase 8), field by field.
+8. **The 90-day calendar** (Phase 8), 13 dated weeks.
+9. **Where you stand:** a compact market map (services × towns, each cell with its map pack position and status: **win** at 1 to 3, **close** at 4 to 10, **losing** at 11 or absent, **not served**, **unknown** when the check failed) and who the AI answers name instead, per service.
+10. **Holds,** one line each, only if there are any.
+11. **How we'll know:** the baseline numbers and what gets re-read at day 30 and day 90.
+12. **Owner to confirm:** the facts the plan needs in writing.
+13. **Built from:** a short note: the sources with their date ranges, the depth, and, when the plan is thin, one named gap ("no job records yet, so town pages rest on reviews and the owner's word") with one offer to fill it.
 
-Say positions the way an owner hears them: 4 to 7 is "just outside the top three", 8 or lower is "well below the top three that get most of the calls". No scores, no dollar figures for what they're losing, and never "optimize your Google Business Profile" where the exact change (this category to that one, these services with these prices) belongs. Load `references/quality-bar.md` for a strong and a weak version of the plan and of each deliverable it hands off.
+Say positions the way an owner hears them: 4 to 7 is "just outside the top three", 8 or lower is "well below the top three that get most of the calls". No scores, no dollar figures for what they're losing, no script paths or tool commands, and never "optimize your Google Business Profile" where the exact change (this category to that one, these services with these prices) belongs. Load `references/quality-bar.md` for a strong and a weak version of the plan, the page list, the calendar and each deliverable it hands off.
 
-Append one line to `./brand/assets.md`. In chat: the headline, the three vitals, the fix-first move, the holds count, **Files saved**, **What's next**.
+Append one line to `./brand/assets.md`. In chat: the headline, the three vitals, the fix-first move, the first three pages on the list with their weeks, **Files saved**, **What's next**.
 
 **The offer line.** In chat, after the What's next list, add one optional line matched to `role` in `./brand/preferences.md` (`role: owner | agency | builder`):
 

@@ -47,7 +47,8 @@ city, the main service, and roughly how many jobs it does a month.)
 
 Load `references/review-policy-facts.md` before writing asks or replies. It holds
 Google's and the FTC's current wording with a last-verified date. If today is past
-last-verified plus its ttl, refresh it per its header first and say so in one line.
+last-verified plus its ttl, refresh it per its header first. The refresh shows only if it
+changed a rule the plan relies on.
 
 ## Phase 1: Set the comparison
 
@@ -65,7 +66,7 @@ ways to see the right one:
 
 Web search results don't show the map pack reliably. Don't build the comparison on them.
 If the business is already in the top 3, compare it with the other two plus the next
-one down. Record where and when the search was run.
+one down. Note where and when the search was run, for the Sources and assumptions note.
 
 ## Phase 2: Read the scoreboard
 
@@ -85,7 +86,7 @@ Google rounds the dates, so the 90-day count runs a little long. Use the same ru
 all four listings and the comparison holds. For the business's own reviews, the owner
 sees exact dates in their Business Profile, and most review tools export them.
 
-Enhanced (optional): the Google Places API returns the rating and total count for each
+Optional: the Google Places API returns the rating and total count for each
 listing and has a free monthly allowance (it needs a Google Cloud project with billing on).
 Reading it once a month gives an exact pace going forward. It returns at most five reviews
 per place, so the 90-day count stays a hand count. Don't use Maps scrapers or review-scraping
@@ -150,7 +151,8 @@ What separates good replies from filler:
   can take weeks or not happen.
 
 Replies are public, appear as the business, and the reviewer is notified. Present each
-draft with the stars, date and first line of the review it answers.
+draft with the stars, date and first line of the review it answers. Check each draft
+silently for voice, specificity and the lines to avoid, and rewrite before showing it.
 
 ## Phase 5: Mine the rivals' reviews
 
@@ -211,15 +213,19 @@ tool. The path that works for most local service businesses:
 
 ## Output
 
-Write `./campaigns/reviews-<YYYY-MM>/review-plan.md` with these sections, in order:
+Write `./campaigns/reviews-<YYYY-MM>/review-plan.md` with these sections, in order.
+Length: plan budget, about 1,200 to 2,500 words, the reply drafts included.
 
-1. **The stall** (one sentence) and the scoreboard table, with the data label
-   (`Data: LIVE (4 listings read <date>, map searched from <place>)`).
+1. **The stall** (one sentence) and the scoreboard table of the four listings. The header
+   line under the title carries the date and what the plan is for, nothing else.
 2. **What to fix, ranked** (3 to 5 items, each with the reason).
 3. **Reply drafts**, ready to paste, worst and newest first.
 4. **What rivals' customers complain about**: top 5 with quotes, and the promises.
 5. **The ask**: who, when, channel, the scripts, the setup steps, the monthly target.
-6. **Rules in force**: one line with the policy sources and their last-verified date.
+6. **Sources and assumptions**, 10 lines at most: which listings were read and when, where
+   the map was searched, that counts from relative dates are approximate, the policy
+   pages the ask rests on and their last-verified date, and what the owner should
+   confirm. A missing piece (no map screenshot, no reviews export) is one line here.
 
 Append one line to `./brand/assets.md` when a brand folder exists. The rival complaint
 quotes are good customer language; offer to add them to `voc.md` through

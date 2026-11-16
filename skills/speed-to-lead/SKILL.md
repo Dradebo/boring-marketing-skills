@@ -44,7 +44,7 @@ names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files 
 answers the phone when, and what happens today when a call is missed.)
 
 The voice profile shapes the text-back wording. Customer pain language, when it exists,
-shapes what the first text promises.
+shapes what the first text promises. The report never says which files were loaded.
 
 Sample used below: **Hartline Plumbing, Dallas TX (hartlineplumbing.com), a sample
 business.** Office answers 7 to 5 on weekdays, the owner is on jobs, nobody answers on
@@ -63,6 +63,10 @@ weekends, emergency work is a third of revenue.
   each with the time it arrived and the time of the first human reply.
 - **Open quotes:** sent date, amount, status, last contact, from the quote tool, field
   service software or a spreadsheet.
+
+Missing pieces get one line in the report ("No call log given, so no scorecard"), never
+an invented number. Without a call log, deliver the messages, the callback owners and the
+quote cadence from the hours and answers you do have.
 
 ## Phase 2: Measure (the scorecard)
 
@@ -90,7 +94,7 @@ The scorecard, with what each number tells you:
 
 Phone systems differ on what "answered" means, so compare against benchmarks by
 direction, not decimals. `references/speed-evidence.md` holds the dated benchmarks and the
-research on response time, labeled by source. In one 2026 vendor
+research on response time, each with its source. In one 2026 vendor
 benchmark of home services, a person answered 52% of calls overall and 73% of calls
 lasting over 30 seconds, with plumbing at 74% and HVAC at 34% (vendor data).
 
@@ -204,16 +208,23 @@ applies directly.
 ## Output
 
 Write `./campaigns/<business-slug>/speed-to-lead.md`, a page the owner and the office can
-work from:
+work from. Length: plan budget, about 1,200 to 2,500 words, the messages included.
 
-1. `## SPEED TO LEAD: <business>` with dates and a data label
-   (`Data: LIVE (call log export <dates>, message log)`).
-2. **Scorecard,** the Phase 2 table with this business's numbers.
-3. **The leak:** the biggest one, in lost leads per week, then the rest.
-4. **Who does what:** names, time blocks, callback limits.
-5. **Messages:** the approved text-back and after-hours texts, word for word.
-6. **Setup checklist:** 10DLC status, auto-replies on, test calls done, quote cadence live.
-7. **Measure again on:** a date.
+1. `## SPEED TO LEAD: <business>`, then one line with the date and the call-log window.
+2. **The leak:** the biggest one, in lost leads per week, then the rest in a line each,
+   with this business's scorecard numbers from Phase 2 as one table beneath (rows with no
+   data left out, a few words on what each number means).
+3. **Messages:** the text-back, after-hours and quote follow-up texts, word for word,
+   ready for the owner's approval.
+4. **Who does what:** names, time blocks, callback limits, and the quote cadence with its
+   owner.
+5. **Setup checklist:** 10DLC status, auto-replies on, test calls done, quote cadence live.
+6. **Measure again on:** a date.
+7. **Sources and assumptions:** what the call log covers (dates, number of calls), which
+   exports were missing, which benchmarks were used and that they are vendor data, and
+   what the owner should confirm. Plain words, 10 lines at most. The column guesses the
+   script printed and any other working output go to `./campaigns/<business-slug>/notes.md`,
+   not the report.
 
 The never-reached CSV stays a separate local file. The report names its path and how many
 callers it holds, never the numbers. Append one line to `./brand/assets.md`.

@@ -137,13 +137,13 @@ metadata:
 
 ### Graceful degradation (three tiers)
 
-1. **Brand dir exists, file exists** → load it (the script does this), use it visibly.
+1. **Brand dir exists, file exists** → load it (the script does this) and use it.
 2. **Brand dir exists, file missing** → not an error. The context block lists it as
-   `absent`. Do not enumerate each missing file in chat. Consolidate into a single
-   status line: "Brand profile is partial (loaded voice-profile; positioning and
-   audience not yet created)." Ask the user only the questions that file would have
-   answered, or proceed with reasonable defaults, and suggest ONE high-impact next step
-   ("Running /brand-voice would give me your tone profile for next time").
+   `absent`. Do not enumerate or announce missing files in the deliverable. If a gap
+   changes the work, name it in one line of the Sources and assumptions note. Ask the
+   user only the questions that file would have answered, or proceed with reasonable
+   defaults, and suggest ONE high-impact next step in What's next ("Running /brand-voice
+   would give me your tone profile for next time").
 3. **No brand dir at all** → skip brand loading entirely. Proceed standalone as a
    first-time user and note once: "I don't see a brand profile yet. /start-here or
    /brand-voice can set one up, or I'll work without it."
@@ -152,11 +152,12 @@ No skill ever breaks because a brand file is missing. The system works on day on
 zero context and gets better with use. (Quick Mode still wins: a specific single-asset
 request gets the asset, not a setup lecture.)
 
-### Use loaded context visibly
+### Use loaded context quietly
 
-Show the user what shaped the output, one or two lines, in the brand's own voice:
-"Your positioning is 'The Anti-Dashboard', building this sequence around that angle."
-Never silently absorb context; visible use is how stale data gets caught.
+The work shows what shaped it. No line announces which files were loaded or says "using
+your positioning". Stale data still gets caught: when a file is old or conflicts with
+what the user says, flag that in one line (the file, its age, the skill that refreshes
+it). Anything else about what was loaded stays out of the deliverable.
 
 ### Freshness flags
 
@@ -164,9 +165,8 @@ The context block flags each file by age (brand.yaml `updated:` timestamp, else 
 
 | Age | Treatment |
 |-----|-----------|
-| < 7 days | loaded as-is |
-| 7 to 30 days | date flag shown ("updated 2026-05-29") |
-| 30 to 90 days | summary note: may be stale, sanity-check against the current session |
+| < 30 days | loaded as-is, nothing said |
+| 30 to 90 days | one line only if the file shapes the work: may be stale, sanity-check against the current session |
 | > 90 days | recommend refresh: name the owning skill to re-run before relying on it |
 
 If file content conflicts with what the user is saying right now, flag it and ask.
@@ -218,9 +218,10 @@ Status starts at `draft`; the user (or /performance-review) moves it to `live` /
 `retired`. Ad creative is named by its ad-matrix cell ID.
 
 **learnings.md**: written ONLY by /performance-review (from real data) and by explicit
-user feedback; read by every generator, which must cite the priors it applied
-("Applied: hook-pattern P3 outperformed P1 by 2.1× in your Apr data"). Structured entry
-format, one line each:
+user feedback; read by every generator, which applies the priors that fit. When a prior
+changed the work, one line in the Sources and assumptions note says so ("Question
+subjects beat curiosity subjects in your Apr data, so the lead subject is a question");
+a prior that changed nothing is not mentioned. Structured entry format, one line each:
 
 ```markdown
 - [2026-06-10] [email-sequences] subject-pattern=question outperformed curiosity 2.3x (n=4 sends, source: kit-api)
@@ -309,19 +310,22 @@ assets.md, and register the campaign in brand.yaml `campaigns:`.
 ## Research Quality Signal
 
 Skills that depend on external data (competitor analysis, SERP research, keyword
-volumes, trending topics, news) MUST declare their research mode in the output. The user
-always knows whether they are getting live data or conceptual analysis.
+volumes, trending topics, news) MUST declare their research mode. The user always knows
+whether they are getting live data or conceptual analysis.
 
-Declare it once per deliverable, in the header context line or first content line:
+Declare it once per deliverable, in plain words, in the Sources and assumptions note at
+the end (never in the header, never on every line or row):
 
-- `Data: LIVE (6 sources)`: web search / scraping / APIs were used; cite the sources
-  where claims rest on them.
-- `Data: MODEL KNOWLEDGE (verify before spending)`: no research tools were available;
-  the analysis is conceptual and directional.
+- Live: "Based on 6 sources read on Nov 13." Web search, scraping or APIs were used.
+- Model knowledge: "No research tools were available, so this rests on general
+  knowledge. Verify before spending." The analysis is conceptual and directional.
+
+Files inside `./brand/` are working memory, so they may carry the short form
+(`Data: LIVE (6 sources)` or `Data: MODEL KNOWLEDGE`) for the next skill to read.
 
 Rules:
 
-1. Always show the signal. Never silently fall back to conceptual data.
+1. Always say it, once. Never silently fall back to conceptual data.
 2. When using conceptual data, flag the specific claims that would benefit from
    verification: "Estimated: competitor X likely ranks for this term (verify with a
    live SERP check)."
@@ -341,16 +345,15 @@ it does not just acknowledge it.
 **Wrong, acknowledging voice:** "I see your brand voice is confident and direct. Here
 are your positioning angles:" followed by generic-sounding output.
 
-**Right, demonstrating voice:** a one-line acknowledgment in the brand's own
-vocabulary and pacing, then output written IN that voice: short sentences if the
-profile says short sentences, brand vocabulary throughout, none of the banned words
-anywhere.
+**Right, demonstrating voice:** no announcement at all. The output starts at the header
+and is written IN that voice: short sentences if the profile says short sentences, brand
+vocabulary throughout, none of the banned words anywhere.
 
 Rules:
 
 1. If the profile says "short sentences," use short sentences in the output itself.
 2. If the brand avoids certain words, those words appear nowhere in the output.
-3. The opening acknowledgment uses the brand's own vocabulary and pacing.
+3. Nothing announces that the voice profile was loaded.
 4. This applies to ALL content sections: analysis and recommendations included, not
    just copy deliverables.
 
@@ -360,7 +363,8 @@ Rules:
 
 1. **Human-readable first.** JSON/YAML mirrors are secondary to markdown a marketer can read.
 2. **Graceful degradation.** Zero context works; context enhances, never gates.
-3. **Visible context use.** Show what was loaded and how it shaped output.
+3. **Quiet context use.** The work shows what shaped it; no line announces what was
+   loaded. A stale or conflicting file gets one flag line.
 4. **Append, don't destroy.** Learnings and assets accumulate; profile files version to
    `.history/` before overwrite; nothing is ever silently deleted.
 5. **Declared access.** `reads:`/`writes:` frontmatter is the contract; the loader
@@ -368,4 +372,5 @@ Rules:
 6. **Cross-skill coherence.** Voice written by /brand-voice is honored by every other
    skill; brand memory is the shared source of truth.
 7. **Learnings come from data.** /performance-review writes priors from real numbers;
-   generators cite the priors they apply. No honor-system feedback interviews.
+   generators apply the priors that fit and note a prior only when it changed the work.
+   No honor-system feedback interviews.

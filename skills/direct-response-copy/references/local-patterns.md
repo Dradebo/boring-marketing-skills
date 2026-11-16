@@ -38,7 +38,9 @@ description and the landing page say the same thing.
 ## Headlines by lever
 
 Name the service and the place, then one promise on one lever. Put a second lever in the
-subhead.
+subhead. Every pattern below is a shape, not a claim: use a lever only when the business
+already delivers it (the claim gate in SKILL.md). A guarantee or a time window it doesn't
+keep yet goes on the To make this true list.
 
 **Speed** (emergencies; only with a time the business keeps)
 - "Water heater replaced today in Dallas. Call by noon."

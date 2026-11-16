@@ -49,7 +49,7 @@ Across the account, derive the distributions: which hook shapes dominate the win
 
 ## 4. Scoring calibration: the same idea at 45 and at 85
 
-One idea, two executions. The idea: a freelancer who builds sites for dental practices believes most of them hide the booking button on a phone. (All numbers below are illustrative. In a real draft they come from the user's credential bank or carry `[NEEDS REAL NUMBER]`.)
+One idea, two executions. The idea: a freelancer who builds sites for dental practices believes most of them hide the booking button on a phone. (All numbers below are illustrative. In a real draft they come from the user's credential bank, the brief or the user's messages; a draft never invents one, and carries at most one `[verify: ...]` flag.)
 
 **Draft A: 45 out of 100 (don't ship)**
 

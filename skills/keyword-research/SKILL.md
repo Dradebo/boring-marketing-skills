@@ -38,7 +38,7 @@ Positioning shapes how you write about a topic, never which topics you target. A
 
 ## Phase 0. Data sources
 
-Detect what's available and say what you found in one line.
+Detect what's available. It shapes the method, and the plan names only what the evidence rests on, in plain words (see Output).
 
 | Source | Detection | What it gives |
 |---|---|---|
@@ -48,7 +48,7 @@ Detect what's available and say what you found in one line.
 | DataForSEO (what we use) | `DATAFORSEO_LOGIN` and `DATAFORSEO_PASSWORD`, or a volume tool you already pay for | Real monthly search volumes (any one volume source is enough) |
 | Firecrawl (what we use) | `FIRECRAWL_API_KEY` or MCP tools | Full page and results scraping |
 
-We use DataForSEO for volumes and SERP data: real monthly search volumes instead of autocomplete and live checks alone, pay as you go with no subscription ($50 minimum top-up that does not expire, plus a $1 trial credit on sign-up). Without it, autocomplete, Search Console and the live results rank the topics without volumes. If you'd rather not open another account, treg (one token for many data APIs, pay per call) reaches SEO and SERP data too. We use Firecrawl to read the ranking pages in full (free tier of 1,000 credits a month, no card). Without it, WebFetch reads them as summaries and the plan says so.
+We use DataForSEO for volumes and SERP data: real monthly search volumes instead of autocomplete and live checks alone, pay as you go with no subscription ($50 minimum top-up that does not expire, plus a $1 trial credit on sign-up). Without it, autocomplete, Search Console and the live results rank the topics without volumes. If you'd rather not open another account, treg (one token for many data APIs, pay per call) reaches SEO and SERP data too. We use Firecrawl to read the ranking pages in full (free tier of 1,000 credits a month, no card). Without it, WebFetch reads them as summaries and the Sources and assumptions note says so.
 
 **Search Console pull** (whenever access exists). Query the last 90 days, dimensions `["query","page"]`. A plain `gcloud auth login` token lacks the Search Console scope, so set up application-default credentials once: `gcloud auth application-default login --scopes=https://www.googleapis.com/auth/webmasters.readonly,https://www.googleapis.com/auth/cloud-platform`. A service account must be added as a user on the property. URL-encode the site (`sc-domain%3Aexample.com` for a domain property, the encoded address for a URL-prefix one).
 
@@ -63,7 +63,7 @@ curl -s -X POST \
 
 Pull out two lists. **Striking distance:** queries with 50 or more impressions at an average position of 8 to 30. Google already half-likes a page for these, so improving it beats writing something new. **Unserved demand:** queries with real impressions and no page genuinely about them.
 
-**Data label.** Every deliverable carries one line: `Data: LIVE (suggest + N result pages + Search Console)` or `Data: MODEL KNOWLEDGE (verify before spending)`. Without a volume source, print no volume numbers. Use demand evidence (autocomplete richness, Search Console impressions, how much competitors invest) and prefix any estimate with `~`.
+**Data quality, said once.** Never present model knowledge as live research. The plan's Sources and assumptions note says it in plain words ("Based on autocomplete for 14 seeds, 9 result pages read in full and a Search Console export, Nov 13", or "No live data was available, so this rests on general knowledge; verify before spending"). `./brand/keyword-plan.md` may keep the short form (`Data: LIVE (...)` or `Data: MODEL KNOWLEDGE`) as working memory for refreshes. Chat, headers and table rows never carry it. Without a volume source, print no volume numbers. Use demand evidence (autocomplete richness, Search Console impressions, how much competitors invest) and prefix any estimate with `~`.
 
 **Three states, never merged.** A source that answered "zero" or "no results" for a phrase observed zero, for that place and period. A phrase missing from the rows a source returned was not observed, which is unknown, not zero. A call that errored or timed out failed: record it, name it in the plan's gaps, and don't re-run a paid call just to fill the hole. A plan that turns unknowns into zeros drops real topics, and one that turns failures into "no demand" reports an outage as a finding.
 
@@ -103,7 +103,7 @@ For each family's head term and its strongest one or two seeds:
 
 It queries Google's suggest endpoint across alphabet, question, preposition and comparison probes (about 50 requests, free, no key). Use `--mode questions,prepositions` for secondary seeds. Harvest: phrasings you didn't think of, recurring modifiers, question forms (for the AI-native space), year modifiers, brand mentions. Match the families against Search Console rows if you have them.
 
-Record per family: autocomplete richness, Search Console impressions, the AI-native questions found, and any volume figures with their source. Then cut. Families with no demand evidence in either space drop here, before anything expensive happens. Breadth comes before depth: every candidate family gets this cheap probe before any family gets Rung 2. Stopping early with families never probed is the narrow-run failure, so name why each skipped family was skipped.
+Record per family in `./campaigns/content-plan/notes.md`: autocomplete richness, Search Console impressions, the AI-native questions found, and any volume figures with their source. Then cut. Families with no demand evidence in either space drop here, before anything expensive happens. Breadth comes before depth: every candidate family gets this cheap probe before any family gets Rung 2. Stopping early with families never probed is the narrow-run failure, so name why each skipped family was skipped, in the notes.
 
 **Spot patterns from a sample.** A programmatic shape ("X for [industry]", "[tool A] vs [tool B]", "[service] in [town]") needs at least two different observed substitutions of the same frame. Record the shape and its examples. Never enumerate the missing substitutions to prove it.
 
@@ -154,7 +154,7 @@ Six-circle seeds for the sample plumber: sell ("water heater replacement"), prob
 3. **Competitive reality.** Dominant brands across fresh, thorough results: find an adjacent or longer-tail family. A mix of big and niche sites: winnable with better content. Thin, dated or generic results: opportunity. Reddit or forums in the top 5 is the strongest gap signal there is, since no adequate article exists and Google is rewarding first-hand experience. Check `references/facts.md` for which AI engines currently cite those threads.
 4. **Proprietary advantage.** Original data, method or practitioner experience competitors can't copy. With it, prioritize hard; first-party data is also the strongest AI-citation driver. Without it, the family can pass but can't lead.
 
-Record per family: `demand PASS/FAIL (evidence) · market PASS/FAIL · competitive PASS/FAIL (results evidence) · advantage YES/NO (what)` and the verdict. A calibrated example:
+Record per family in the notes file: `demand PASS/FAIL (evidence) · market PASS/FAIL · competitive PASS/FAIL (results evidence) · advantage YES/NO (what)` and the verdict. The plan shows only the verdict and its one-line reason, never these checks. A calibrated example of the notes entry:
 
 ```
 Family: Proposal Methodology (the founder's own framework)
@@ -218,19 +218,19 @@ For families routed to /programmatic-seo or /service-area-pages, write one routi
 
 ## Output
 
-Write `./brand/keyword-plan.md` (version the old copy first). It reads top-down as a decision, not a dump:
+Write `./brand/keyword-plan.md` (version the old copy first), about 1,200 to 2,500 words. It reads top-down as a decision, not a dump. Per-family evidence, the Rung 2 packs, full term tables, skipped-family reasons, the PASS/FAIL checks and API receipts go to `./campaigns/content-plan/notes.md`: saved, never pasted. Briefs and the play are their own files.
 
 1. **The verdict.** Start here (the one family to commit, with the line that makes the case), up next (each with the one observation that would settle it), hold, leave out. The case quotes observed numbers and beats the obvious alternative: "strong in AI-native questions though mid-table on Google, commercial intent, and a fraction of the difficulty of the bigger head term" (with the observed numbers in place) says why the plan isn't chasing the biggest volume.
-2. **Business context, sources and the data label.**
-3. **The topic map,** families grouped by type (content, commercial, comparison, page generation, citation). Per family: position in the queue, intent, demand in each space with its source, difficulty, the opening in one line (who the checked answers name instead, or which result is beatable), a small table of its observed terms (term, Google volume, AI volume, difficulty, intent; blank where unmeasured), the observed questions, confidence, and the verdict.
+2. **Business context,** two or three lines.
+3. **The topic map,** families grouped by type (content, commercial, comparison, page generation, citation). Per family: demand in each space with its source, difficulty, the opening in one line (who the checked answers name instead, or which result is beatable), a few observed terms (term, Google volume, AI volume, difficulty, intent; blank where unmeasured), the observed questions, confidence, and the verdict. Priority, intent and route live once, in the next table.
 4. **A table under the heading `## Cluster Priorities`** with priority (NOW maps to high, NEXT to medium, HOLD to low), intent, route, `zero_click_risk` and `citation_path`. Keep that heading exactly; /performance-review reads it by anchor.
 5. **Competitor gaps, the ordered backlog, the brief index,** and the play file for the committed family.
 6. **What changed** since the previous plan, on a refresh: new, moved, gone, or "no movement".
-7. **The receipt and what's missing.** What the plan is built from (sources, date ranges, how many terms observed, engines and location for any AI check), then, when the plan is thin, a named diagnosis rather than a vague caveat ("AI answers were never checked for this business, so no family can be typed as a citation play yet") and **one** offer to fill it ("want me to run the 12-question check? About 20 minutes, no paid tools"). The oldest source sets the plan's freshness date; offer a refresh when it's about a month old.
+7. **Sources and assumptions,** last, 10 lines at most. What the plan rests on in a sentence or two (sources, date ranges, how many terms observed, engines and location for any AI check), the data quality in plain words, and what the client should confirm. The gap-aware receipt is at most 3 of those lines: what was checked, what could not be, and, when the plan is thin, a named diagnosis rather than a vague caveat ("AI answers were never checked for this business, so no family can be typed as a citation play yet") with **one** offer to fill it ("want me to run the 12-question check? About 20 minutes, no paid tools"). The oldest source sets the plan's freshness date; offer a refresh when it's about a month old. A learning from `learnings.md` that changed the plan gets one line, only if it did.
 
 Append one line per brief to `./brand/assets.md`.
 
-In chat, following the four-section output contract: the verdict, the 3 to 5 discoveries, the top of the backlog, and one **start here** recommendation with its evidence and its strongest caveat, then **Files saved** and **What's next**. If one missing observation could reverse the recommendation, recommend collecting that observation instead. If nothing is supportable, recommend holding rather than manufacturing a commitment. Never end on a menu of options.
+In chat, following the four-section output contract (header `## KEYWORD PLAN: <business>` plus one line of date and purpose): the verdict, the 3 to 5 discoveries, the top of the backlog, and one **start here** recommendation with its evidence and its strongest caveat, then the Sources and assumptions note, **Files saved** and **What's next**. No tool names, data tags or check tables. If one missing observation could reverse the recommendation, recommend collecting that observation instead. If nothing is supportable, recommend holding rather than manufacturing a commitment. Never end on a menu of options.
 
 ## What's next
 

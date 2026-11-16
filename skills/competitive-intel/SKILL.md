@@ -60,9 +60,9 @@ Roster judgment: one aspirational leader (sets the category's vocabulary), two o
 
 ### Phase 2: Parallel evidence collection
 
-**Check the web first.** Phase 1's discovery search counts; otherwise run one WebSearch yourself before dispatching. If it is denied or errors, the subagents will be blocked too: don't dispatch. Write `competitors.md` from model knowledge instead (roster and known positioning, every price and count `UNVERIFIED`), labeled `Data: MODEL KNOWLEDGE (not checked live)`, and say in one line that allowing WebSearch and WebFetch (`/permissions`) and re-running makes it live.
+**Check the web first.** Phase 1's discovery search counts; otherwise run one WebSearch yourself before dispatching. If it is denied or errors, the subagents will be blocked too: don't dispatch. Write `competitors.md` from model knowledge instead (roster and known positioning, every price and count `UNVERIFIED`), labeled `Data: MODEL KNOWLEDGE (not checked live)` in the file, and say in one line in chat that allowing WebSearch and WebFetch (`/permissions`) and re-running makes it live.
 
-Dispatch **one subagent per competitor, all in parallel** (Task tool, `general-purpose`). Budget per subagent: ≤ 40 fetches, ≤ 8 minutes, no sub-agents. Six surfaces is ~6-12 fetches, not a crawl. Each subagent gets the brief below plus the competitor's name and domain, and returns the evidence pack: facts, verbatim quotes, URLs. **No analysis in the packs**; synthesis happens centrally so claims can be compared across competitors.
+Dispatch **one subagent per competitor, all in parallel** (Task tool, `general-purpose`). Budget per subagent: ≤ 40 fetches, ≤ 8 minutes, no sub-agents. Six surfaces is ~6-12 fetches, not a crawl. Each subagent gets the brief below plus the competitor's name and domain, and returns the evidence pack: facts, verbatim quotes, URLs. **No analysis in the packs**; synthesis happens centrally so claims can be compared across competitors. The packs are working data: save them to `./campaigns/competitive-intel/<date>-evidence.md` and never paste them into chat.
 
 Scraping rules for every subagent:
 - We use Firecrawl for the page reads (`firecrawl_scrape`, `firecrawl_search`): full-page reads, including the JavaScript-rendered pricing pages that a plain fetch returns as a shell (free tier of 1,000 credits a month, no card). Without it, use WebFetch + WebSearch, and if a fetch returns a shell, pull the page from a search cache and say so.
@@ -105,17 +105,17 @@ Build four artifacts from the packs:
 1. **Positioning map.** Cluster every homepage claim and ad hook across competitors into: **saturated** (3+ competitors say it: dead territory), **contested** (2 say it: fight or flank), **white space** (no one says it: verify it's unclaimed because it's hard, not because it's worthless). This triage is the exact input `/positioning-angles` consumes. Write it so that skill can act on it without re-reading the packs.
 2. **Pricing-power read.** Lay the tiers side by side: where the category's price floor and ceiling sit, who's anchoring high, who's discounting (a struggling signal), where the brand's offer fits or breaks the pattern.
 3. **Weakness audit, per competitor.** Concrete and evidenced only: generic claims with no proof, stale changelog, no ads (or ads pointing at a weak offer), pricing that mismatches their stated ICP, complaint patterns. Each weakness names its evidence line.
-4. **The 3 most exploitable gaps.** Not ten observations: the three a small team can act on this quarter, each with: the evidence, why competitors can't easily close it, and which skill exploits it (`/positioning-angles`, `/paid-ads`, `/seo-content`, `/lead-magnet`).
+4. **The 3 most exploitable gaps.** Not ten observations: the three a small team can act on this quarter, each with: the evidence, why competitors can't easily close it, and the move in plain words. The What's next list names the skill that runs each move.
 
 What a good gap looks like vs a mediocre one (illustrative category: project-management tools):
 
 > **Mediocre:** "Competitors have weak content marketing." (No evidence, no mechanism, nothing to do Monday.)
 >
-> **Good:** "All four competitors gate every lead magnet behind a 6-field form, and three of the four have G2 complaint clusters about 'sales calls after downloading a template' (12 reviews across them, past year). An ungated template library is a wedge none of them can copy without breaking their SDR pipeline. Exploit via /lead-magnet, promote via the unbought 'no sales call' ad angle."
+> **Good:** "All four competitors gate every lead magnet behind a 6-field form, and three of the four have G2 complaint clusters about 'sales calls after downloading a template' (12 reviews across them, past year). An ungated template library is a wedge none of them can copy without breaking their SDR pipeline. The move: an ungated template library, promoted with the unbought 'no sales call' ad angle."
 
 The difference: a quote-traceable evidence chain, a reason the gap is *structural* for them, and a named next move.
 
-**Quality gate before writing:** walk the synthesis claim by claim: every assertion must trace to a quote or URL in an evidence pack. Anything resting on model knowledge gets labeled or cut. If `learnings.md` holds relevant priors (e.g., a past angle that beat a saturated claim), cite which ones shaped the gap recommendations. Label the deliverable once: `Data: LIVE (n competitors, m sources)`.
+**Quality gate before writing (silent):** walk the synthesis claim by claim: every assertion must trace to a quote or URL in an evidence pack. Anything resting on model knowledge gets labeled or cut. Cut or fix what fails; show only what passes. If `learnings.md` holds a relevant prior (e.g., a past angle that beat a saturated claim) and it changed a gap recommendation, say so in one line of the note. The data quality goes in the Sources and assumptions note in plain words ("Based on 5 competitors, 31 pages read live on Nov 13"); the `Data: LIVE` line stays in competitors.md only.
 
 ### Teardown output
 
@@ -139,17 +139,17 @@ Floor $X, ceiling $Y. <pattern read>. Table: competitor × entry/mid/top tier.
 Position: <their claim, verbatim H1> | Pricing: <tiers one-line> | Ads: <status + dominant hook>
 Lead magnets: ... | Momentum: <launch cadence read> | AI citations: <read>
 Weak where: <evidenced weaknesses>
-[Evidence pack appended or linked]
+[Link to the evidence pack in ./campaigns/competitive-intel/<date>-evidence.md]
 
 ## The 3 exploitable gaps
-1. <gap> | evidence: ... | exploit via /<skill>
+1. <gap> | evidence: ... | why they can't close it: ... | the move: ...
 ...
 
 ## Watch baseline
 Per-competitor: pricing snapshot, H1, active-ads status, last launch date. (WATCH mode diffs against this.)
 ```
 
-If competitors.md existed, version it to `./brand/.history/competitors.<date>.md` first and show a 3-line summary of what changed, with no y/n interrogation. Update `brand.yaml` (file entry + timestamp). Then the chat summary per the output contract: deliverable header, the positioning map + 3 gaps (not the full packs), **Files saved**, **What's next**.
+If competitors.md existed, version it to `./brand/.history/competitors.<date>.md` first and show a 3-line summary of what changed, with no y/n interrogation. Update `brand.yaml` (file entry + timestamp). Then the chat summary per the output contract: deliverable header, the positioning map + 3 gaps (not the full packs, and not the profiles again), the Sources and assumptions note, **Files saved**, **What's next**.
 
 ---
 
@@ -165,7 +165,7 @@ Called by the weekly competitor-watch routine. **Zero questions, ever.** Every d
 
 ```markdown
 ## Competitor watch: <date>
-Data: LIVE (<n> competitors) · Baseline: <baseline date>
+Checked <n> competitors against the baseline from <baseline date>.
 
 ### Changes
 - **<Competitor>**, <surface>: <was> → <now> (<evidence url>). *Why it matters: <one line>*
@@ -176,7 +176,7 @@ Data: LIVE (<n> competitors) · Baseline: <baseline date>
 
 ### Recommended reactions
 <0-3 items, only if a change genuinely warrants one, e.g., "X dropped entry price 30%:
-re-check /positioning-angles value framing">
+re-check the value framing">
 ```
 
 "No changes detected across all N competitors" is a valid, complete, short report. Never pad it.
@@ -196,7 +196,7 @@ Deep-dive the paid layer only: what a category **pays** to say is its revealed c
    - **Over-bought territory:** hooks every advertiser runs: entering here means paying a premium to be ignored.
    - **Unbought territory:** angles present in organic/reviews but absent from anyone's paid rotation. These are the counter-positioning candidates.
    - **Format and offer norms:** what creative formats and offers (trial/demo/lead magnet/direct purchase) dominate, and where the deviation opportunity is.
-4. **Output:** write `./campaigns/ad-recon/<YYYY-MM-DD>-<category>.md` with the brief above, evidence-linked; quality gate and data label as in Phase 3. If competitors.md exists, refresh each profile's ads line and bump brand.yaml; append the report to assets.md.
+4. **Output:** write `./campaigns/ad-recon/<YYYY-MM-DD>-<category>.md` with the brief above, evidence-linked; run the quality gate silently as in Phase 3 and put the data quality in the closing Sources and assumptions note. If competitors.md exists, refresh each profile's ads line and bump brand.yaml; append the report to assets.md.
 
 ---
 
@@ -224,14 +224,14 @@ counting rule and the local reading judgment.
    Ads account, with the location set to the city. Google's Ads Transparency Center
    then shows each advertiser's other ads by name or domain; it can't search by keyword.
 4. **The roster** is the top 3 in the map plus the top 2 or 3 advertisers, deduplicated:
-   usually 4 to 6 businesses. Record where and when you searched.
+   usually 4 to 6 businesses. Record where and when you searched; it goes in the note.
 
 ### Phase L2: Evidence per rival
 
 Same rules as Phase 2 (check the web first, one subagent per rival, the same per-subagent
 budget of 40 fetches and 8 minutes, verbatim quotes, `UNVERIFIED` and `NOT FOUND` instead of guesses). Google Maps
 listings don't come through a plain page fetch, so the listing fields come from a
-browser, the user's phone or pasted text; say which. Six surfaces per rival:
+browser, the user's phone or pasted text; say which, once, in the closing note. Six surfaces per rival:
 
 1. **The map listing:** rating, total reviews, new reviews in about the last 90 days,
    newest review date, owner replies on the latest 20, primary category, hours claimed.
@@ -267,26 +267,26 @@ Mediocre vs good, for the sample business Hartline Plumbing, Dallas TX (illustra
 > **Good:** "All three map-pack rivals run 'same-day' ads. Two of their ad pages never
 > say it, and 11 of their 40 most recent 1 to 3 star reviews are about waiting two or
 > more days for a tech. Hartline dispatches from one yard ten minutes from the middle of
-> its area and can promise a two-hour window. Exploit via /landing-page (the window in
-> the headline), /paid-ads (the window in the ad) and /reviews (the pace that proves it)."
+> its area and can promise a two-hour window. The move: the window in
+> the page headline, the window in the ad, and a review pace that proves it."
 
 Write `./brand/competitors.md` with a `## Local market` section (the search, where and
 when it was run, the scoreboard, the promise map, the complaints, the gaps) plus local
 lines in `Watch baseline` (rating, review count, pace, ad promise) so WATCH mode can diff
-them. Label the data once: `Data: LIVE (<n> rivals, map searched from <place> on <date>)`.
+them. The file header carries `Data: LIVE (<n> rivals, map searched from <place> on <date>)`; in chat, say it once in the note in plain words ("map searched from the shop's side of town on Nov 13").
 
 ---
 
 ## Output
 
-All modes follow the four-section contract (`start-here/references/output-format.md`): deliverable header with date, the synthesis content (never raw packs in chat), **Files saved** with exact paths and (new)/(updated) markers, **What's next**.
+All modes follow the four-section contract (`start-here/references/output-format.md`): deliverable header with date and what the work is for, the synthesis content (never raw packs in chat), one **Sources and assumptions** note (plain words: what was read and when, anything marked unverified or not found, what to confirm; 10 lines at most), **Files saved** with exact paths and (new)/(updated) markers, **What's next**. Length: a teardown, ad recon or local report runs about 1,200 to 2,500 words; a watch report is as long as its changes.
 
 | Mode | Writes |
 |---|---|
-| TEARDOWN | `./brand/competitors.md` (+ `.history` version), `brand.yaml` |
+| TEARDOWN | `./brand/competitors.md` (+ `.history` version), `./campaigns/competitive-intel/<date>-evidence.md`, `brand.yaml` |
 | WATCH | `./campaigns/competitor-watch/<date>.md`, competitors.md refresh, `brand.yaml`, `assets.md` |
 | AD RECON | `./campaigns/ad-recon/<date>-<category>.md`, competitors.md ads-lines refresh, `assets.md` |
-| LOCAL | `./brand/competitors.md` with the `## Local market` section (+ `.history` version), `brand.yaml` |
+| LOCAL | `./brand/competitors.md` with the `## Local market` section (+ `.history` version), the evidence file, `brand.yaml` |
 
 Quick Mode: a narrow ask ("what does X charge?", "is Y running ads?") gets a single-competitor, single-surface answer: one subagent, no roster ceremony, no file rewrite unless the user asks. Deliver, then a one-line what's-next.
 

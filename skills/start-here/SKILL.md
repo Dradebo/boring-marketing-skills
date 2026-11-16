@@ -93,7 +93,9 @@ a hint when a request is ambiguous, never the decision.
 
 Your job is classifying intent into the goal; the script output is the routing decision:
 sequence, parallel steps, foundation prepends and base vs enhanced grounding. If it
-carries an `advisor` line, say it once, in one sentence, then proceed at baseline.
+carries an `advisor` line, say it once, in one plain sentence (what a connection would
+let you read or do), then proceed without it. Script output is working data: never print
+it, quote a script path, or use the words tier, baseline or enhanced with the user.
 Override any step with a stated reason. If python3 is unavailable, use the registry and
 workflows below.
 
@@ -210,8 +212,9 @@ no voc.md, and say so.
    - `competitors.md`: the names that show up first, one line each.
    - `stack.md`: from Tool detection.
 7. **Report** (under 25 lines, per the output contract): the business in one line, the
-   three findings that matter most (each a fact with its source), the ONE first move
-   with its skill, then:
+   three findings that matter most, stated as facts, the ONE first move with its skill,
+   a short Sources and assumptions note (what was read and when, what could not be
+   read; 3 lines at most), then:
 
 > Two things back, in one line: anything I got wrong, and what matters most right now
 > (more traffic / more leads / convert more / launch something, or for a local business:
@@ -253,9 +256,9 @@ Read `brand.yaml`: files, freshness, business facts and campaigns in one read. D
 glob the brand folder or re-read every profile file; pull a file only when the
 conversation needs its contents.
 
-**Specific request** → route it (Quick Mode if single-asset). Show in one line what
-context you carry: "Loaded your positioning and voice profile, routing to
-/email-sequences."
+**Specific request** → route it (Quick Mode if single-asset). Don't announce what you
+loaded. Flag a stale or lite foundation in one line, naming the file and the skill that
+refreshes it, only when it changes the advice.
 
 **Vague request or "what should I do next"** → a short status (3-6 lines from
 `brand.yaml`: foundation depth and freshness, active campaigns, last activity, anything
@@ -321,8 +324,9 @@ One engine, two callers; the procedure is `references/site-review.md`. It compos
 that already exist (/landing-page TEARDOWN, /first-screen-check for a local business,
 /ai-search AUDIT compressed to ~10 money queries, /competitive-intel TEARDOWN) and ranks
 the gaps by impact on the goal times ease. Every gap names the skill that fixes it and
-an honest estimate; every number is LIVE with a source, LOCAL DOCS with a path, or
-MODEL KNOWLEDGE marked as such.
+an honest estimate. Every number rests on a live source, a local doc or a marked
+estimate; the evidence lives in the working notes file, and the report's short Sources
+and assumptions note says which is which.
 
 **Audit** ("review my site", "what should I fix first"): run the engine on the brand's
 own URL; write `./campaigns/audit/audit-<YYYY-MM-DD>.md`; say back the Top 3 priorities,
@@ -435,13 +439,14 @@ ritual.
    honest time estimate. "You could write some content" is banned.
 9. After any dispatched skill completes, verify its files, confirm `assets.md` got its
    row, update `brand.yaml` if a profile file changed.
-10. Show in one line what context shaped the routing; visible context is how stale data
-    gets caught.
+10. Don't narrate what context shaped the routing. Surface stale or thin context only
+    when it changes the advice: one line, the file and the skill that refreshes it.
 
 ## Selective context
 
-A Task-agent brief is the skill path, the task, the prior step's key outputs and the
-brand-context line; never file dumps or brand files outside the skill's `reads:` list.
+A Task-agent brief (never shown to the user) is the skill path, the task, the prior
+step's key outputs and the brand-context line; never file dumps or brand files outside
+the skill's `reads:` list.
 Mechanics: `${CLAUDE_SKILL_DIR}/references/brand-memory.md`.
 
 ## The author's offers
@@ -459,7 +464,10 @@ twice in a session, never when the user has said no extras.
 
 Follows the output contract (`${CLAUDE_SKILL_DIR}/references/output-format.md`): a header, the content, **Files saved** with exact paths,
 **What's next** with 2-4 `/skill` suggestions and time estimates. Markdown only, no box
-art.
+art. Deliverable hygiene applies to every run: reports, audits and proposals hold the
+work only. Script paths, tool and skill names used as process, score tables, data tags on
+lines and routing output stay in working notes. Audits use the plan budget (about 1,200
+to 2,500 words).
 
 start-here writes `brand.yaml`, `stack.md`, `preferences.md`, the lite versions of
 `voice-profile.md`, `positioning.md`, `audience.md`, `voc.md` and `competitors.md`, the

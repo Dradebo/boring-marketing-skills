@@ -36,12 +36,13 @@ names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files 
 the traffic comes from, and whether approved copy exists.)
 
 If `learnings.md` holds relevant priors (which sections converted, form-length results,
-past teardown outcomes), apply them and say which.
+past teardown outcomes), apply them. One line in the Sources and assumptions note, only
+when a prior changed the page.
 
 Teardown scraping uses the web-scrape capability, free either way; no spend gate applies.
 WebFetch reads the page as a summary. We use Firecrawl to read the real rendered page
 (JavaScript included) as clean text, with a free tier of 1,000 credits a month and no card.
-Without it, the teardown says it worked from a summary.
+Without it, the note says the teardown worked from a summary.
 
 ## Modes
 
@@ -52,10 +53,10 @@ Without it, the teardown says it worked from a summary.
 | A live page isn't converting | **TEARDOWN** | Scrape → section-by-section score → prioritized rewrite plan |
 
 **FULL BUILD copy phase:** load `${CLAUDE_SKILL_DIR}/../direct-response-copy/SKILL.md`
-(If that sibling skill isn't installed, score without anchors and say so in one line.)
-and execute its method: Phase 0 VoC mining through the 7-dimension score loop. Its
-scoring rules apply unchanged; build from scored copy, and never present
-below-threshold copy as passing.
+(If that sibling skill isn't installed, score without anchors and say so in one line in
+the note.) and execute its method: Phase 0 VoC mining through the 7-dimension score loop.
+Its scoring rules apply unchanged, run silently: build from copy that passes, never ship
+below-threshold copy, and show the client the passing copy, not the scores.
 If the Architecture phase below then cuts or reorders sections, update the copy file to
 match before building. The copy file stays the single source the build diffs against.
 
@@ -273,15 +274,16 @@ What it produces, in brief:
    - Local pages: the local first-screen checklist passes in a phone screenshot.
    - Section count, form fields, and exit links match `architecture.md`'s friction
      budget.
-   Fix and recheck (about 2 passes usually settles it), then present honestly,
-   including anything still off.
+   Run these checks silently. Fix and recheck (about 2 passes usually settles it), show
+   only the passing page, and put anything still off in one line in the note.
 2. **Deploy (optional):** if the Vercel CLI is available or the project is already
    Vercel-linked, offer a preview deploy (preview by default; production only on an
    explicit ask). Otherwise hand off hosting-agnostic: a single HTML file deploys to
    any static host unchanged.
-3. **Handoff notes:** file paths, the one-line retheme instruction (`:root` tokens),
-   where the two analytics stubs live, and the A/B sample-honesty rule: under ~1,000
-   visitors/week, only big-swing variants produce readable results.
+3. **Handoff notes** (the client uses these): the page path and how to open it, the
+   one-line retheme instruction (`:root` tokens), where the two analytics stubs live, and
+   the A/B sample-honesty rule: under ~1,000 visitors/week, only big-swing variants
+   produce readable results.
 
 ## TEARDOWN: score a live page
 
@@ -291,8 +293,9 @@ the Architecture principles above are the rubric, applied to someone else's deci
 1. **Scrape the page** (web-scrape capability). Capture the full text in section order,
    form fields, nav/footer links, CTAs and their labels, meta title/description. If
    nothing can fetch it, ask for a paste and say plainly the audit covers copy and
-   structure but not rendering. Label the report `Data: LIVE (scraped {date})` or
-   `Data: PASTED COPY`.
+   structure but not rendering. Say which it was once, in plain words, in the note
+   ("Read the live page on {date}" or "Worked from pasted copy"). Keep the captured
+   evidence in `notes.md`.
 2. **Establish the page job.** Ask where the traffic comes from if not stated:
    a "failing" page is often the wrong page job for its traffic, and that finding
    outranks every section-level fix. If you infer instead of asking, say so.
@@ -308,10 +311,11 @@ the Architecture principles above are the rubric, applied to someone else's deci
    - Friction count: fields, steps, competing CTAs, exit links, against what the page
      job actually requires.
    - Copy quality: load `${CLAUDE_SKILL_DIR}/../direct-response-copy/references/calibration-anchors.md`
-     (If that sibling skill isn't installed, score without anchors and say so in one line.)
+     (If that sibling skill isn't installed, score without anchors and say so in the note.)
      and score the page copy on that skill's 7 dimensions. Don't re-derive the rubric;
-     it's theirs.
-4. **Output the prioritized rewrite plan** to `./campaigns/{name}/teardown.md`, ranked
+     it's theirs. The scores are a lens: report only the weak lines and what they should
+     become, inside the ranked plan.
+4. **Write the prioritized rewrite plan** to `./campaigns/{name}/teardown.md`, ranked
    by leverage, not by page order: message hierarchy first (a wrong headline caps every
    other fix), then section selection (cut/add/reorder), then proof placement, then
    friction, then copy-line polish. Each item: what to change, why (which principle),
@@ -325,11 +329,18 @@ the Architecture principles above are the rubric, applied to someone else's deci
 ├── landing-page.md      # approved copy (produced via /direct-response-copy's method)
 ├── architecture.md      # page job, section plan, friction budget, cuts + reasons
 ├── page/                # index.html (or Next.js files) + variants
-└── teardown.md          # TEARDOWN mode report + rewrite plan
+├── teardown.md          # TEARDOWN mode: the ranked rewrite plan
+└── notes.md             # working file: what was captured, per-section evidence, check results
 ```
 
 Files first, summary second, per `${CLAUDE_SKILL_DIR}/../start-here/references/output-format.md`. Append one line per asset
 to `./brand/assets.md`.
+
+**What the client reads in chat.** The header, then the work: for a built page, what
+shipped, how to open or deploy it, the retheme line and the analytics note; for a teardown,
+the ranked plan. Architecture, friction counts and diff results stay in the saved files.
+Then one Sources and assumptions note (10 lines max). Page copy runs about 800 to 1,500
+words; a teardown plan about 1,200 to 2,500.
 
 **What's next** (pick 2-4, tailored):
 - After a shipped page → `/paid-ads` to drive traffic to it (~15 min); `/creative` for

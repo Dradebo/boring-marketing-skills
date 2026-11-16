@@ -1,7 +1,7 @@
 ---
 name: email-sequences
-description: Build email (and text) sequences that turn leads into customers, including welcome, nurture, conversion, launch, re-engagement and post-purchase, plus local-service follow-ups (quote follow-up, review ask, seasonal reminder, win-back, missed-call text-back), with a deliverability preflight (SPF/DKIM/DMARC via dig) before anything ships and optional draft push to Kit or Beehiiv. Use when a lead magnet needs a welcome sequence, an offer needs a sales sequence, quotes aren't closing, or a list needs re-engaging.
-when_to_use: write welcome emails, email sequence for, nurture sequence, convert my list, onboarding emails, launch sequence, drip campaign, follow-up emails, quote follow-up, follow up on estimates, ask customers for reviews, seasonal reminder emails, win back old customers, missed call text, cart abandonment emails, check my email deliverability, push this sequence to Kit
+description: Build email (and text) sequences that turn leads into customers, including welcome, nurture, conversion, launch, re-engagement and post-purchase, plus local-service follow-ups (quote and treatment-plan follow-up, appointment reminders, review ask, seasonal reminder, win-back, missed-call text-back) and a cold outbound mode for prospecting sequences. Covers every reasonable reading of the request and leads with the revenue lever. Checks SPF, DKIM and DMARC on the real sending domain and can push drafts to Kit or Beehiiv. Use when a lead magnet needs a welcome sequence, an offer needs a sales sequence, quotes or treatment plans aren't closing, a list needs re-engaging, or an agency needs a cold email sequence.
+when_to_use: write welcome emails, email sequence for, nurture sequence, convert my list, onboarding emails, launch sequence, drip campaign, follow-up emails, quote follow-up, follow up on estimates, ask customers for reviews, seasonal reminder emails, win back old customers, missed call text, cart abandonment emails, check my email deliverability, push this sequence to Kit, cold email sequence, cold outbound, outbound email sequence, prospecting emails, treatment plan follow-up, cut no-shows
 argument-hint: "[sequence type + what it sells, e.g. 'welcome sequence for my checklist → $89 course' or 'quote follow-up for water heater installs'; or 'preflight <domain>']"
 metadata:
   boring:
@@ -19,10 +19,10 @@ metadata:
 
 The gap between "opted in" (or "got a quote") and "bought" is where the money is made or
 lost. This skill designs the sequence that bridges it, sized and paced to the offer,
-written in the brand's voice with the customer's words, and refuses to ship it into a
-domain that Gmail, Yahoo and Outlook will throttle. Done means per-email files on disk, a
-machine-readable summary, a deliverability pass/fix list, and (with an ESP key) the
-sequence staged as drafts. It's a floor, not a ceiling. When the situation argues for a
+written in the brand's voice with the customer's words, and checks the real sending
+domain before it ships. Done means per-email files on disk, a machine-readable summary,
+a deliverability pass/fix list when the real sending domain is known, and (with an ESP
+key) the sequence staged as drafts. It's a floor, not a ceiling. When the situation argues for a
 better path, take it and say why.
 
 ## Context
@@ -54,6 +54,29 @@ the bridge logic (why free leads naturally to paid), and the top 2-3 objections,
 `voc.md` verbatim if it exists. Customers state their objections better than founders
 guess them.
 
+### Cover every reasonable reading, lead with the money
+
+Many requests hold more than one job. Before picking a sequence, list the readings a
+sharp operator would see, cover each one briefly, and put the one that moves the most
+revenue first, even when the user named a smaller one.
+
+A dental office asks to "cut no-shows and follow up on implant consults that didn't
+schedule". Three readings:
+
+1. **Consults done, treatment not started.** Patients who sat for an implant consult and
+   hold an unaccepted plan worth thousands each. The revenue lever: lead with it.
+2. **Inquiries that never booked the consult.** A short booking sequence.
+3. **No-shows on booked appointments.** Confirmations, reminders and a same-day rebook
+   text.
+
+Then look at the calendar for a timely reason to write. Dental benefits that reset with
+the plan year make an October or November "use them before they reset" email worth
+adding. Tax refunds, the first freeze, back to school and year-end budgets do the same
+job for other businesses.
+
+When covering every reading would make the deliverable long, write the lead sequence in
+full and give the others as a short map with their first email written.
+
 ### Sequence type
 
 | Type | Job | Trigger |
@@ -64,7 +87,8 @@ guess them.
 | Launch | Time-bound open and close | Launch date |
 | Re-engagement | Re-permission or sunset cold subscribers | No clicks in 90-180 days |
 | Post-purchase | Onboard, reduce refunds, set up the next purchase | Purchase |
-| Local follow-ups | Quote follow-up, review ask, seasonal reminder, win-back, missed call | See the Local section |
+| Local follow-ups | Quote or treatment-plan follow-up, reminders, review ask, seasonal, win-back, missed call | See the Local section |
+| Cold outbound | Get a reply from prospects who never opted in | See Cold outbound mode |
 
 ### Length and pacing: a diagnostic, not a constant
 
@@ -107,8 +131,8 @@ and list hygiene move results more than send-time tweaks.
 ## Local service businesses
 
 For plumbers, roofers, HVAC, dentists, med spas, cleaners and other businesses customers
-call from a map, the money is in five short sequences that run on job events, not
-opt-ins. Load `references/local-templates.md` for the full copy, timing and stop rules.
+call from a map, the money is in short sequences that run on job events, not opt-ins.
+Load `references/local-templates.md` for the full copy, timing and stop rules.
 
 | Sequence | Trigger | Shape |
 |---|---|---|
@@ -117,6 +141,8 @@ opt-ins. Load `references/local-templates.md` for the full copy, timing and stop
 | Seasonal reminder | A date before the season | 3 touches over about 6 weeks: useful checklist, book before the rush, last slots |
 | Win-back | Last job 12-24 months ago | 3 emails over 3 weeks: a note about their system, a reason to book, re-permission |
 | Missed-call follow-up | An unanswered inbound call | Text in 1-2 minutes, call back in about 10, one more text, a last try next morning |
+| Treatment-plan follow-up | Consult done, plan not scheduled (dental, med spa, vet) | 6 touches over about 90 days from the coordinator, plus a benefits-reset email in October or November |
+| Appointment reminders | Appointment booked | Confirm at booking, a reply-to-confirm text 2 days out, a morning-of text, a rebook text 15 minutes after a no-show |
 
 What changes from list email:
 
@@ -137,6 +163,37 @@ What changes from list email:
 - **The missed-call setup and the review system** belong to `/speed-to-lead` and
   `/reviews`; this skill writes the words and the timing.
 
+## Cold outbound mode
+
+Triggers: "cold email", "outbound", "prospecting emails", "cold email sequence", or any
+list of people who never opted in. Nobody asked to hear from you, so the rules change:
+short emails, one reply as the goal, and a hard stop the moment someone answers. Load
+`references/cold-outbound.md` for the openers, the send plan, the stop table and the
+footer. One named business with one broken thing to pitch is `/pitch-the-fix`; building
+the list is `/find-local-clients`.
+
+What ships:
+
+1. **Openers tied to a signal**, one per signal you can check in about 3 minutes per
+   prospect (hiring, running ads, a new location, a recent review about response time),
+   plus **one no-signal opener** built on the segment's common problem that works for
+   the whole list. No per-prospect research beyond a few minutes; when the signal isn't
+   there in that time, the no-signal opener goes.
+2. **A concrete, low-friction offer**: a 2-minute video of their phone line or site as a
+   customer meets it, the three searches where a competitor beats them, a first fix.
+   Ask for interest ("want me to send it?"), not a meeting.
+3. **A 4 to 5 touch sequence** over about 3 weeks. Every email under 80 words, plain
+   text, one ask, something new each time, no link before touch 3.
+4. **Send and stop rules with numbers**: a separate sending domain, about 20 to 30 new
+   emails per inbox per day to start, stop a prospect on any reply, bounce or opt-out,
+   and the campaign thresholds for bounces, complaints and replies.
+5. **Compliance**: CAN-SPAM covers business email too. A real mailing address, a plain
+   opt-out honored within 10 business days, honest From and subject lines, and a check
+   before mailing Canada, the UK or the EU.
+
+Cold sequences never go through Kit, Beehiiv, Mailchimp or another opt-in list tool
+(their terms require consent); they're a file handoff to a cold email sending tool.
+
 ## Phase 1. ESP detection and grounding pull
 
 Check `./brand/stack.md`, then `.env` for `BEEHIIV_API_KEY`, `KIT_API_KEY` (legacy
@@ -154,9 +211,15 @@ standard format with `source: <esp>-api`, and cite them when writing.
 
 No keys: copy-paste output, with one line on how to connect.
 
-## Phase 2. Deliverability preflight
+## Phase 2. Deliverability preflight (real domains only)
 
-Before any sequence ships, audit the sending domain (the domain in the From address):
+Run this only on a sending domain that exists and that the user named, or that
+`stack.md` or the ESP lists. Never run it, or show results, for a placeholder, an
+example domain or a guess from the business name. Without a real domain the deliverable
+gets one line: "Before the first send, check SPF, DKIM and DMARC on your real sending
+domain (ask for the preflight with the domain name)."
+
+With a real domain, audit it (the domain in the From address):
 
 ```
 bash ${CLAUDE_SKILL_DIR}/scripts/deliverability_check.sh <domain> [dkim_selector ...]
@@ -168,7 +231,7 @@ DMARC-aligned From domain, DMARC published (p=none at minimum), one-click unsubs
 honored within 2 days, complaints under the enforced thresholds, and no bulk sending from
 @gmail.com.
 
-Output a **pass/fix list**: each FAIL with the exact DNS record or ESP setting to change
+Show findings, never the command. Output a **pass/fix list**: each FAIL with the exact DNS record or ESP setting to change
 (templates in the reference), each WARN with a one-line judgment. The script can't see
 unsubscribe headers or complaint rates; list those as verify-in-ESP items. With FAILs, say
 plainly: fix before sending, or the sequence gets throttled however good the copy is. The
@@ -221,7 +284,11 @@ the diagnostic. For local sequences also: a stop rule on every step, a named sen
 under 300 characters, and real scarcity only. Rewrite the failing emails; about three
 passes is the ceiling, past which the offer or proof is the constraint, so say what's
 still weak. A sequence that reads "content, content, BUY NOW BUY NOW" failed regardless of
-line-level quality.
+line-level quality. Cold outbound also needs: every email under 80 words, a signal or
+the no-signal opener, a footer with a mailing address and an opt-out, and the stop rules
+in the send plan. Coverage check for every type: each reasonable reading of the request
+is covered, and the revenue lever comes first. Run this gate privately; it never appears
+in the deliverable.
 
 ## Output
 
@@ -229,8 +296,8 @@ Files first, then chat (per `start-here/references/output-format.md`).
 
 ```
 ./campaigns/<sequence-name>/
-  brief.md                  goal, type, segment, bridge logic, preflight result,
-                            ESP status, timeline
+  brief.md                  goal, type, segment, bridge logic, preflight result
+                            (or "not run, no sending domain yet"), ESP status, timeline
   sequence-summary.json     conforms to start-here/references/schemas/email-sequence-summary.schema.json
   emails/
     01-delivery.md          {nn}-{purpose}.md, zero-padded, purpose in kebab-case
@@ -252,8 +319,10 @@ token for Kit; recommended subject first in `subject_lines[]`. Text steps go in 
 with a `purpose` starting `sms-` and the text's opening line as its one subject entry.
 Skip `performance_targets` unless the grounding pull produced real baselines.
 
-Chat summary: a sequence map (email, day, recommended subject, job, CTA), the preflight
-pass/fix list, applied priors, files saved, what's next. Append one line per asset to
+Chat summary: a sequence map (email, day, recommended subject, job, CTA), one line per
+other reading covered, the preflight pass/fix list only when a real domain was checked
+(otherwise the one-line DNS reminder), applied priors, a one-line note on what the copy
+rests on, files saved, what's next. No script paths, scores or gate checklists. Append one line per asset to
 `./brand/assets.md`. At most one follow-up ask: "When this has send data, tell
 /performance-review which subject won."
 

@@ -24,10 +24,10 @@ Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherw
 
 What each input does here:
 - **voice-profile#platform-adaptations**: the per-platform voice table. It is the ONLY source of voice adjustment in this skill; never invent a parallel adaptation table. No profile means ask one question ("how formal, and any words you'd never use?") and write in a clean neutral register.
-- **learnings**: platform performance priors. Cite the ones you apply ("Applied: your carousels outperformed text posts 3/3 in May").
+- **learnings**: platform performance priors. Apply them. Mention one only when it changed the work, as a single line in the note ("Your carousels outperformed text posts 3/3 in May, so LinkedIn gets one").
 - **algo-cache**: per-brand dated platform facts, if /performance-review or a prior refresh has written any. Where it conflicts with this skill's reference file, the fresher `last-verified` wins.
 
-**Freshness gate (run before generating):** load `references/platform-facts.md`. If today is past `last-verified + ttl-days`, refresh per the instruction in its header, update the file, and say so in one line. Never generate against stale algorithm facts silently.
+**Freshness gate (run before generating):** load `references/platform-facts.md`. If today is past `last-verified + ttl-days`, refresh per the instruction in its header, update the file, and say so in one line in the note. Never generate against stale algorithm facts silently.
 
 ## Modes
 
@@ -79,7 +79,7 @@ State the plan in 3-5 lines (platform, treatment, why, plus skips with reasons) 
 ```
 Plan: "What a water heater swap actually cost our Dallas customers in 2026"
   LinkedIn   native deep   the cost-by-tank-size breakdown is carousel-shaped; your
-                           carousels beat text 3/3 in May (learnings)
+                           carousels beat text 3/3 in May
   X          native light + link-in-reply   the headline number stands alone; the
                            job-by-job detail stays in the guide, linked in reply 1
   Instagram  skip          account dormant since March; cost charts need /creative
@@ -134,7 +134,7 @@ Apply the platform's row from voice-profile#platform-adaptations to every piece:
 
 ## Phase 4: Quality gate
 
-Score every piece 1-10 on five dimensions before presenting:
+Score every piece 1-10 on five dimensions before presenting, silently:
 
 1. **Native fit**: conceived-for-this-platform, or detectably repurposed?
 2. **Hook**: does the first line survive standalone, with a specific claim? (slop-patterns.md defines the bar)
@@ -142,7 +142,7 @@ Score every piece 1-10 on five dimensions before presenting:
 4. **Voice match**: would it pass the brand's own drift check against the adaptations row?
 5. **Slop lint**: binary. Zero matches against slop-patterns.md (hooks, CTAs, structures) and no cluster of prose tells per brand-voice's ai-tells list.
 
-The default ship bar: ≥8 average, no dimension below 7, slop lint clean. Judgment can override in either direction with a stated reason. Below bar: rewrite the weak dimensions only, rescore, up to ~3 iterations, then present the best version with its score history honestly. Cite applied learnings priors with each deliverable.
+The default ship bar: ≥8 average, no dimension below 7, slop lint clean. Judgment can override in either direction with a stated reason. Below bar: rewrite the weak dimensions only, rescore, up to ~3 iterations, then present the best version. The client sees the finished pieces, never the scores or their history (keep them in `notes.md`). If a weakness could not be fixed, say what it is in one line in the note.
 
 ---
 
@@ -200,6 +200,7 @@ All files are written before the chat summary, following the four-section output
 ```
 ./campaigns/<source-slug>/
   brief.md                       # extraction summary + platform plan w/ skip reasons
+  notes.md                       # working file: quality-check scores, priors applied, source quotes
   social/
     <platform>/                  # only platforms that survived Phase 1
       <format>-<nn>.md           # e.g. text-post-01.md, thread-01.md, reel-script-01.md
@@ -217,11 +218,10 @@ source: "<source title>"
 created: {YYYY-MM-DD}
 status: draft
 recommended_post_time: "<day/time or 'scheduled via Buffer'>"
-quality_score: "8.4 (native 9 / hook 8 / specificity 9 / voice 8 / lint clean)"
 ---
 ```
 
-Then the four-section chat output: deliverable header with data label, the pieces (with platform plan and any skips + reasons), **Files saved** with exact paths, **What's next**. Append one line per asset to `./brand/assets.md`.
+Then the four-section chat output: `## SOCIAL POSTS: {source title}` plus one line of date and what the work is for, the finished pieces first, one line per skipped platform with its reason (the full plan lives in `brief.md`, so do not restate it), one short **Sources and assumptions** note (10 lines max: what the posts were built from, any claim to confirm with the source owner, what is missing), **Files saved** with exact paths, **What's next**. Append one line per asset to `./brand/assets.md`.
 
 **What's next** (pick 2-4 by context):
 - `/creative`: carousel slides, charts, or video for the visual-first pieces (~15 min)

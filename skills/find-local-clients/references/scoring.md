@@ -1,10 +1,10 @@
 # Scoring: losing customers, can pay, the one problem
 
-Load before Phase 5. The point values below are defaults built for a hand-checkable list. Change a weight when the agency's offer argues for it (an agency that only sells review work can weight the chosen stage up) and say so in the list's header.
+Load before Phase 5. The point values below are defaults built for a hand-checkable list. Change a weight when the agency's offer argues for it (an agency that only sells review work can weight the chosen stage up) and say so in the list's note.
 
 ## Losing-customers score (0 to 100)
 
-Score each line from the evidence you have. A field you couldn't check scores 0 and goes in "Checked by hand" as missing, so a missing field never makes a business look worse than it is.
+Score each line from the evidence you have. A field you couldn't check scores 0 and goes in the note as not checked, so a missing field never makes a business look worse than it is. The line codes (R1, C3) and point sums here are working notes. The list shows only the score, the tier and the problem in the owner's words.
 
 ### Reached: they wanted to call (up to 55)
 
@@ -41,7 +41,7 @@ The leaders are the three businesses in the cell with the most reviews, national
 |---|---|---|
 | F1 AI answers | Two or more leaders are named across the town's questions and this business is named in none | 5 |
 
-If nobody local gets named (the assistants list directories instead), F1 scores 0 for everyone and the header says so.
+If nobody local gets named (the assistants list directories instead), F1 scores 0 for everyone and the note says so.
 
 ## Can-pay tier
 

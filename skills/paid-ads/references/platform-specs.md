@@ -4,8 +4,8 @@ last-verified: 2026-09-02 · ttl-days: 90 · refresh: web-search "Meta ad specs 
 changes: 2026-09-02. Meta: feed recommendation is now 4:5 at 1440x1800, Stories/Reels safe zone is top 14% / bottom 35% / sides 6%, Reels run to 15 min, carousel card headline ~20; Google: PMax descriptions are 2-5 x 90 (60-char short slot gone), video cap 5→15, Demand Gen headlines 1-5 x 40 + 9:16 images; LinkedIn intro-text cap 600→3,000 (carousel 255), video 3s-30min; TikTok auction video up to 10 min, US joint venture + algorithm split dated (2026-01-22).
 
 Load this file at the start of Phase 3 (platform copy) and when writing creative briefs
-(Phase 4). If today is past last-verified + ttl-days, refresh FIRST and tell the user in
-one line.
+(Phase 4). If today is past last-verified + ttl-days, refresh FIRST. If the refresh isn't possible, say
+in the Sources and assumptions note that the specs are as of last-verified.
 
 ---
 

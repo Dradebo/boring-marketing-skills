@@ -37,7 +37,7 @@ Engines don't share answers through a free API, so the most truthful capture is 
 
 Capture each top question twice, on different days or in fresh sessions, before calling a result stable. Screenshots beat retyping.
 
-## Recording sheet (one row per answer)
+## Recording sheet (one row per answer, saved in the notes file)
 
 `date | engine | location | question (verbatim) | businesses named, in order | business state (CITED / MENTIONED / ABSENT / NOT OBSERVED) | sources cited | wrong facts`
 

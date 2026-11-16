@@ -11,8 +11,8 @@ no lite files yet runs the scaffold steps (SKILL.md, First run, step 1) first.
    The agents would be blocked too. Don't dispatch; keep the lite files, say why, and
    stop.
 3. Hand the agents any local evidence the scan found (`README.md`, `MARKETING.md`,
-   `docs/`, site source), labelled `Data: LOCAL DOCS`, and the lite files as a starting
-   point to verify, not to copy.
+   `docs/`, site source), tagged as local docs inside the working files, and the lite
+   files as a starting point to verify, not to copy.
 
 ## Dispatch
 
@@ -27,8 +27,8 @@ after dispatch, check on the files in short waits. Run `sleep 90; ls ./brand/` a
 until about 8 minutes have passed (each call stays under Bash's default 2-minute timeout,
 and some agents block long foreground sleeps). If any of the four files is not yet
 rewritten, wait up to 4 more minutes the same way, then present IMMEDIATELY with what
-exists, marking a missing upgrade `Data: LIVE (partial)` and naming the skill to run directly. Late
-notifications after you have presented only update `brand.yaml`.
+exists, marking a missing upgrade as partial in its file and naming the skill to run
+directly. Late notifications after you have presented only update `brand.yaml`.
 
 Each agent gets this brief, adapted per row:
 
@@ -66,8 +66,9 @@ inside itself; the four top-level agents still carry the parallelism.
    manifest) and set `depth: deep`.
 2. Present the **Brand Foundation Report**: voice summary in the brand's own voice, the
    starred angle and runners-up, audience segments with 2-3 verbatim quotes, the
-   competitor gaps worth taking, stack status, files saved. Carry each agent's data
-   label.
+   competitor gaps worth taking, stack status, files saved. Close with one short Sources
+   and assumptions note (3 lines at most: what was read live, what was partial or
+   estimated). Each agent's data label stays inside its brand file.
 3. **One correction pass:** "What did I get wrong? Name anything off (voice, angle,
    audience, competitors) and I'll fix the file now. Otherwise we build." Apply
    corrections directly and move on. Do not loop. Standing rules ("we don't do TikTok")

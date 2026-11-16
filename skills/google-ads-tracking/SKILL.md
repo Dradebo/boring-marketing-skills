@@ -48,7 +48,8 @@ number, and view access to Google Ads.)
 
 **Load `references/google-ads-facts.md` first** and check its header. UI labels, call
 tracking options and API enums drift. If today is past last-verified plus ttl-days,
-refresh it per its instruction and say so in one line.
+refresh it per its instruction; if that isn't possible, the Sources and assumptions note
+says the UI labels are as of last-verified.
 
 Sample used below: **Hartline Plumbing, Dallas TX (hartlineplumbing.com), a sample
 business.** About 40 leads a month, most by phone, a quote form few people use.
@@ -83,7 +84,8 @@ Phase 2. Without it, a Google conversion count can't be judged as too low or too
 
 ## Phase 2: Read what Google sees (free, Google Ads UI)
 
-1. **Goals > Conversions > Summary.** For every conversion action write down: name,
+1. **Goals > Conversions > Summary.** For every conversion action record, in
+   `./campaigns/<business-slug>/notes.md` (working data, not pasted): name,
    source (website, calls from ads, Google hosted, import), category, Primary or
    Secondary, the Tracking status column, conversions and all conversions for the last 30
    and 90 days, count setting, click-through window.
@@ -248,18 +250,30 @@ Every write follows hard rule 1.
 
 ## Output
 
-Write `./campaigns/<business-slug>/google-ads-tracking.md`, a report the owner or client
-can read:
+Length: about 1,200 to 2,500 words. Write
+`./campaigns/<business-slug>/google-ads-tracking.md`, a report the owner or client can
+read:
 
-1. `## GOOGLE ADS TRACKING AUDIT: <business>` with the date and a data label
-   (`Data: LIVE (Google Ads UI, Tag Assistant)`, `Data: API`, or `Data: SCREENSHOTS`).
-2. **Lead path map:** each path, what counts it now, what should.
-3. **Conversion actions, now and target:** one row per action with primary or secondary,
-   count, window, 30 and 90 day counts, and the change.
-4. **Fix list:** each step, where it's done, who does it, status (done, verified).
-5. **Verification log:** date, check, result. The 7-day non-zero check is the last row.
+1. `## GOOGLE ADS TRACKING AUDIT: <business>` and one line: the date and what the audit
+   is for.
+2. **The finding:** two or three sentences. What Google counts against what the business
+   got last month.
+3. **Fix list:** each step, where it's done, who does it, status (done, verified).
+4. **Lead paths and conversion actions, now and target:** one table, one row per lead
+   path, with what counts it now and what should (primary or secondary, count, window,
+   30 and 90 day counts, the change). Hidden or duplicate actions get a row only when
+   they matter.
+5. **Proof:** the checks that passed, with dates. The 7-day non-zero check comes last.
 6. **Bidding and budget:** current strategy, the switch criterion and date to recheck,
    impression share read, recommendation verdicts.
+7. **Sources and assumptions:** one short note. What the audit read and when, in plain
+   words (the account screens, the API, or screenshots), the owner's lead count it was
+   judged against, and what is missing. No site URL, account access or lead count means
+   one line saying so. Never run Tag Assistant or a tracking check against a placeholder
+   domain.
+
+The raw reads (the full action dump, campaign columns, query output) stay in
+`notes.md`. No script paths or commands in the report.
 
 Append one line to `./brand/assets.md`. Files first, then a short chat summary per
 `start-here/references/output-format.md`.

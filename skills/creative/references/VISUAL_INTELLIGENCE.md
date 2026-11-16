@@ -1166,7 +1166,7 @@ natural color accuracy, not enhanced
 
 ## Part 12: Quality Checklist
 
-Before approving any visual:
+Before approving any visual (run silently; the client sees approved visuals, not this list):
 
 ### Distinctiveness
 - [ ] Would this stop my scrolling?

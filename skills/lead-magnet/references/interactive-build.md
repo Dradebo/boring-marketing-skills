@@ -131,6 +131,8 @@ If brand context shows a known ESP key in `.env` (Kit/Beehiiv/Loops/Mailchimp), 
 
 ## Pre-ship QA (do, don't ask)
 
+Run this silently and log results in `notes.md`. The handoff shows the working app and the README, not the QA log.
+
 1. Open the file in a browser (or run the dev server). Click through every question path; reach every profile / every band.
 2. Hand-verify one scoring case and one formula case against the declared logic.
 3. Submit the gate with a test email: confirm the stub fires (network tab / console log) and the result still renders if the request fails.

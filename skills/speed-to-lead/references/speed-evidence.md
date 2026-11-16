@@ -3,7 +3,7 @@
 last-verified: 2026-11-13 · ttl-days: 180 · refresh: fetch the Invoca Home Services Lead Conversion Benchmarks report (invoca.com/reports, newest year); search "CallRail benchmark missed call rate home services <current year>"; search "A2P 10DLC unregistered traffic blocked <current year>"; re-read support.quo.com auto-replies. Update the numbers and labels below and bump last-verified.
 
 Load when the owner asks "does this matter?", when writing the scorecard benchmarks, or
-before quoting any statistic in a deliverable. Every number carries its source and a label.
+before quoting any statistic in a deliverable. Every number carries its source in the sentence that quotes it, never as a tag on a row.
 Vendor data comes from companies that sell answering, call tracking or response tools: it
 is useful for direction and should be quoted as vendor data.
 

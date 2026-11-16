@@ -1,6 +1,6 @@
 # Worked example: from a keyword brief to a saved article
 
-This is an illustrative workflow, not a completed research run. Bracketed values are placeholders. Do not publish them, and do not label a deliverable `Data: LIVE` unless Phase 1 and Phase 1.5 actually gathered live evidence.
+This is an illustrative workflow, not a completed research run. Bracketed values are placeholders. Do not publish them, and do not say the piece rests on live research unless Phase 1 and Phase 1.5 actually gathered live evidence. Phases 1 and 1.5 below show working notes (they go in the notes file). Only the last section shows what the client sees.
 
 ## Starting context
 
@@ -24,19 +24,11 @@ Unique angle: a real price range from the business's own recent jobs, with what 
 Real experience available: the owner's job records (the user supplies them; never invented)
 ```
 
-Sample context label:
-
-```text
-Data: LOCAL DOCS
-Evidence loaded: [brand context, keyword brief, customer language, or site materials]
-```
-
 ## Phase 1: SERP Reality
 
-Run the target keyword and its useful variations. Fan out one evidence pack for each selected result. The sample below shows the shape of the evidence, not actual findings.
+Run the target keyword and its useful variations. Fan out one evidence pack for each selected result. The sample below is a working note, not client text, and shows the shape of the evidence, not actual findings.
 
 ```text
-Data: LIVE (n pages scraped)
 SERP REALITY: "[target keyword]"
 
 [URL]
@@ -50,14 +42,13 @@ SERP REALITY: "[target keyword]"
 Classic SERP gap: [evidence-backed gap the article can address]
 ```
 
-If live scraping is unavailable, say so plainly. A fallback is labeled `Data: MODEL KNOWLEDGE (verify claims before spending)` and never presented as live research.
+If live scraping is unavailable, say so plainly. A fallback is described in the Sources and assumptions note as resting on general knowledge, to verify before publishing, and is never presented as live research.
 
 ## Phase 1.5: AI Surface Analysis
 
 Capture the answer surface and citations for the target query, then compare useful conversational phrasings. Keep the classic SERP gap and AI citation gap separate.
 
 ```text
-Data: LIVE (n sources)
 AI SURFACE: "[target keyword]"
 AIO present: [yes / no]
 Cited: [domain → claim supported → why it appears useful]
@@ -67,7 +58,7 @@ Citation gap: [what no cited source supplies yet, grounded in the evidence]
 
 ## Phase 2: Brief and structure
 
-Turn the evidence into a brief. Every promise in the outline needs a source, a user-provided fact, or a clearly marked question to resolve.
+Turn the evidence into a brief (working notes, saved with the notes file). Every promise in the outline needs a source, a user-provided fact, or a clearly marked question to resolve.
 
 ```text
 Working title: [direct answer plus distinct angle]
@@ -144,7 +135,7 @@ Load `references/humanize.md`, then make the draft sound like the actual author:
 
 ## Phase 5: Optimize
 
-Check the two tracks before saving:
+Check the two tracks silently before saving (an internal pass, never shown to the client):
 
 ```text
 Classic on-page
@@ -171,24 +162,42 @@ schema:
   FAQPage: [only when the article has a real FAQ]
 ```
 
-## Save paths and sample output
+## Save paths and what the client sees
 
-On a real run, save the finished draft to:
+On a real run, save the finished draft and the working notes to:
 
 ```text
 ./campaigns/content/{keyword-slug}.md
-./brand/assets.md  # append the saved asset entry
+./campaigns/content/{keyword-slug}.notes.md   # Phase 1 and 1.5 evidence packs
+./brand/assets.md                              # append the saved asset entry
 ```
 
-The chat output makes the evidence level visible:
+The chat output is the passing work, one short note and the next steps. No data tag, gate score, tool names or evidence packs (sample, illustrative):
 
-```text
-Data: LOCAL DOCS + LIVE (n pages scraped)
-Saved: ./campaigns/content/{keyword-slug}.md
-Classic SERP gap addressed: [summary]
-AI citation gap addressed: [summary]
-Quality gate: [honest score history]
-Next: [the most useful adjacent skill or publish step]
+```markdown
+## SEO ARTICLE: Water heater replacement cost in Dallas
+Nov 16, 2026 · for the Hartline Plumbing price guide (sample business)
+
+**The piece:** a price guide built on a real local range from the business's own jobs. The pages ranking now quote national averages, so a dated Dallas range with what moves it is the edge.
+
+**Before you publish:**
+- Confirm the price range against the last 12 months of jobs (it holds a placeholder until then).
+- Add one repair-versus-replace customer story, with permission.
+- Ping IndexNow on publish and check that OAI-SearchBot is allowed in robots.txt.
+
+**Sources and assumptions:**
+- Built from 6 ranking pages read in full and the AI answers for 3 phrasings, Nov 16.
+- No job data supplied yet, so the cost section quotes cited ranges, marked as such.
+- Not checked: Gemini answers. Send the job export and the cost section becomes the only local price data on the page.
+
+**Files saved:**
+- ./campaigns/content/water-heater-replacement-cost-dallas.md (new)
+- ./campaigns/content/water-heater-replacement-cost-dallas.notes.md (new)
+- ./brand/assets.md (1 entry appended)
+
+**What's next:**
+- /content-atomizer: social posts from the article (~10 min)
+- /ai-search: check who AI assistants name for the cost questions (~20 min)
 ```
 
-If the work proceeded without live research, replace the data label with `Data: MODEL KNOWLEDGE (verify claims before spending)`. This example creates no actual article or research result.
+This example creates no actual article or research result.

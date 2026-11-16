@@ -2,11 +2,12 @@
 
 Load when the business is one customers call from a map or a search (plumbers, roofers,
 HVAC, dentists, med spas, cleaners, auto repair) and the sequence is a quote follow-up, a
-review ask, a seasonal reminder, a win-back or a missed-call follow-up. Copy uses
+review ask, a seasonal reminder, a win-back, a missed-call follow-up, a treatment-plan
+follow-up or appointment reminders. Copy uses
 Hartline Plumbing, Dallas TX (hartlineplumbing.com), a sample business. Brackets are
 merge fields; blanks are for the owner's real numbers.
 
-## Rules that apply to all five
+## Rules that apply to all seven
 
 - **Text and email do different jobs.** Text is for speed and short replies (the missed
   call, the day-after quote check, the review link). Email carries detail (the written
@@ -153,3 +154,49 @@ you're first on the list," or the emergency number if one exists. Promising 24/7
 going quiet is how the bad review gets written. The missed-call system itself (the
 text-back setup, routing, measuring answer rates) is `/speed-to-lead`; this file is only
 the words and the timing.
+
+## 6. Treatment-plan follow-up (consult done, treatment not started)
+
+For dentists, med spas, vets, orthodontists and cosmetic practices, this is usually the
+biggest money on the table: a patient sat for a consult, got a plan worth hundreds or
+thousands, and never scheduled. It's a quote follow-up with a longer clock, because the
+decision is bigger and often waits on money, a spouse or fear.
+
+Trigger: a treatment plan presented and not scheduled. Channel: email plus text from the
+treatment coordinator by name. Stop: scheduled, declined, or a reply.
+
+| Step | When | Channel | Job |
+|---|---|---|---|
+| 1 | Same day | email | The plan in writing: what, why, the estimate after expected insurance, payment options, one-tap scheduling |
+| 2 | Day 2 | text from the coordinator | "Any questions about the plan Dr. [name] went over?" |
+| 3 | Day 7 | email | Answer the likely objection: cost (financing, phasing the work) or fear (what it feels like, recovery time) |
+| 4 | Day 21 | call, then text | The direct ask with a real reason (chair time held, the benefits year) |
+| 5 | Day 45 | email | What waiting changes, in the dentist's own honest words; no scare tactics |
+| 6 | Day 90 | email | Close the loop: "later" moves them to a 6-month recall check |
+
+**The benefits-reset email.** Most dental plans reset their annual maximum on January 1,
+though some run on a different plan year. In October or November, send everyone with an
+unscheduled plan one email: "If your plan renews January 1, the benefits you haven't used
+this year don't carry over. Here's what your plan could cover before then." The office
+confirms each patient's plan year before any number goes in.
+
+Keep clinical details out of subject lines and texts, since they show on lock screens:
+"your treatment plan", not the procedure. Check the practice's privacy policy for email
+and text before automating.
+
+## 7. Appointment reminders (cutting no-shows)
+
+Trigger: an appointment is booked. Channel: text first, email for the details. Stop:
+confirmed (skip to step 3), rescheduled, or cancelled.
+
+| Step | When | Channel | Job |
+|---|---|---|---|
+| 1 | At booking | email + text | Date, time, address, parking, what to bring, how to reschedule |
+| 2 | 2 days before | text | "Reply C to confirm or R to reschedule" |
+| 3 | Morning of | text | Short reminder with the time and the address link |
+| 4 | 15 minutes after a missed start | text | "We missed you today. Want the next opening? Reply with a day that works." |
+| 5 | Day 2 after a no-show | call, then email | Rebook; repeat no-shows go to the owner for a deposit or confirmation policy |
+
+Step 2 (text): "Hi [first name], it's [name] at [practice]. You're booked for [day] at
+[time]. Reply C to confirm or R to reschedule."
+

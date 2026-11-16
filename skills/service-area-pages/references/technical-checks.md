@@ -1,6 +1,6 @@
 # Technical checks for town and service pages
 
-Load before /service-area-pages Phase 5. Each check comes with the command or tool that settles it, because these are facts from the page, never guesses.
+Load before /service-area-pages Phase 5. Each check comes with the command or tool that settles it, because these are facts from the page, never guesses. Run them only against real URLs the user gave or the site's own pages, never a placeholder domain, and keep the results in `notes.md`.
 
 ## Markup (JSON-LD)
 

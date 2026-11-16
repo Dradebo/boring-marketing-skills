@@ -27,7 +27,7 @@ Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherw
 `python3 ${CLAUDE_SKILL_DIR}/../start-here/scripts/brand_context.py --for service-area-pages`
 (`${CLAUDE_SKILL_DIR}` is this skill's folder; outside Claude Code use the folder this file was read from, e.g. `.agents/skills/service-area-pages`. If the script or python3 is unavailable, read the brand folder directly: `./brands/<slug>/` when `./brands/active` names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files in `reads:`. If none exist, proceed standalone and ask only for what the task needs.)
 
-If `./campaigns/local-seo/plan.md` exists, read it first. Its market map already says which towns get a page, which get a line, and why. Don't redo that work. Use its capability ledger as the source of every claim.
+If `./campaigns/local-seo/plan.md` exists, read it first. Its market map already says which towns get a page, which get a line, and why. Don't redo that work. Use its capability ledger as the source of every claim. The ledger is input only: its rows, IDs and tiers never appear in the pages or in the handoff. Claim sources go to `./campaigns/service-area-pages/notes.md`.
 
 ## Modes
 
@@ -71,7 +71,7 @@ A town that fails gets a line on the areas-we-serve page, listed in the output w
 
 ## Phase 3. Spec each page before writing it
 
-Write a short spec per page in the output file:
+Write a short spec per page in `./campaigns/service-area-pages/notes.md`. The handoff carries only its URL, create-or-improve and first-question rows; the rest is working data:
 
 | Field | Example (sample business) |
 |---|---|
@@ -87,7 +87,7 @@ The "different from its siblings" line is the doorway test written down. If you 
 
 ## Phase 4. Write the page
 
-Load `references/page-anatomy.md` before writing. Default section order:
+Load `references/page-anatomy.md` before writing. The page copy is what the visitor reads: no ledger rows, source tags, claim IDs or confirm markers inside it. Default section order:
 
 1. **Answer first.** 40-80 words that answer the page's question: what, where, how fast, how to reach them, with one real fact about this town.
 2. **The work done here.** The job types from the ledger for this town, each with the substance of the work: what fails, how it's diagnosed, what the fix involves, what it costs the homeowner in time or damage if it waits. This is true in every town and specific to the trade, which makes it the safest thing to write at length.
@@ -112,15 +112,17 @@ Load `references/technical-checks.md`, which carries the commands that settle ea
 
 ## Phase 6. Quality gate (before anything ships)
 
+Run it silently. Results (overlap numbers, read-test notes, claim trace, filler count) go to `./campaigns/service-area-pages/notes.md`; the handoff shows only the passing set.
+
 1. **Duplicate check.** Run it across the new pages and every existing town page:
    `python3 ${CLAUDE_SKILL_DIR}/scripts/overlap.py <pages-dir-or-files> --names "Dallas,Garland,Mesquite,Richardson"`
    It masks the town names, then reports the share of sentences any two pages have in common. Default bar: under 30% for every pair. Over the bar, fix the template or the proof behind it, never one page by hand, because the same defect sits on every sibling. If proof can't close the gap, the town goes back to the hub.
 2. **The read test.** Pick two town pages at random. Would someone who read the first learn something on the second? If not, they are one page.
-3. **Claim trace.** Every factual claim maps to the ledger, a fetched source, or the owner-confirm list. Anything else comes out. Prices, guarantees and response times appear only as the owner confirmed them.
+3. **Claim trace.** Every factual claim maps to the ledger, a fetched source with its URL, or the owner-confirm list. Anything else comes out. Prices, guarantees and response times appear only as the owner confirmed them.
 4. **Filler count.** Search the set for the procedural phrases the filler trap produces ("have your address ready", "what to expect", "next step", "when you call"). More than one short call block on any page fails the set.
 5. **Markup matches the page.** Nothing in the JSON-LD that a visitor can't see.
 
-Rewrite and re-check up to three rounds. If the set still fails, ship fewer pages and say so. Eight real pages beat twenty where twelve are padding.
+Rewrite and re-check up to three rounds. If the set still fails, ship fewer pages and say so in one line in the note. Eight real pages beat twenty where twelve are padding.
 
 ## Phase 7. Publish, retire and measure
 
@@ -130,16 +132,17 @@ Rewrite and re-check up to three rounds. If the set still fails, ship fewer page
 
 ## Output
 
-Write `./campaigns/service-area-pages/<YYYY-MM-DD>-pages.md`, the handoff for the owner or the developer:
+Write `./campaigns/service-area-pages/<YYYY-MM-DD>-pages.md`, the handoff for the owner or the developer. Length: page budget, about 800 to 1,500 words of copy per page; the handoff around the pages stays short.
 
-1. `## SERVICE AREA PAGES for <business>` with the date and the data label.
-2. The qualify table: every served town, qualified or not, the reason, and the unlock for those that aren't.
-3. The set: hub, town pages, service-page links, and the redirect list for FIX EXISTING.
-4. Per page: the spec, the full copy, and its JSON-LD block.
-5. The duplicate check output and the read-test notes.
-6. Owner to confirm: every claim that needs a yes before publishing.
-7. Measurement baseline: Search Console for each page's query group, and the near-me map pack position from each town's center, recorded with the date and device so next month's check is comparable.
-8. Built from, and what's missing: the ledger rows, sources and checks the set rests on, and when proof is thin, the one gap that would unlock the next town ("three more jobs and one review naming Rowlett") with one offer to gather it.
+1. `## SERVICE AREA PAGES for <business>`, then one line with the date and what the set is for.
+2. The qualify table: every served town, qualified or not, the reason in a few words, and the unlock for those that aren't.
+3. The set: one row per page (URL, create or improve, the question it answers first), the hub, the service-page links, and the redirect list for FIX EXISTING.
+4. Per page: the full copy and its JSON-LD block.
+5. Owner to confirm: every claim that needs a yes before publishing, with the page it sits on.
+6. Measurement baseline: Search Console for each page's query group, and the near-me map pack position from each town's center, recorded with the date and device so next month's check is comparable.
+7. Sources and assumptions, 10 lines at most: what the set rests on (the plan, job records, pages and reports read, with dates), and what is missing. When proof is thin, at most 3 of those lines say what was checked, what could not be, and the one gap that would unlock the next town ("three more jobs and one review naming Rowlett") with one offer to gather it. Missing inputs (no plan, no job records, no Search Console export) are one line here, never an audit.
+
+`./campaigns/service-area-pages/notes.md` holds the working data: per-page specs, the ledger rows each page used, source URLs, and the Phase 6 results. Save it, don't paste it, and list it once under Files saved.
 
 If the project has a codebase, also write the pages into it, the way the project already builds pages, and list the paths. Never publish. Append one line to `./brand/assets.md`.
 

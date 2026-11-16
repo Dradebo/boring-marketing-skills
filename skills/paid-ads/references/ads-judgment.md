@@ -75,7 +75,7 @@ whatever the audience settings say.
 ## Honest budget math
 
 Most "the ads didn't work" stories are actually "the budget couldn't have answered the
-question." Run this math before selecting cells, and show it to the user.
+question." Run this math before selecting cells, and state the result in the plan in a line or two.
 
 - **The judgment unit is 2× target CPA per cell.** Before a cell has spent twice the
   target CPA, its results are noise. At that spend a true-at-target ad has produced

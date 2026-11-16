@@ -288,6 +288,8 @@ native rather than designed, and the auto-fit rule for caption boxes.
 
 ## Launch checklist
 
+Work through it silently. The launch file lists only what is still open.
+
 - [ ] Preflight passes: token, scopes, ad account active, payment method, Page, pixel last
       fired, Instagram connected; app is Live
 - [ ] Special Ad Category decided and set (immutable after creation)
@@ -305,14 +307,19 @@ native rather than designed, and the auto-fit rule for caption boxes.
 
 Write `./campaigns/<name>/meta-launch.md`:
 
-1. `## META LAUNCH: <campaign>` with the date and `Data: LIVE (Marketing API <version>)`
-   or `Data: CONFIG ONLY (no token)`.
-2. **Preflight result,** line by line.
-3. **What was created,** all PAUSED: campaign, ad set and ad IDs, budget, category,
+1. `## META LAUNCH: <campaign>` and one line: the date and what the launch is for.
+2. **What exists,** all PAUSED: campaign, ad set and ads by name, budget, category,
    optimization event, placements.
-4. **Proof:** preview checks per placement, Test Events status, the server's own send
-   result, the CSP check on the deployed URL.
-5. **Open items** and who turned it on, when.
+3. **Open items,** in order, with who owns each and who turned it on, when.
+4. **Proof,** a few lines: previews checked per placement, Test Events status, the
+   server's own send result, the CSP check on the deployed URL.
+5. **Sources and assumptions,** one short note: what was checked live and what is
+   config only. With no token, say so in one line (nothing was created; this is the
+   config and the checklist). A placeholder pixel ID or domain is one line saying it
+   is missing; never run a check against it.
+
+Preflight output, object IDs and request detail go in `./campaigns/<name>/notes.md`.
+Saved, not pasted. No script paths or commands in the launch file.
 
 Append one line to `./brand/assets.md`.
 

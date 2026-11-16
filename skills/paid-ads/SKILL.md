@@ -20,7 +20,8 @@ way to map results back to the idea being tested. This skill makes the ad-matrix
 runnable: platform-correct copy and creative briefs per cell, a campaign structure the
 budget can actually support, and honest verdicts when the numbers come back. Done =
 campaigns a media buyer could upload as-is, where every asset and every result traces to
-a matrix cell ID. The method is a floor, not a ceiling. When the account in front of
+a matrix cell ID. The ID lives in file names, ad names and UTMs; the prose the client reads
+names ads by hook and format. The method is a floor, not a ceiling. When the account in front of
 you argues for a better path, take it and say why in one line.
 
 ## Context
@@ -35,7 +36,8 @@ names one, else `./brand/`; then `MARKETING.md`, `preferences.md` and the files 
 requires: the product, the offer, daily budget, and target CPA or a way to derive it.)
 
 If `learnings.md` holds ads-relevant priors (hook patterns, platform CPAs, past
-kill/scale calls), cite which ones shaped this run.
+kill/scale calls), apply them. Mention one only when it changed the work, as one line in
+the Sources and assumptions note.
 
 ## Modes
 
@@ -78,8 +80,8 @@ If no matrix exists, two routes:
 decides how many cells this account can honestly test. Default is NOT all 12. Under
 roughly $50/day, pick 4-6 cells: cover at least 3 hook types before adding a second
 format of the same hook (hook variation drives more performance difference than format
-variation). State which cells were selected and why; mark the rest `planned` for
-round 2.
+variation). Write which hooks and formats go first, and why, into the plan in plain
+words; mark the rest `planned` in `ad-matrix.json` for round 2.
 
 ### Phase 2: Campaign structure
 
@@ -180,30 +182,45 @@ needed for the chosen placements, safe-zone notes from platform-specs, and the a
 naming contract: `<cell-id>-<ratio>-v<n>.<ext>` (e.g. `MA-H2-B-9x16-v1.mp4`). Hand to
 `/creative`, which reads the same matrix and names assets by cell ID.
 
-### Phase 5: Quality gate
+### Phase 5: Quality check (silent)
 
 Score each cell's copy 1-10 on five dimensions: hook fidelity (does the copy deliver
 THIS cell's hook_type, or did it drift generic), specificity, platform-nativeness,
 landing congruence (the ad's promise is the landing page's headline, see
 ads-judgment), and policy cleanliness. Below 7 on any dimension (the default bar;
 override either way with a stated reason) → rewrite that dimension → rescore, up to ~3
-iterations, then present best with score history. Finish with an inline
-POLICY CHECK pass (Mode 2 rules) on the final copy.
+iterations. Scores and history stay out of the deliverable (keep them in `notes.md` if
+useful); the client sees only copy that passes. A weakness that can't be fixed (the
+page can't carry the promise) gets one line in the note. Finish with an inline POLICY
+CHECK pass (Mode 2 rules) on the final copy: fix what it finds, and surface only what the
+client must act on, such as a special ad category to declare.
+
+Missing inputs (landing page, tracking, target CPA) get one line each in the note. Never
+audit a placeholder URL or domain.
 
 ### Output (CAMPAIGN BUILD)
 
+Length: the ads plus a short test plan. The plan is one page, not a strategy document.
+
 Write before summarizing in chat:
 
-- `./campaigns/<name>/ads/campaign-plan.md`: structure, budget split, audience
-  settings, selected cells + rationale, UTM table, launch checklist
-- `./campaigns/<name>/ads/copy/<platform>.md`: one file per platform, copy grouped by
-  cell ID, every field within platform limits
+- `./campaigns/<name>/ads/copy/<platform>.md`: one file per platform, one section per ad
+  headed by hook and format ("Proof hook, video"), every field within platform limits, and
+  the ad name for the upload (cell ID and version) on one line
+- `./campaigns/<name>/ads/campaign-plan.md`: the short test plan. Structure and why,
+  budget split, audience settings, which hooks and formats go first and why, what each
+  test answers, the kill and scale rule in numbers, the UTM pattern once, launch checklist
 - `./campaigns/<name>/ads/creative-briefs/<cell-id>.md`: per selected cell
 - Update `ad-matrix.json`: selected cells → `status: "copy-ready"`
+- `./campaigns/<name>/notes.md`: score history, priors applied, routing and tool output.
+  Saved, never pasted
 - Append one line per file to `./brand/assets.md`
 
-Chat shows: header, the structure decision, the cell selection table, sample copy for
-one cell, files saved, what's next, per `start-here/references/output-format.md`.
+Chat, in the order the client will use it: header; sample ads for the lead hook (the full
+set is in the files); the test plan in a few lines; one Sources and assumptions note
+(what the copy rests on, the assumed CPA and budget, what is missing, anything to
+confirm); files saved; what's next. No score table, matrix status, or script and tool
+output.
 
 ---
 
@@ -247,11 +264,11 @@ need a methodology or footnote, testimonials from identifiable people.
 **TikTok:** no fake UI elements or fake interactivity, no other platforms' watermarks,
 disclosure for synthetic/AI-generated people, regulated-vertical age gates.
 
-Output: a table of flags with the columns `cell/line · platform · rule · severity (REJECTION /
+Output: a table of flags with the columns `ad or line · platform · rule · severity (REJECTION /
 ACCOUNT RISK / DELIVERY DRAG) · compliant rewrite`, saved to
-`./campaigns/<name>/ads/policy-review.md`. State plainly: this is a platform-policy
-pass, not legal review; regulated verticals (health claims, financial products,
-alcohol, etc.) need counsel.
+`./campaigns/<name>/ads/policy-review.md`. Ads are named by hook and format; clean ads are
+not listed. State plainly, once: this is a platform-policy pass, not legal review;
+regulated verticals (health claims, financial products, alcohol, etc.) need counsel.
 
 ---
 
@@ -263,7 +280,8 @@ or, if API keys are present, a read-only pull (see API access below). Also read
 break-even CPA; without it there is no honest verdict, only vibes).
 
 **Map rows to cells** via ad name or utm_content. Rows that map to no cell get flagged,
-not silently dropped: unmapped spend is a naming-discipline bug worth surfacing.
+not silently dropped: unmapped spend is a naming-discipline bug worth surfacing, in
+plain words ("$220 went to ads that don't match the test plan").
 
 **The judgment threshold comes before the verdict.** A cell must spend roughly **2×
 target CPA** before it earns any verdict at all. At a $50 target CPA, a cell with $60
@@ -293,14 +311,18 @@ Then, per cell that clears the threshold:
 
 Output:
 
-- `./campaigns/<name>/ads/results-<YYYY-MM-DD>.md`: per-cell table (spend, CPA/CTR,
-  verdict + math), the hook × format read, round-2 cell recommendations
-- Update `ad-matrix.json`: per-cell `performance` blocks and statuses
+- `./campaigns/<name>/ads/results-<YYYY-MM-DD>.md`: per-ad table (spend, CPA/CTR,
+  verdict + math), the hook × format read, round-2 recommendations, then one Sources
+  and assumptions note (the export and date range, where the target CPA came from, how
+  much of the conversion count is platform-modeled or local-action). Ads are labeled by
+  hook and format, and each ad's upload name is in its copy file.
+- Update `ad-matrix.json`: per-cell `results` blocks and statuses
   (`live`/`paused`/`completed`)
-- **Draft learnings entries** in the structured format:
+- **Draft learnings entries** in the structured format, saved under "Draft learnings" in
+  `./campaigns/<name>/notes.md` (not pasted):
   `- [YYYY-MM-DD] [paid-ads] hook=proof beat hook=direct on CPA 1.8x (n=6 cells,
-  $1,400 spend, source: meta-export)` and hand them to `/performance-review`, which
-  owns `learnings.md`. Append directly only if the user explicitly says to save them.
+  $1,400 spend, source: meta-export)`. `/performance-review` owns `learnings.md` and
+  picks them up. Append directly only if the user explicitly says to save them.
 
 ---
 
@@ -323,7 +345,7 @@ If `META_ACCESS_TOKEN` (Meta Marketing API) or Google Ads API credentials
 levels apply:
 
 - **Read-only** (insights, campaign status, spend pulls for RESULTS REVIEW): use
-  freely; say what was pulled.
+  freely; the account and date range go in the Sources and assumptions note.
 - **Writes** (create/modify/pause campaigns, ads, budgets, audiences): **never without
   explicit confirmation.** Show the exact planned mutation (object, field, before →
   after) and proceed only on an explicit yes for that specific change. No batch

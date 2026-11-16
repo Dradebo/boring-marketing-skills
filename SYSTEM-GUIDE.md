@@ -140,9 +140,10 @@ resolves the brand folder in this order: an explicit `--brand <slug>`, then
    `content/` or site source in your workspace is read first as evidence and labelled
    `Data: LOCAL DOCS`. Unpublished plans count as intent, not fact.
 
-Every research deliverable carries a data label (`Data: LIVE (n sources)`,
-`Data: LOCAL DOCS`, or `Data: MODEL KNOWLEDGE (verify before spending)`), and estimated
-numbers carry a `~`.
+Every research deliverable says once, in a short "Sources and assumptions" note at the
+end, whether it rests on live sources, your own documents or general knowledge, and
+estimated numbers carry a `~`. Deliverables hold only the work: the evidence, scores and
+tool output are saved to a notes file, not pasted into what you hand a client.
 
 ## Memory that learns
 
@@ -151,13 +152,14 @@ numbers carry a `~`.
   with a freshness flag per file, plus the business facts from `brand.yaml`.
 - **Learnings have one writer.** Only `/performance-review` writes `learnings.md`, and
   only from real numbers you give it (a CSV export, a screenshot, a call log or a
-  read-only analytics pull). Every generator reads it and cites the priors it applied.
+  read-only analytics pull). Every generator reads it and applies the priors that fit.
 - **Nothing is lost.** Before a profile file is overwritten, a dated copy goes to
   `./brand/.history/`, and a three-line summary says what changed.
 - **Append-only registers.** `assets.md` and `learnings.md` are never truncated or
   reordered.
-- **Visible context.** A skill says in one line what shaped its output ("Loaded your
-  positioning and voice profile"). That is how stale memory gets caught.
+- **Quiet context.** The work shows what shaped it. A skill speaks up in one line only
+  when a file is stale or conflicts with what you just said, so stale memory still gets
+  caught.
 
 Freshness flags: under 7 days, loaded as is; 7 to 30 days, dated; 30 to 90 days, flagged
 as possibly stale; over 90, the owning skill is named for a refresh.

@@ -31,7 +31,7 @@ Only conditions that change the work, each from a source you fetched or the owne
 | Utility rebates | The gas or electric utility's rebate page |
 | HOA or historic district rules | The city or HOA site |
 
-Cite the source in the output file next to the claim so the owner can check it. If nothing fetched changes the work, this section is omitted, not padded.
+Keep the source URL for each claim in `notes.md` so the owner can check it. The page itself carries no citation tags. If nothing fetched changes the work, this section is omitted, not padded.
 
 ## 4. Proof
 

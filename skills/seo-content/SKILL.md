@@ -24,7 +24,7 @@ Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherw
 `python3 ${CLAUDE_SKILL_DIR}/../start-here/scripts/brand_context.py --for seo-content`
 (If the script or python3 is unavailable, read the files named in `reads:` directly, section-anchored where specified. If none exist, proceed standalone. Ask only for what the task strictly requires.)
 
-If `./brand/learnings.md` has entries about content (formats, angles, lengths that performed), cite which priors you applied in the final output.
+If `./brand/learnings.md` has entries about content (formats, angles, lengths that performed), apply them. A prior that changed the piece gets one line in the Sources and assumptions note, only if it did.
 
 **Freshness check:** Load `references/ai-search-facts.md` before Phase 1.5 and Phase 5. If it's past TTL, refresh it per its header first and say so in one line.
 
@@ -58,7 +58,7 @@ Then fan out **one subagent per top-5 competitor URL, in parallel**. Each agent 
 
 We use Firecrawl for these page reads: full-page reads, so the word count, heading map and JSON-LD come from the real page (free tier of 1,000 credits a month, no card). Without it, WebFetch reads pages as summaries, so mark word counts and schema `~` and say so.
 
-Run 2-3 keyword variations through search as well to widen the PAA pool. Label the deliverable `Data: LIVE (n pages scraped)`. If scraping is genuinely unavailable, say so, mark everything `~`, and ask whether to proceed on `Data: MODEL KNOWLEDGE` or stop.
+Run 2-3 keyword variations through search as well to widen the PAA pool. Never present model knowledge as live research: the Sources and assumptions note says how many pages were read and when, in plain words. If scraping is genuinely unavailable, say so, mark everything `~`, and ask whether to proceed on general knowledge (the note then says to verify before publishing) or stop.
 
 **Gap analysis** (from the evidence packs): what's missing, what's outdated, what's generic, and what's your edge: the thing the user can say that no ranking page can. If you can't articulate an edge, flag it now; an aggregation piece will neither rank nor get cited.
 
@@ -69,7 +69,7 @@ This decides whether the piece can earn citations, which is half the win conditi
 1. **Capture the AI Overview** for the target query: its answer text and every cited source (URL + which claim it supports). If no AIO appears, note that. It means the query still resolves to classic results, and Track B effort shifts from "displace a citation" to "be first in when one appears."
 2. **Run 2-3 LLM-phrasing variants**: the question as someone would ask a chatbot, not type into Google ("what is X" → "explain X like I'm evaluating tools," "is X worth it for a small team"). Search each; capture how the answer and citation set shift. Conversational phrasings often cite different sources than the keyword phrasing.
 3. **For each cited source, record WHY it's cited** (judge against the drivers in `references/ai-search-facts.md`): extractable answer-block format? An original stat the answer quotes? Freshness? Clear entity attribution? Domain authority alone?
-4. **Output the AI citation gap** alongside the classic SERP gap:
+4. **Record the AI citation gap** alongside the classic SERP gap, in the notes file (`./campaigns/content/{keyword-slug}.notes.md`, with the Phase 1 evidence packs). It is working data and is not pasted into chat:
 
 ```
 AI SURFACE: "{query}"
@@ -79,7 +79,7 @@ Citation gap: {what a page would need that no current citation has,
 e.g., "no cited source has post-2025 data; an original benchmark wins this"}
 ```
 
-Save the citation set. Refresh mode diffs against it.
+Save the citation set to the frontmatter's `aio_citations`. Refresh mode diffs against it.
 
 ## Phase 2: Brief & Structure
 
@@ -111,7 +111,7 @@ Craft rules that govern the draft:
 - **The first-paragraph rule.** Answer the search query in the first 2-3 sentences. Nobody scrolls for the answer anymore, and neither do extraction models.
 - **The "so what?" chain.** For every point, ask "so what?" until you hit something the reader cares about, then write from the bottom of the chain. "Automated sequences" → "follow-ups send themselves" → "you wake up to replies." Write the last one.
 - **Specificity over generality.** "Saves time" is dead weight; "cut outreach from 4 hours to 15 minutes" (illustrative) is an argument. Numbers, examples, named things.
-- **Show your work.** Claims carry their evidence: "after testing N tools," "across N client accounts," "we analyzed N pages." These must be the user's REAL numbers: pull from brand context or ask. A fabricated experience claim is an E-E-A-T liability and a trust breach. Lived examples are an input, not a craft move: ask for them precisely, shaped to the topic ("two shift-swap stories from customers with five or more locations"). If the ask goes unanswered, the piece is thinner and the output says so; it never invents one.
+- **Show your work.** Claims carry their evidence: "after testing N tools," "across N client accounts," "we analyzed N pages." These must be the user's REAL numbers: pull from brand context or ask. A fabricated experience claim is an E-E-A-T liability and a trust breach. Lived examples are an input, not a craft move: ask for them precisely, shaped to the topic ("two shift-swap stories from customers with five or more locations"). If the ask goes unanswered, the piece is thinner and the Sources and assumptions note says so; it never invents one.
 - **Write from the practitioner's chair.** The stance is someone who measured this market writing the piece they wish existed, for a peer. The claim contract is your editor, not your author: prose drafted rule by rule reads like it was drafted rule by rule.
 - **The reader never sees your instruments.** No "this shows up in autocomplete, which means people are asking", no "as of <month>, ChatGPT names...", no strategy talk ("a clear definition can take this slot"). The research decides what the page says; it doesn't appear in it. One deliberate evidence line in reader terms ("we pulled 140 of our own invoices", illustrative) is fine.
 - **Say each claim once, at full strength.** Later sections build on it instead of paraphrasing it down, and the FAQ answers a different question rather than restating the body in new words.
@@ -164,7 +164,7 @@ Generate, into the saved file's frontmatter:
 
 ## Quality gate
 
-Score the draft before saving; rewrite weak dimensions and rescore: ~3 iterations is the practical ceiling; past that the constraint is upstream (angle, experience inventory), say so. Always present the honest score history; never present unscored work as scored:
+Run this check silently before saving: score the draft, rewrite weak dimensions and rescore. About 3 iterations is the practical ceiling; past that the constraint is upstream (angle, experience inventory). The client sees only the passing piece. A weakness that cannot be fixed gets one line in the Sources and assumptions note:
 
 1. Answers the query in the first paragraph, better than what's ranking
 2. Every PAA question answered (H2 or FAQ); SERP gaps from Phase 1 addressed
@@ -190,7 +190,7 @@ Edit the current published version; never re-draft from the original brief, whic
 
 ## Output
 
-Worked example: load `references/worked-example.md` for the end-to-end flow and clearly labeled sample data.
+Worked example: load `references/worked-example.md` for the end-to-end flow and the clean final output, with clearly labeled sample data.
 
 Save to `./campaigns/content/{keyword-slug}.md` (create the directory if needed; slug = lowercase kebab-case, stop words dropped if >60 chars). YAML frontmatter:
 
@@ -211,13 +211,14 @@ aio_citations: []        # [{domain, claim_cited, why}]: Refresh mode diffs this
 play: ""                 # hub or spoke, and the play file, when the piece belongs to one
 acceptance_check: ""     # the observable result that proves the piece worked
 needs_checking: []       # claims held back until someone confirms them
-paa_questions_answered: N
 schema: |
   {Article + Person + Organization (+ FAQPage) JSON-LD, ready to paste into the CMS}
 ---
 ```
 
-Body: the full article (H2/H3 structure, FAQ section last). Then present per the output contract (`${CLAUDE_SKILL_DIR}/../start-here/references/output-format.md`): deliverable header with `Data: LIVE (n)` label, a compact summary (SERP + AI-surface findings, article stats, gate score, applied learnings priors, and, when the piece is thinner than it should be, the one named gap and the one ask that would close it, such as "no real job numbers yet, so the cost section quotes ranges from cited sources; send the last 12 months of invoices and it becomes the only local price data on the page"), **Files saved** (content file + one-line append to `./brand/assets.md`), and **What's next**.
+Body: the full article (H2/H3 structure, FAQ section last). The frontmatter is working data for the CMS handoff and Refresh mode; chat never repeats it.
+
+Then present per the output contract (`${CLAUDE_SKILL_DIR}/../start-here/references/output-format.md`). Header `## SEO ARTICLE: {title}` plus one line of date and what the piece is for, with no data tag or gate score. Then a short summary: the angle in a sentence, the gap it closes that the ranking pages and AI answers leave open, what the owner must confirm or supply before publishing (the `needs_checking` items, missing lived examples), and the publish steps from Track B. Then one **Sources and assumptions** note, 10 lines at most: what the piece rests on in plain words (pages read, AI surfaces queried, date), the data quality, and what to confirm. The gap-aware receipt is at most 3 of those lines: what was checked, what could not be, and the one ask that would close the gap, such as "no real job numbers yet, so the cost section quotes ranges from cited sources; send the last 12 months of invoices and it becomes the only local price data on the page". Then **Files saved** (content file, the notes file, one-line append to `./brand/assets.md`) and **What's next**. No score tables, tool names or per-line data tags.
 
 **What's next** (pick 2-3 that fit):
 - `/content-atomizer`: one article into platform-native social assets (~10 min)

@@ -189,7 +189,7 @@ Per post: pillar → unique concept → template prefix + concept + suffix → p
 → generate → QA → caption with platform-appropriate hashtag discipline → save as
 `day-N-pillar-concept-[ratio].png`. Write a `calendar-summary.md` table (day, pillar,
 concept, file, caption) plus the campaign manifest per api-workflow.md. Batch in parallel
-waves; the week costs well under $1. No confirmation ritual, just report actual spend.
+waves; the week costs well under $1. No confirmation ritual; actual spend is one line in the note.
 
 ## QA additions for this mode
 
@@ -205,6 +205,6 @@ words or text-render role or composite.
 
 `creative-output/social-graphics/<campaign>/<platform>/`, named
 `[concept]-[ratio]-v[N].png` (calendar posts: `day-N-[pillar]-[concept]-[ratio].png`),
-manifest + `./brand/assets.md` per asset. Delivery = standard contract with per-asset
-QA scores and captions where written. Route onward: /content-atomizer to spin approved
+manifest + `./brand/assets.md` per asset. Delivery = standard contract with the graphics
+and captions where written (QA scores stay in the manifest). Route onward: /content-atomizer to spin approved
 visuals into full platform posts; ad-creative mode when a graphic becomes a paid cell.

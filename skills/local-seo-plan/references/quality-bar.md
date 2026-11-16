@@ -23,6 +23,46 @@ Load before writing the plan's output and before handing a move to another skill
 
 Why it fails: a score instead of who's winning, no competitor named, twenty-three findings with no order, "optimize your profile" instead of the exact change, and fifteen town pages the proof can't support.
 
+## The page list, strong and weak
+
+**Strong:** the complete list in build order, every row with a URL, a title tag, a target week and what it rests on (see the table in `decision-examples.md`). Town pages sit on the list with their week and the note "behind the standard".
+
+**Weak:**
+
+> Service pages: to be decided once keyword volumes are pulled. Town pages: on hold until job records are available. Consider location pages for the top towns.
+
+Why it fails: nothing gets built, nobody knows what ships when, and the missing data was a reason to gate pages, not to defer them.
+
+## The 90-day calendar, strong and weak
+
+**Strong (excerpt, plan dated Monday, Nov 16):**
+
+| Week | Dates | Ships | Who | Owner time |
+|---|---|---|---|---|
+| 1 | Nov 16-22 | Fix first: primary category, four services with prices, 11 review replies, old number fixed on 2 directories, tagged profile link, baselines recorded | Doer | 30 min |
+| 2 | Nov 23-29 (Thanksgiving, light week) | Water heater page drafted and approved | Doer | 20 min |
+| 3 | Nov 30-Dec 6 | Water heater page live; slab leak page improved | Doer | 20 min |
+| 5 | Dec 14-20 | Garland page if it meets the standard, else a Garland line on the areas page; areas page rewritten | Doer | 15 min |
+| 13 | Feb 8-14 | 90-day re-check from the same towns and devices; next quarter's list | Doer and owner | 30 min call |
+
+**Weak:**
+
+> Month 1: foundations. Month 2: content. Month 3: review and iterate.
+
+Why it fails: no dates, no pages, no owner, and nothing anyone can check at the end of a week.
+
+## Profile checklist rows, strong and weak
+
+**Strong:** `Primary category · now: General contractor · change to: Plumber · doer · week 1` and `Description · now: "Best plumbers in DFW" · change to: three sentences from the brief naming the services, the towns and the price-in-writing step (about 600 characters) · doer drafts, owner approves · week 1`.
+
+**Weak:** "Optimize your Google Business Profile with relevant keywords."
+
+## Facts in client-ready text
+
+**Strong:** the brief says "22 techs", the profile description says "22 techs".
+
+**Weak:** the brief says "22 techs", the title tag says "22 Licensed Plumbers". Nobody confirmed the licenses, and the owner now has a claim on the page they can't back. Anything the brief doesn't say goes on the owner-to-confirm list.
+
 ## Market map cell, strong and weak
 
 **Strong:** `Water heater × Garland: close (#6 near-me from the town center, checked May 4, phone) · <competitor A> #1 · organic #14 with the homepage · no page · 31 jobs, 4 reviews name Garland → town page`
@@ -33,7 +73,7 @@ Why it fails: a score instead of who's winning, no competitor named, twenty-thre
 
 | Deliverable | Good | Weak (reject) |
 |---|---|---|
-| The plan or a pitch audit | Leads with who wins instead in plain words; three vitals; the market map; three costly gaps with named competitors and evidence; one fix-first move | A score, jargon, twenty findings, no competitor names, advice that fits any plumber |
+| The plan or a pitch audit | Leads with who wins instead in plain words; three vitals; three costly gaps with named competitors and evidence; one fix-first move; the complete page list, the profile checklist and 13 dated weeks | A score, jargon, twenty findings, no competitor names, advice that fits any plumber, page decisions deferred behind holds, ledgers padding the plan |
 | Service page | Answers the buyer's real questions first (how pricing works, how fast, areas served) with the business's actual services, licenses, reviews and photos; paste-ready copy, title, description and markup | Template filler, invented guarantees or prices, the same page with the town swapped |
 | Town page or job story | Real jobs in that town, a local detail that changes the work, reviews from there; clearly different from its siblings | A doorway page: the town name swapped, no proof |
 | Review replies | Specific to what the reviewer said, in the owner's voice; calm with a next step on a bad review | "Thanks for the review!" on every one; defensive replies; stuffed keywords |

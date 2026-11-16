@@ -150,7 +150,7 @@ single parallel batch:
 WebSearch and WebFetch cover the website, spoken and newsletter rows for free. We use
 Firecrawl to read the website row as clean text (free tier of 1,000 credits a month, no
 card) and Exa to find the spoken and newsletter sources a keyword search misses (free tier,
-then pay as you go). Without them, WebFetch reads pages as summaries and the profile says so.
+then pay as you go). Without them, WebFetch reads pages as summaries and the Sources and assumptions note says so.
 
 Each subagent returns a **structured evidence pack**, not prose:
 
@@ -167,14 +167,16 @@ GAPS: what couldn't be found
 Weighting judgment: spoken transcripts and social posts are the real voice; website copy
 is often agency-written. When sources conflict, trust spoken/social and note the
 conflict in the profile: that note is itself useful to downstream skills. If the
-combined corpus is under ~1,500 words, report exactly what was found per source and fall
+combined corpus is under ~1,500 words, say in one line what was found per source and fall
 back to Extract (ask for pasted content) or Build.
 
 After merging, ask 2-3 gap-filling questions ONLY for what the scrape couldn't answer
 (usually: "anything about your current voice you want to evolve rather than preserve?"
 and "any loved/hated words that wouldn't show up publicly?"). Then the Voice Test Loop.
 
-Label the deliverable: `Data: LIVE (n sources, ~X words)`.
+The profile file's Evidence line carries `LIVE (n sources)`. In chat, say it once in the
+Sources and assumptions note, in plain words ("Based on 6 sources, about 9,000 words, read
+live on Nov 13").
 
 ## Mode: Drift Check
 
@@ -203,7 +205,8 @@ Process:
 
 Output a drift report to `./campaigns/voice-drift/{YYYY-MM-DD}-drift-report.md`:
 per-piece dimension scores, side-by-side drift examples, AI-tell flags, verdict,
-recommended action.
+recommended action. Chat carries the verdict, the two or three worst side-by-side examples
+and the action, not the score tables.
 
 ---
 
@@ -223,7 +226,8 @@ agents) can't ask: generate the samples anyway and mark the loop pending user re
    under direct-response pressure.
 
 The samples must be genuinely written in the profile's voice. If they could have been
-written without the profile, the profile failed before the user even reacts.
+written without the profile, the profile failed before the user even reacts. Run that check
+silently and fix the profile first; show only the samples that pass.
 
 **Step 2. Present and ask:** "Does this sound like you? (1) Nails it: save. (2) Close:
 tell me what's off. (3) Not right: show me what's wrong."
@@ -249,7 +253,8 @@ guessing rarely converges.
 ## The voice profile (canonical format)
 
 Saved to `./brand/voice-profile.md`. Markdown is the single source of truth. No JSON
-block. Every claim cites exhibits per `references/voice-extraction-judgment.md`. **Load
+block. Every claim cites exhibits per `references/voice-extraction-judgment.md`. The Evidence
+line, exhibit IDs and appendix live in the file, not in chat. **Load
 `references/ai-tells.md` before writing the AVOID section. It is mandatory in every
 profile.**
 
@@ -374,14 +379,22 @@ exist in this one.
 
 Per `start-here/references/output-format.md`:
 
-1. `## VOICE PROFILE: {Brand}` + date + mode + data label
-2. The profile (and in Drift Check, the drift report)
-3. **Files saved:**
+1. `## VOICE PROFILE: {Brand}`, then one line of date and what the profile is for. No mode,
+   data label or evidence line.
+2. The short form: voice summary, traits, tone positions and the AVOID list, with a verbatim
+   quote where it makes a claim concrete. Exhibit IDs, the appendix and the platform table
+   stay in the file. For Drift Check, the verdict, worst examples and action. Budget: the
+   profile file runs about 1,200 to 2,500 words including exhibits.
+3. **Sources and assumptions** (10 lines at most), in plain words: what the profile rests on
+   ("6 sources, about 9,000 words, read live on Nov 13" or "built from your answers, no
+   published content yet"), what could not be read, what to confirm. A learnings.md prior
+   that changed the work gets one line.
+4. **Files saved:**
    - `./brand/voice-profile.md` (new or updated; the old version is auto-saved to
      `./brand/.history/`)
    - Drift Check: `./campaigns/voice-drift/{date}-drift-report.md` (new)
    - Update `brand.yaml`; append one line to `./brand/assets.md`
-4. **What's next:**
+5. **What's next:**
    - `/positioning-angles`: the voice now has a spine; find the angle it should argue
      (~10 min)
    - `/audience-research`: if audience.md was missing, the jargon-level calls were

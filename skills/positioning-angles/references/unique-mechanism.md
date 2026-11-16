@@ -4,6 +4,13 @@ Load in Phase 3 when the mechanism is weak or generic, or when the owner says "w
 really do anything different". From Todd Brown and the direct-response tradition: the
 mechanism is the HOW behind the promise. It answers "why would this time be different?"
 
+**The claim gate applies.** A mechanism names something the business does today, found
+in the brief, the site, the reviews or the owner interview. Never reverse-engineer one
+from how the product might work ("a usage-signal system that knows when you're low")
+when nothing says it exists. If the facts hold no step worth naming, ship the angle
+without a method and put the proposed one under **To make this true** with what it would
+take to make it real.
+
 ## Why it matters
 
 In a crowded market everyone makes the same promise, and the buyer has tried things that
@@ -22,7 +29,8 @@ Hopkins made Schlitz famous by describing the steam-cleaned bottles every brewer
 The one who explains it first owns it. This is the richest vein in mature markets.
 
 **3. New.** A genuine innovation: original research, a new process, equipment or software
-competitors don't have. Rare and strong. Document it and put it first.
+competitors don't have. Rare and strong. Document it and put it first. It counts only
+once it's live; a planned feature is a To make this true item.
 
 ## Finding it: questions for whoever does the work
 

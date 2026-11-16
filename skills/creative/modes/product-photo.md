@@ -263,7 +263,7 @@ down the staging and darken the background, don't just append "luxury".
 
 Save per api-workflow.md: `creative-output/product-photos/<product>/<shot-type>/`
 (edits go in `edits/`), named `[shot]-[descriptor]-[ratio]-v[N].png`, manifest updated,
-one line to `./brand/assets.md`. Delivery = standard contract with per-shot QA scores;
-offer the consistency lock and complete-shoot expansion when a single shot lands well.
+one line to `./brand/assets.md`. Delivery = standard contract with the shots and one line each on where they fit (QA scores
+stay in the manifest); offer the consistency lock and complete-shoot expansion when a single shot lands well.
 Route onward: approved hero → product-video mode (I2V source frame); approved set →
 ad-creative mode (matrix raw material).

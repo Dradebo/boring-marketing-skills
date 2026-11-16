@@ -75,17 +75,17 @@ Example, a proposal tool for freelancers: "best proposal software for freelance 
 
 Ask the user once, before capture: "If you can paste real ChatGPT, Perplexity and Gemini answers for your top 3 to 5 questions, I'll score those as ground truth." Pasted answers override the proxy layers for those questions. Don't block on it.
 
-Dispatch one subagent per question kind, in parallel (Task tool, `general-purpose` when the plugin's research type is unavailable), each returning an evidence pack, not analysis. Per question, three layers, each labeled:
+Dispatch one subagent per question kind, in parallel (Task tool, `general-purpose` when the plugin's research type is unavailable), each returning an evidence pack, not analysis. Per question, three layers, each labeled in the notes file (never as tags in the report):
 
 1. **Google AI Overview.** Search the question (Firecrawl search if keyed, else WebSearch). Record the overview text and every cited URL when it appears. When your tools can't show it, record the top organic results and mark `AIO: not captured, organic proxy`.
 2. **Retrieval landscape** (the ChatGPT and Perplexity proxy). Run the conversational phrasing through web search and record which sources dominate. Fetch the top 2 or 3 enough to see whether they name the brand and competitors. Label `RETRIEVAL PROXY`.
 3. **Model knowledge.** Answer from your own knowledge and record which brands you'd name unprompted, in what order. Label `MODEL KNOWLEDGE`.
 
-We use Exa for the retrieval layer: it matches on meaning, so a question phrased the way a buyer asks an assistant finds the pages that answer it, not only the pages that share its keywords (free tier, then pay as you go). We use Firecrawl to fetch the winning pages in full for Phase 4, with their answer blocks, dates and schema (free tier of 1,000 credits a month, no card). Without them, WebSearch and WebFetch do both jobs, and a page read as a summary is labelled that way. Either way the retrieval layer stays labelled `RETRIEVAL PROXY`.
+We use Exa for the retrieval layer: it matches on meaning, so a question phrased the way a buyer asks an assistant finds the pages that answer it, not only the pages that share its keywords (free tier, then pay as you go). We use Firecrawl to fetch the winning pages in full for Phase 4, with their answer blocks, dates and schema (free tier of 1,000 credits a month, no card). Without them, WebSearch and WebFetch do both jobs, and a page read as a summary is labelled that way. Either way the retrieval layer stays labelled `RETRIEVAL PROXY` in the notes, and the report's note says once, in plain words, which engines' rows are web-search retrieval rather than their live answers.
 
 **Local branch.** Add two surfaces that only exist for places, captured by hand because no free tool can read them: **Ask Maps** in the Google Maps app (US and India; check `references/local-ai-facts.md` for current availability) and the AI summary on the business's own Google listing where it appears. The user, or the agent with a browser set to the city, asks the question and pastes or screenshots the answer. Also run a **wrong-facts check** on every answer that names the business: phone, address or service area, hours, services, prices, name. One audit found an AI engine giving a local service company's phone number under a different company's name.
 
-Evidence line per question:
+Evidence line per question, written to `./campaigns/ai-search/notes-<YYYY-MM-DD>.md` and never pasted into the report:
 
 ```
 Q: "<exact question>" [kind] [engine or layer] [location if local] [date]
@@ -130,18 +130,17 @@ One diagnosis line per gap question: what the winner has that the brand's best c
 
 ### Audit output
 
-Write `./campaigns/ai-search/audit-<YYYY-MM-DD>.md`:
+Write `./campaigns/ai-search/audit-<YYYY-MM-DD>.md`, about 1,200 to 2,500 words. The captures behind it go to `./campaigns/ai-search/notes-<YYYY-MM-DD>.md`: the evidence lines, the three layers per question and the monitor baseline, saved and never pasted.
 
 ```markdown
-## AI SEARCH AUDIT for <brand>, <date>
-Data: LIVE (<n> questions, <engines>) + RETRIEVAL PROXY where labeled · ground-truth answers: <yes/no> · location: <city or n/a>
+## AI SEARCH AUDIT: <brand>
+<date> · <what it is for, e.g. "how AI assistants answer buyer questions in <city or category>">
 
 ### The read
-What I found: <one finding over the observed denominator, naming who is recommended instead>
-Why it matters: <the customer consequence, in the buyer's words>
-Why now: <the observed urgency, or "This does not look urgent yet.">
-What I checked: <dates, engines, location, observed of attempted questions, what wasn't measured>
-What I recommend: <one move, and how we'll know it worked>
+**What I found:** <one finding over the observed denominator, naming who is recommended instead>
+**Why it matters:** <the customer consequence, in the buyer's words>
+**Why now:** <the observed urgency, or "This does not look urgent yet.">
+**What I recommend:** <one move, and how we'll know it worked>
 
 ### Share of model (over observed answers)
 | Entity | Overall | Category | Comparison | Problem | Brand | (Local: Urgent, Cost) |
@@ -152,30 +151,24 @@ What I recommend: <one move, and how we'll know it worked>
 ### Wrong facts found (local)
 | Engine | Question | Field | Answer said | Truth | Where the wrong fact likely comes from |
 
-### Where the answers come from
-| Question kind | Roundups | Community | Reference | Comparison sites | Product pages | Local listings | Video | What it means for the fix |
-
 ### Findings (typed, costliest first)
-1. [<type>] "<question>": winner <page or listing>, they have <driver>, we lack <...>, fix <retrofit / new content / listing / list placement>. Evidence: <the capture lines it rests on>
+1. [<type>] "<question>": winner <page or listing>, they have <driver>, the brand lacks <...>, fix <retrofit / new content / listing / list placement>.
+
+### Where the answers come from
+One line per question kind that changes the fix: what the answers lean on (roundups, threads, reference sites, product pages, listings) and what that means for the lane.
 
 ### Fix plan
-1 to 5 items, in leverage order: action, the gap questions it addresses, the mode or skill that does it, and the acceptance check (the answer state that proves it worked)
+1 to 5 items, in leverage order: action, the gap questions it addresses, the work that does it, and the acceptance check (the answer state that proves it worked)
 
-### Built from, and what's missing
-<the captures this rests on, with dates and labels>. <When thin: a named diagnosis, e.g. "Gemini and Ask Maps were never captured", and one offer to fill it.>
-
-### Monitor baseline
-The exact question list (verbatim), engines, location, per-question state per entity, capture date.
-(MONITOR diffs against this section. Don't edit it by hand.)
-
-### Caveat
-AI citations churn heavily month to month (see references/aeo-facts.md). This is a snapshot.
-Single gains or losses between two runs are mostly noise; trends across 3 or more monthly runs are signal.
+### Sources and assumptions
+10 lines at most: what was captured, when, on which engines and location, and how many of the attempted answers were observed; which rows are web-search retrieval rather than live answers; what to confirm. The gap-aware receipt is at most 3 of those lines: what was checked, what could not be (a named diagnosis such as "Gemini and Ask Maps were never captured", never a vague caveat), and one offer to fill it. Last line: citations churn month to month, so this is a snapshot; one gain or loss between runs is mostly noise, and trends across 3 or more monthly runs are signal (figures in `references/aeo-facts.md`).
 ```
+
+Rows from a retrieval proxy are the default and need no tag. Mark only the exceptions, such as "pasted by the owner". The scoreboard's questions are the monitor baseline: MONITOR repeats them verbatim, and the notes file holds the engines, location, per-question state per entity and capture date for it.
 
 **Writing the read.** Lead with who wins instead, in the buyer's words and backed by the captures: "When people in Dallas ask ChatGPT for a water heater company, it names two competitors and not you, in 0 of 6 answers we observed." Never lead with a score. Call it urgent only when at least two observed money questions show the same gap, or one high-intent question hands the business's customer to a named competitor; otherwise write "This does not look urgent yet." and recommend the smallest useful next check. A surprising, fixable finding (an engine giving the business's phone number under another company's name) outranks a percentage. Recommend one move. A second path appears only if it genuinely rivals the first; never a menu of three. Load `references/audit-examples.md` for a strong and a weak read of the same audit.
 
-Append one line to `./brand/assets.md`. In chat: the read, the share-of-model table, the top 3 findings (and any wrong facts), **Files saved**, **What's next**.
+Append one line to `./brand/assets.md`. In chat: the read, the share-of-model table, the top 3 findings (and any wrong facts), the Sources and assumptions note, **Files saved**, **What's next**. No capture lines, tool names or layer labels.
 
 ## Mode 2: OPTIMIZE
 
@@ -219,28 +212,28 @@ Reddit and forums carry a real share of citations, and the temptation is astrotu
 
 ### Optimize output
 
-Write `./campaigns/ai-search/optimize-<YYYY-MM-DD>.md` with each fix's deliverable (asset briefs, retrofit diffs, schema blocks, llms.txt, crawler and IndexNow setup, community judgment, local fixes). Append to `./brand/assets.md`. In chat: what shipped, what was skipped and why, **Files saved**, **What's next**.
+Write `./campaigns/ai-search/optimize-<YYYY-MM-DD>.md` with each fix's deliverable (asset briefs, retrofit diffs, schema blocks, llms.txt, crawler and IndexNow setup, community judgment, local fixes), about 1,200 to 2,500 words, finished pieces first. Append to `./brand/assets.md`. In chat: what shipped, what was skipped and why, a short Sources and assumptions note (gap-aware receipt at most 3 lines), **Files saved**, **What's next**.
 
 ## Mode 3: MONITOR (non-interactive)
 
 Zero questions, ever.
 
-1. **Baseline:** read the newest `./campaigns/ai-search/audit-*.md` or `monitor-*.md` and its `Monitor baseline` section. If none exists, write a one-paragraph report saying AUDIT must run first, then stop. Never invent a question set here.
+1. **Baseline:** read the newest `./campaigns/ai-search/notes-*.md` and its `Monitor baseline` section (the verbatim question list, engines, location, per-question state per entity, capture date). If no notes file exists, use the scoreboard of the newest `audit-*.md` or `monitor-*.md`. If neither exists, write a one-paragraph report saying AUDIT must run first, then stop. Never invent a question set here.
 2. **Re-capture** with the same fan-out, the same questions verbatim, the same engines and, for a local business, the same location. A changed location breaks the comparison; note it instead of diffing.
 3. **Diff** per question and entity: GAINED (absent or mentioned to cited), LOST (cited to absent or mentioned), HELD, NO CHANGE (absent both runs), INDETERMINATE (either side not observed; a failed re-check is never LOST), NEWLY OBSERVED (not observed last run, present now, which is not a gain), and **new entrants** (domains or businesses now winning that weren't before). For local, also: wrong facts fixed, still wrong, newly wrong. Before calling anything an improvement, look for one untouched repeat (the same question re-asked with nothing changed) to see how much moves on its own. Monitoring detects change; it doesn't prove a fix caused it, so say "after the fix shipped", never "because of the fix".
-4. **Report** to `./campaigns/ai-search/monitor-<YYYY-MM-DD>.md`, in this order: **last decision** (what the previous run recommended and what happened to it: shipped, declined, still open), **one decision now** or the words "Nothing needs your decision this month.", **what changed** (only what changed: gains, losses, new entrants, wrong facts fixed or new), the held count against the base churn rate in `references/aeo-facts.md`, and proposed learnings. A quiet month is a complete report, but only when the re-capture actually succeeded; a run with failed captures says which ones and never calls itself quiet. Losing 1 or 2 citations in a month is weather. Flag a pattern only when the same question is lost two runs in a row, or losses cluster in one question kind. Track each fix from the audit on one line: planned, shipped, watching, then won or missed, read at 2, 4 and 8 weeks after it shipped. `references/audit-examples.md` has a strong and a weak update.
+4. **Report** to `./campaigns/ai-search/monitor-<YYYY-MM-DD>.md`, in this order: **last decision** (what the previous run recommended and what happened to it: shipped, declined, still open), **one decision now** or the words "Nothing needs your decision this month.", **what changed** (only what changed: gains, losses, new entrants, wrong facts fixed or new), the held count against the base churn rate in `references/aeo-facts.md`, and proposed learnings. A quiet month is a complete report, but only when the re-capture actually succeeded; a run with failed captures says which ones in the report's note and never calls itself quiet. Losing 1 or 2 citations in a month is weather. Flag a pattern only when the same question is lost two runs in a row, or losses cluster in one question kind. Track each fix from the audit on one line: planned, shipped, watching, then won or missed, read at 2, 4 and 8 weeks after it shipped. `references/audit-examples.md` has a strong and a weak update.
    The question set improves by proposal, never by silent edit, and only after two complete runs: a business newly named in two runs earns a proposed comparison question; three runs with no movement earn a proposed slower cadence. The user approves; then the new set becomes a new baseline, labelled as such, because an edited question set compared with the old one is a new baseline pretending to be a trend.
-5. **Memory:** update the `Monitor baseline` section in the report and append one line to `./brand/assets.md`. Draft learnings entries only for movements with a traceable cause, for example `- [YYYY-MM-DD] [ai-search] answer-block retrofit on /pricing-guide, CITED on "how much does <category> cost" within 3 weeks (n=1, source: monitor diff)`, under `### Proposed learnings`, and route them to /performance-review, which owns `learnings.md`. Append directly only if the user explicitly says to.
+5. **Memory:** write this run's `./campaigns/ai-search/notes-<YYYY-MM-DD>.md` with its `Monitor baseline` section (a new baseline only after an approved question change) and append one line to `./brand/assets.md`. Draft learnings entries only for movements with a traceable cause, for example `- [YYYY-MM-DD] [ai-search] answer-block retrofit on /pricing-guide, CITED on "how much does <category> cost" within 3 weeks (n=1, source: monitor diff)`, under `### Proposed learnings` in the report file (not in chat), and route them to /performance-review, which owns `learnings.md`. Append directly only if the user explicitly says to.
 
 ## Output
 
-All modes follow the four-section output contract: header, content, **Files saved**, **What's next**.
+All modes follow the four-section output contract: header (`## AI SEARCH AUDIT: <brand>`, `## AI SEARCH FIXES: <brand>` or `## AI SEARCH MONITOR: <brand>`, then one line of date and purpose, with no data tag), content ending in one short Sources and assumptions note, **Files saved**, **What's next**. Capture lines, layer labels and tool names stay in the notes file.
 
 | Mode | Writes |
 |---|---|
-| AUDIT | `./campaigns/ai-search/audit-<date>.md`, an `assets.md` line |
+| AUDIT | `./campaigns/ai-search/audit-<date>.md`, `notes-<date>.md`, an `assets.md` line |
 | OPTIMIZE | `./campaigns/ai-search/optimize-<date>.md` (plus retrofit and llms.txt files), an `assets.md` line |
-| MONITOR | `./campaigns/ai-search/monitor-<date>.md` (with proposed learnings), an `assets.md` line |
+| MONITOR | `./campaigns/ai-search/monitor-<date>.md` (with proposed learnings), `notes-<date>.md`, an `assets.md` line |
 
 **The offer line.** In chat, after the What's next list, add one optional line matched to `role` in `./brand/preferences.md` (`role: owner | agency | builder`):
 

@@ -1,6 +1,6 @@
 ---
 name: direct-response-copy
-description: Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic, and gated by a 7-dimension score-and-rewrite loop. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.
+description: Write copy that converts (landing pages, sales pages, emails, ads, headlines, CTAs) in the customer's own words, matched to the ad or email that sends the traffic. A claim gate keeps every shipped line to verified facts (stronger ideas go on a To make this true list), and a private score-and-rewrite loop lifts the draft. Includes local-service patterns for copy that makes the phone ring. Approved page copy hands off to /landing-page to build. Use when someone needs to sell in writing, wants copy scored, or has ads that get clicks but no sales or calls.
 when_to_use: write copy for, write a landing page, make this convert, help me sell, punch this up, sales page, headline variants, score this copy, rewrite this email, write ad copy, write the offer, rewrite our homepage hero
 argument-hint: "[format + offer, e.g. 'landing page for my invoicing tool' or 'service page for same-day water heater replacement in Dallas']"
 metadata:
@@ -19,9 +19,13 @@ metadata:
 
 Copy that converts sounds like a smart friend explaining something they figured out,
 while it quietly answers every doubt the reader has. This skill writes that copy in the
-customer's own words, matches it to whatever sent the reader, and scores it before it
-ships. It's a floor, not a ceiling. When the situation argues for a better path, take it
-and say why.
+customer's own words, matches it to whatever sent the reader, keeps every claim to what
+the business can back, and scores it privately before it ships. It's a floor, not a
+ceiling. When the situation argues for a better path, take it and say why.
+
+Frameworks (awareness levels, Schwartz, Caples, the seven scoring dimensions) are for
+thinking. The copy, the notes and the chat summary say things in plain words, and scores
+never appear in the deliverable unless the user asked for a score.
 
 ## Context
 
@@ -108,10 +112,34 @@ Less aware means longer copy. Most-aware means get out of the way.
 worry, usually three levels down: "automatic reminders" so "invoices get paid without you
 asking" so "you stop sending awkward emails to clients you like". Write from the bottom.
 
-**Proof inventory.** List what exists: testimonials, data, case studies, review counts,
+**Fact sheet and proof inventory.** List every fact the copy may use, each with its
+source: the brief or the user's messages, the business's site, its reviews, or research
+you verified. Then what proof exists: testimonials, data, case studies, review counts,
 photos, credentials. Never write a claim bigger than its proof. If the proof is thin, the
 copy gets quieter, not louder. Pull the angle from `positioning#chosen-angle`; if none
 exists and the market is saturated, suggest /positioning-angles first.
+
+### The claim gate (hard rule)
+
+Shipped copy (headline, subhead, body, bullets, offer, guarantee, the line under the CTA)
+uses only facts on the fact sheet.
+
+- **A named mechanism or guarantee comes from what the business does today.** Never
+  invent a method to explain why it works, and never write a guarantee the business
+  doesn't offer because the page would be stronger with one.
+- **Nothing that doesn't exist yet.** No feature, option, setting or policy the business
+  hasn't shipped: no picker, no one-click skip, no "cancel anytime" unless it's true.
+- **Keep the facts exact.** "22 techs" never becomes "22 licensed plumbers"; "most jobs"
+  never becomes "every job"; a 4.8 stays a 4.8.
+- **From `positioning.md`, use what Chosen Angle states as current.** Anything under
+  "Not yet true" stays out of the copy.
+- **Bold ideas still get said.** When the strongest copy needs something the business
+  doesn't do yet, write the shipped copy from facts and add a **To make this true** list
+  after it: the idea, the line it would unlock, and what it takes (a build, a policy, a
+  number to check, the owner's sign-off).
+
+A claim with no source is cut or moved to that list. Calling a claim "assumed" or
+"illustrative" inside shipped copy doesn't make it shippable.
 
 ## Phase 2. Write
 
@@ -155,7 +183,8 @@ tangents and identical sentence shapes back to back.
 
 Quantified problems feel solvable and purchasable: "4 hours on setup + 6 on the page + 4
 on webhooks = 14 hours before you've sold anything." Or the lived scene that makes them
-feel it. Numbers must be the user's real ones or marked illustrative.
+feel it. Numbers about the business must be its real ones. A scenario framed as one
+("say you send 20 invoices a month") is fine.
 
 ### Proof, stories and disqualification
 
@@ -192,7 +221,8 @@ change:
   levers.** Speed ("Water heater replaced today in Dallas. Call by noon."), price clarity
   ("$____ installed. The price we quote is the price you pay."), guarantee ("On time, or
   the trip is free."), proof ("4.9 from 1,200 Dallas homeowners", real count only), and
-  service area ("Plumbers for Lake Highlands and Lakewood"). Price clarity is the lever
+  service area ("Plumbers for Lake Highlands and Lakewood"). Use a lever only when the
+  business already delivers it; the claim gate applies. Price clarity is the lever
   most often missing. In a Housecall Pro survey of 1,040 US homeowners (Oct 2025, vendor
   data), 97% said transparent pricing matters when hiring a pro and 77% named hidden or
   surprise costs as a top frustration.
@@ -217,10 +247,13 @@ starred, led by a Quick Pick:
 ```
 QUICK PICK
 ★ "{headline}"
-  → Best for: {awareness level or job type, traffic source}
+  → Best for: {who's reading and where they came from, in plain words}
   → Why: {one sentence}
 See all {N} variants below.
 ```
+
+Every variant passes the claim gate; a variant that only works with an unbuilt feature
+belongs on the To make this true list, not in the set.
 
 **Body: 2-3 variants** for pages. A, the control (the straight version of the angle). B,
 contrarian or risk-reversal lead (best for skeptical readers and saturated markets). C,
@@ -232,6 +265,11 @@ contrarian). Star the pick. **Ads:** one set per hook, with the landing page hea
 must match noted beside each.
 
 ## Phase 4. The gate
+
+**The claim check runs first and is pass or fail.** Put the fact sheet beside the copy.
+Every claim in the headline, subhead, body, offer, guarantee and CTA line traces to a
+fact. One unsourced claim fails the gate whatever the score: cut it or move it to To make
+this true.
 
 **Load `references/calibration-anchors.md` before scoring.** Scores without anchors drift
 toward flattery. Score the recommended variant 1-10 on seven dimensions:
@@ -251,10 +289,14 @@ and judge the other six against 48/60.
 
 **The loop:** if any dimension is below 7 or the total is below 56/70, rewrite only the
 weak dimensions and rescore. About three passes is the ceiling; past that the constraint
-is the offer or the proof inventory, so say so. Present the best version with the full
-score history. Never present unscored work as scored, never invent scarcity to lift
-Urgency (a quiet cost-of-inaction line scores 6-7, and that's fine), and never score Proof
-on evidence the user hasn't provided.
+is the offer or the proof inventory, so say so in one plain line. Never invent scarcity
+to lift Urgency (a quiet cost-of-inaction line scores 6-7, and that's fine), and never
+score Proof on evidence the user hasn't provided.
+
+**Scores stay out of the deliverable.** The score table and its history go in `brief.md`
+(full runs) and nowhere else. The copy file and the chat summary carry the copy, the To
+make this true list and a short evidence note. "Score this" requests are the exception:
+there the scorecard is what was asked for.
 
 **Promise-match check (pages, ads and emails that link to pages):** put the source (ad,
 email, post) beside the page's first screen. The offer and the promise appear in the same
@@ -291,23 +333,26 @@ the build is diffed against it.
 ## Output
 
 Files first, summary second, per `start-here/references/output-format.md` (deliverable header, content,
-**Files saved:**, **What's next:**).
+**Files saved:**, **What's next:**). The content is the copy itself, then **To make this
+true** (when there is one), then a short evidence note: what the claims rest on (the
+brief, the site, n reviews, dated sources) and anything the user should verify before it
+goes live. No score tables, framework labels or script paths.
 
 ```
 ./campaigns/{name}/
 ├── brief.md          # full runs only: angle, awareness level, traffic source and its
-│                     # promise, VoC evidence, proof inventory
+│                     # promise, VoC evidence, fact sheet, score history (working file)
 └── landing-page.md   # or sales-page.md / emails/{subject-slug}.md /
                       # ads/{platform}-{variant}.md / social/{platform}-{desc}.md
 ```
 
 Each copy file gets frontmatter: `type, campaign, awareness_level, traffic_source,
-variant, word_count, date, score (n/70 or n/60 with Proof n/a, plus iterations)`. Append
-one line per asset to `./brand/assets.md` (not in Quick Mode).
+variant, word_count, date` (handoff fields for /landing-page; the score lives in
+brief.md). Append one line per asset to `./brand/assets.md` (not in Quick Mode).
 
 **What's next** (pick 2-4):
 - After page copy: `/landing-page` to build and ship it (~15 min); for a local business,
   `/first-screen-check` once it's live (~10 min)
 - After ad copy: `/paid-ads` for platform packaging and the test plan (~15 min)
 - After any copy that captures leads: `/email-sequences` for the follow-up (~15 min)
-- Once real numbers exist: `/performance-review` to turn these scores into priors
+- Once real numbers exist: `/performance-review` to turn the predictions in brief.md into priors

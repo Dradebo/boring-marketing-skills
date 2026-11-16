@@ -233,8 +233,8 @@ Violations cost launch days. The recurring offenders:
   talking-head mode's disclosure section); keep prompts/assets on record (the manifest does
   this).
 
-Flag the relevant gate per cell in the delivery summary: `policy: clean` or
-`policy: review [issue]`.
+Check every cell silently. In the delivery, name only the cells that need a review, one
+line each with the issue; clean cells carry no flag.
 
 ## Ad copy fields
 
@@ -261,8 +261,13 @@ card 1 stands alone · cell-name correctness (downstream tracking depends on it)
 Assets under `./campaigns/<campaign>/ads/` (or `creative-output/ad-creative/<campaign>/`
 when no campaign dir exists), named by cell ID; `ad-matrix.json` updated
 (`asset_paths`, `status: creative-ready`); version the old json per the brand-memory
-spec (`${CLAUDE_SKILL_DIR}/../start-here/references/brand-memory.md`); manifest + `./brand/assets.md` per asset. Delivery = standard contract with a
-cell-status table (cell, hook taxonomy, format, files, QA score, policy flag).
+spec (`${CLAUDE_SKILL_DIR}/../start-here/references/brand-memory.md`); manifest + `./brand/assets.md` per asset.
+Delivery = the standard contract with the ads first (each ad's file, hook, format and
+headline and CTA as filled), review lines for any cell that needs one, then a short test
+plan (which hook or format runs against which, one variable at a time, nothing judged
+under ~1,000 impressions, and the file name used as the ad name so results map back).
+Matrix status, QA scores and cell bookkeeping stay in the json and the manifest; the
+chat carries no status table.
 
 **What's next:** `/paid-ads` to build campaigns from the creative-ready cells ·
 `/performance-review` after spend to map results back to cells · `/direct-response-copy`

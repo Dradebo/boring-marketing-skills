@@ -1,6 +1,6 @@
 # The email rubric, two calibrated emails, and the sending rules
 
-Load before the first score of a session. Uncalibrated scoring drifts generous.
+Load before the first score of a session. Uncalibrated scoring drifts generous. Scores are an internal check: the user sees the passing email, never the scores or this rubric.
 
 ## Five dimensions, 1 to 5 each
 
@@ -63,6 +63,6 @@ Each email that breaks the law can cost up to $53,088 (FTC, as of Nov 2026). Out
 ## Delivery, kept small
 
 - Send from a real inbox with a real signature, a few a day at first. Volume is what gets a domain flagged.
-- Many agencies send cold email from a second domain so their main domain's mail keeps landing. Set it up with SPF, DKIM and DMARC before the first send.
+- Many agencies send cold email from a second domain so their main domain's mail keeps landing. Set it up with SPF, DKIM and DMARC before the first send. Give this as one line of advice; never audit a domain the user hasn't named.
 - Over about 5,000 a day to Gmail, Yahoo or Outlook addresses, the bulk-sender rules apply (one-click unsubscribe, complaint rate under 0.1%). A local agency pitching one town shouldn't be anywhere near that.
 - No tracking pixels or link tracking in the first email.

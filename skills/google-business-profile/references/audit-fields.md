@@ -34,10 +34,10 @@ Load before Phase 2 of /google-business-profile. "Public" means anyone can read 
 
 Order: risks, relevance, prominence, conversion, habits (as in the skill). Within a tier, put first what changes fastest for least effort. Write each gap in one line:
 
-`Gap · what we found · what the top 3 have · the fix · effort (minutes, hours, weeks) · backed by Google guidance or practitioner experience`
+`Gap · what we found against the top 3 · the fix · effort (minutes, hours, weeks) · Google guidance or practitioner experience, in plain words`
 
 Example (sample business, illustrative values):
 
-`Primary category · "Contractor" · all three use "Plumber" · switch to "Plumber", expect re-verification · 10 minutes plus verification · Google guidance (specific primary category)`
+`Primary category · "Contractor" while all three use "Plumber" · switch to "Plumber", expect re-verification · 10 minutes plus verification · Google guidance (specific primary category)`
 
-`Review pace · 2 a month · 7, 9 and 12 a month · a review ask after every completed job, via /reviews · two weeks to set up · Google guidance (reviews count toward prominence)`
+`Review pace · 2 a month against 7, 9 and 12 · a review ask after every completed job, via /reviews · two weeks to set up · Google guidance (reviews count toward prominence)`

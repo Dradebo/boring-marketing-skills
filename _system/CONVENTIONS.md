@@ -150,8 +150,8 @@ Anywhere the skill gathers external information:
 - **Research budgets are hard.** Every research subagent: ≤ 40 page fetches, ≤ 8 minutes
   wall-clock, ≤ 5 fetches per source (a thread, review page or profile is one source —
   read it, do not paginate through it), and it never spawns sub-agents of its own (depth
-  one). When a budget is hit, write with what you have and say so in the label:
-  `Data: LIVE (n sources, budget-capped)`. A foundation build (four agents) finishes in
+  one). When a budget is hit, write with what you have and say so in the Sources and
+  assumptions note ("read 24 sources, budget-capped"). A foundation build (four agents) finishes in
   ≤ 15 minutes; longer is a defect, not thoroughness.
 - **Never WebFetch login-walled hosts at baseline** — instagram.com, facebook.com,
   linkedin.com/posts and /in/, x.com/i/, threads.net: the fetch hangs or returns a login
@@ -169,8 +169,11 @@ Anywhere the skill gathers external information:
 - **Scripts beat incantations.** Autocomplete mining = `curl` the Google suggest endpoint.
   Deliverability = `dig TXT`. Replicate model check = `GET /v1/models/...`. Ship these as
   `scripts/` helpers where reusable.
-- **Label data quality** once per deliverable: `Data: LIVE (n sources)` or `Data: MODEL
-  KNOWLEDGE (verify before spending)`. Estimated numbers carry `~`.
+- **Say data quality** once per deliverable, in plain words, in the Sources and
+  assumptions note ("Based on 6 sources read on Jun 10" or "No research tools were
+  available, so this rests on general knowledge; verify before spending"). Never as a
+  tag on a header, line or row. Brand files in `./brand/` may carry the short
+  `Data: LIVE (n sources)` form for the next skill. Estimated numbers carry `~`.
 - Never instruct browser-only actions (clicking PAA boxes) or removed features
   ("About X results").
 
@@ -178,11 +181,17 @@ Anywhere the skill gathers external information:
 
 - **Copy/content:** score against the skill's rubric with calibrated anchors (reference
   file with a real 3/10 and 8/10 per dimension). Below threshold → rewrite the weak
-  dimensions → rescore. Max 3 iterations, then present best + score history honestly.
+  dimensions → rescore. Max 3 iterations, then present the best version. The scores and
+  history stay in the working notes; if a weakness remains, say so in one line in the
+  note.
 - **Creative:** download the asset, Read it (or extracted frames), score vs creative-kit +
-  anti-slop rubric, regenerate ≤2× if below threshold, present best with critique.
-- **Always cite applied priors:** if learnings.md holds relevant entries, name which ones
-  shaped the output ("Applied: hook-pattern P3 outperformed P1 by 2.1× in your Apr data").
+  anti-slop rubric, regenerate ≤2× if below threshold, present the best. The critique
+  stays in the working notes.
+- **Apply priors, mention them rarely:** if learnings.md holds relevant entries, use
+  them. When one changed the work, say so in one line of the Sources and assumptions
+  note ("Your April carousels outperformed text posts, so the lead piece is a carousel").
+- **Checks are silent.** Quality gates are internal steps. The client sees the passing
+  work, not the scorecard (see Deliverable hygiene in `_system/output-format.md`).
 
 ## 7. Freshness architecture
 
@@ -197,8 +206,9 @@ Anywhere the skill gathers external information:
 ## 8. Output contract (summary — full spec in _system/output-format.md)
 
 Markdown-native. Four sections, in order:
-1. `## <DELIVERABLE NAME>` + one-line date/context
-2. The content (clean markdown; tables only for enumerable facts)
+1. `## <DELIVERABLE NAME>` + one line: the date and what it is for
+2. The content (clean markdown; tables only for enumerable facts), closed by one short
+   "Sources and assumptions" note, 10 lines at most
 3. `**Files saved:**` exact paths with (new)/(updated) markers
 4. `**What's next:**` 2-4 `/skill` suggestions with reasons + rough time estimates
 
@@ -207,6 +217,14 @@ then a one-line what's-next. Quick Mode beats every "always scan first" rule.
 
 Files-first: every deliverable is written to `./campaigns/<name>/...` or `./brand/`
 BEFORE being summarized in chat. Append one line to `./brand/assets.md` per asset.
+
+Deliverable hygiene: the deliverable holds only the work. Script paths, tool or skill
+names used as process, capability tiers, self-scores, per-line data tags, ledgers, matrix
+status and the brand-context line never appear in it; they go to
+`./campaigns/<name>/notes.md` or the brand file they belong to. Length budgets: page
+about 800 to 1,500 words of copy; plan about 1,200 to 2,500; sequence the messages plus
+200 words of notes; ad set the ads plus a short test plan. Full rules in
+`_system/output-format.md`.
 
 ## 9. Brand memory v3 (summary — full spec in _system/brand-memory.md)
 

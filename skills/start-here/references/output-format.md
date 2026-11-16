@@ -1,8 +1,8 @@
 # Output Format
 
 Every skill follows this contract. It is short on purpose: the contract is four sections,
-a Quick Pick block for choices, and Quick Mode for specific requests. Everything else is
-restraint.
+a Quick Pick block for choices, Quick Mode for specific requests, and the deliverable
+hygiene rules below. Everything else is restraint.
 
 ---
 
@@ -30,6 +30,9 @@ restraint.
 5. **Recommended option visible immediately.** When presenting multiple options, the
    pick comes first (Quick Pick block), details after.
 
+6. **The client reads the work, not the process.** What the agent did to get there stays
+   out of the deliverable. See Deliverable hygiene.
+
 ---
 
 ## The four-section contract
@@ -41,21 +44,23 @@ Every skill output has these sections, in this order. If one is genuinely not ap
 
 ```markdown
 ## LANDING PAGE COPY: Spring Launch
-Generated Jun 10, 2026 · angle: "The Anti-Dashboard" · voice profile loaded
+Jun 10, 2026 · for the spring plumbing promotion
 ```
 
 An `##` heading naming the deliverable (the output type, not the skill name), then one
-line of date + context (which brand files / angle / data mode shaped this run).
+line: the date and what the work is for. Do not list which brand files, angles, modes or
+tools shaped the run.
 
 ### 2. Content
 
-The deliverable summary or the deliverable itself if it is short. Clean markdown:
+The deliverable summary, or the deliverable itself if it is short, then the one short
+"Sources and assumptions" note (see Deliverable hygiene). Clean markdown:
 - Headings for structure, bold for labels, lists for items.
 - Tables only for genuinely enumerable facts (keyword metrics, send schedules,
-  variant comparisons), never for single-column status lists.
-- Research-backed skills include the one-line data label here:
-  `Data: LIVE (6 sources)` or `Data: MODEL KNOWLEDGE (verify before spending)`.
-  Estimated numbers carry `~`.
+  variant comparisons), never for single-column status lists, and never the same table
+  twice.
+- Estimated numbers carry `~`. The data quality of the whole piece is said once, in the
+  note, in plain words, never as a tag on every line or row.
 
 ### 3. Files saved
 
@@ -83,13 +88,68 @@ Or tell me what you're working on and I'll route you.
 
 2 to 4 concrete `/skill` suggestions, each with a reason and a rough time estimate. End with
 the routing fallback line. If this completes a workflow, say so and point at
-`/start-here` for a status review.
+`/start-here` for a status review. Files saved and What's next sit after the deliverable,
+not inside it: the saved file itself never carries skill names or next-skill routing.
 
 **Conditional /creative suggestion:** suggest a visual build step only when BOTH are
 true: Replicate is connected (key present in `.env` / stack.md) AND the asset type
 actually benefits from a visual (landing page hero, ad creative, social graphic; not a
 keyword plan or an email sequence). When suggested, it is a listed option, never an
 auto-advance.
+
+---
+
+## Deliverable hygiene
+
+The client deliverable holds only the work: the finished copy, pages, plans and next
+steps, in the order the client will use them, finished pieces first (the page, the
+emails, the ads), then the plan to run them, then next steps. Process stays out.
+
+**Never show in the deliverable:**
+- Script paths (`${CLAUDE_SKILL_DIR}/...`, `start-here/scripts/...`) or any command the
+  agent ran.
+- Names of the tools, skills, connectors or capability tiers the agent used to produce
+  the work ("routed through...", "enhanced tier", "Firecrawl run"). A tool the client
+  should buy or use is a recommendation inside the plan, and that is fine.
+- Self-scores, rubric or quality tables, score history, pass/fail checklists.
+- Internal data-label bookkeeping: `Data: ...` tags on lines or rows, evidence IDs,
+  source-quality codes.
+- "Matrix status", cell IDs and fill states, ledgers, watermarks, routing receipts, and
+  the line that says which brand files were loaded.
+
+**Run quality checks silently.** Score, find the weak part, rewrite and rescore as
+internal steps. Show only the passing work. If a weakness cannot be fixed, say what it is
+in one line in the note.
+
+**Sources and assumptions.** Evidence and assumptions go in one short note at the end of
+the content, 10 lines at most: what the work rests on (sources and dates in a sentence),
+the data quality in plain words, what the client should confirm, and what is missing. A
+learning that changed the work gets one line, only if it did. For the SEO and AI search
+skills, the gap-aware receipt (what was checked, what could not be, what would unlock
+the next step) is at most 3 of those lines. Anything longer goes in a working file.
+
+**Working files.** Evidence packs, per-claim sources, score history, tool and routing
+output, and matrix bookkeeping go in `./campaigns/<name>/notes.md` or the brand file they
+belong to. They are saved, not pasted. The Files saved list names them at most once.
+
+**Placeholder or missing inputs: one line.** Say what is missing ("No domain given, so
+no DNS or deliverability check"). Never audit a placeholder (yourdomain.com,
+[Business Name], example.com) at length or run checks against it.
+
+**Say each thing once.** No duplicated tables, no summary that restates the body, no
+recap of what the chat already showed or the file already holds.
+
+**Length budgets by job type.**
+
+| Job | Budget |
+|---|---|
+| Page or landing page | about 800 to 1,500 words of copy |
+| Plan | about 1,200 to 2,500 words |
+| Email or text sequence | the messages plus 200 words of notes |
+| Ad set | the ads plus a short test plan |
+
+Go longer only when the request explicitly asks for more pieces. Over budget with no
+extra pieces asked for means cut, starting with anything that is process, not work.
 
 ---
 
@@ -141,7 +201,8 @@ Three indicators, used sparingly inside content sections:
 | ★ | recommended option |
 
 That is the whole palette. No progress spinners, no circled numbers, no star-rating
-rows, no tree-view glyphs.
+rows, no tree-view glyphs. Status marks never become a status table of what the agent
+checked.
 
 ---
 
@@ -156,8 +217,11 @@ rows, no tree-view glyphs.
 - **No dumped deliverables.** A 2,000-word article pasted into chat instead of saved to
   `./campaigns/` is a bug, even if it is also saved.
 - **No orphaned output.** Missing files-saved or what's-next sections are bugs.
+- **No leaked process.** Script paths, score tables, per-line data tags, tool or tier
+  names and matrix status inside the deliverable are bugs.
 - **No fabricated metrics.** Examples that need numbers mark them as illustrative
-  ("say 2.1%"); estimates carry `~` and the data label says where they came from.
+  ("say 2.1%"); estimates carry `~` and the Sources and assumptions note says where they
+  came from.
 
 ---
 
@@ -165,7 +229,7 @@ rows, no tree-view glyphs.
 
 ```markdown
 ## SUBJECT LINE VARIANTS: Welcome Email 1
-Generated Jun 10, 2026 · voice profile loaded · Data: MODEL KNOWLEDGE
+Jun 10, 2026 · for the welcome flow
 
 **Quick Pick: ★ Option 1: proof + specificity**
 "I booked 3 clients with this proposal template"
@@ -174,8 +238,11 @@ Generated Jun 10, 2026 · voice profile loaded · Data: MODEL KNOWLEDGE
 2. "Your proposal template is broken (here's mine)", curiosity + pattern interrupt
 3. "The 3-email sequence that books calls", utility, clear value
 
-Recommended A/B test: 1 vs 2. Applied prior: learnings.md 2026-05-12: question
-subjects underperformed proof subjects for this list.
+Recommended A/B test: 1 vs 2.
+
+**Sources and assumptions:**
+- Written from your past sends and the current voice notes; no live research.
+- Question subjects underperformed proof subjects for this list in May, so option 1 leads.
 
 **Files saved:**
 - ./campaigns/welcome-flow/subject-lines.md (new)

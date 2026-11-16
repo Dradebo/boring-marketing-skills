@@ -109,15 +109,17 @@ ffmpeg -y -sseof -0.2 -i clip.mp4 -frames:v 1 f3.png 2>/dev/null
 ```
 
 (`-ss` before `-i` seeks to the midpoint; `-sseof -0.2` seeks to 0.2 seconds before the end.) `Read` each frame. If ffmpeg is not
-installed, `Read` the prediction's thumbnail/cover URL if present, and say so:
-"QA'd on thumbnail only; install ffmpeg for full-frame review."
+installed, `Read` the prediction's thumbnail/cover URL if present, and say so in one line
+in the note: "Reviewed from the thumbnail only; install ffmpeg for full-frame review."
 
-**Scoring:** one integer 1-10 plus a one-line reason per failed dimension. The score is
-honest, not ceremonial. A 6 with a named flaw beats an unexamined 8.
+**Scoring:** one integer 1-10 plus a one-line reason per failed dimension, kept in the
+manifest. The score is honest, not ceremonial, and not shown to the client. A 6 with a
+named flaw beats an unexamined 8.
 
 **Multi-model comparisons:** QA each candidate, then present **pre-ranked** with stated
-reasons ("Veo: cleanest product fidelity but flat lighting (7). Kling: best motion,
-slight label warp at 3s (8) ← recommended"). Never dump three URLs and ask "which one?"
+reasons and no scores or model names ("Option A: cleanest product fidelity but flat
+lighting. Option B: best motion, slight label warp at 3s, recommended"). Never dump
+three URLs and ask "which one?"
 
 ---
 
@@ -229,7 +231,7 @@ creative_delivery:
 ```
 
 The manifest is the canonical record; the delivery block is a pointer plus the approved
-subset.
+subset. It goes to the calling skill, never into the client-facing text.
 
 ---
 
@@ -237,7 +239,8 @@ subset.
 
 If `REPLICATE_API_TOKEN` is unset, do not block. Say so once, then run the same
 workflow (brand kit, mode judgment, prompt construction) and deliver, per asset, a
-copyable block: the exact prompt, the recommended role + current model for it (named
+copyable block (the model is a recommendation the client will run, so naming it here is
+fine): the exact prompt, the recommended role + current model for it (named
 from MODEL_REGISTRY.md), ratio/duration/settings, and any reference-image instructions.
 Save prompts to the campaign directory so a later token upgrade can execute them
 verbatim. The prompt engineering and creative direction are the product; the API call

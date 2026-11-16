@@ -1,6 +1,6 @@
 ---
 name: positioning-angles
-description: Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads market sophistication, then writes 3-5 angles with one starred, each carrying an offer, a guarantee and a named method. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.
+description: Find the angle and the offer that make something sell. Researches what competitors say and pay to say, mines their bad reviews for the fears nobody answers, reads how jaded the market is, then writes 3-5 angles with one starred. Shipped lines use only verified facts, and a stronger idea the business can't back yet goes on a To make this true list with what it would take. Has a local-service mode (job types, map-pack competitors, trade guarantees). Use when launching a product or service, building an offer or lead magnet, before writing a page, or when marketing isn't converting.
 when_to_use: find angles for X, how should I position X, what's the hook, why isn't this selling, we sound like everyone else, make this stand out, differentiate this, what offer should we run, write a guarantee, what makes us different, positioning for my plumbing company
 argument-hint: "[product, service or offer to position, plus market or city; blank uses brand memory]"
 metadata:
@@ -21,10 +21,40 @@ The same product can sell far better with a different angle. Same thing, framed 
 a different fear, promise or comparison. This skill finds the frames worth
 testing, grounded in what competitors say and pay to say, what customers complain about,
 and what the business can actually promise. Done means 3-5 distinct angles with one
-starred, each carrying an offer, a guarantee and a named method, written to
-`./brand/positioning.md`, plus an optional ad matrix. The method is a floor, not a
-ceiling. When the market in front of you argues for a better path, take it and say why
-in one line.
+starred, each with a headline and an offer built only from verified facts, a guarantee
+and a named method where the business already has them, and a short **To make this
+true** list for the stronger ideas it can't back yet, written to `./brand/positioning.md`,
+plus an optional ad matrix. The method is a floor, not a ceiling. When the market in
+front of you argues for a better path, take it and say why in one line.
+
+## The claim gate (hard rule)
+
+Hunt for the bold angle. Ship only what's true. Every line someone could paste into a
+page or an ad (the statement, headline, subhead, offer, guarantee and named method) uses
+only facts from four places: the brief or the user's messages, the business's own site,
+its reviews, and research you verified with a source. Write these down in Phase 1 as the
+**fact sheet**, one fact per line with where it came from.
+
+- **A named method describes something the business does today.** Name a step the fact
+  sheet shows. Never build one from a guess about how the product could work. If nothing
+  in the facts supports a method, the angle runs without one.
+- **A guarantee is one the business already offers.** Otherwise it's a proposal.
+- **Nothing that doesn't exist yet goes in shipped lines.** No feature on the roadmap,
+  no option the product lacks, no policy the owner hasn't agreed to.
+- **Keep the facts exact.** "22 techs" never becomes "22 licensed plumbers"; "most jobs"
+  never becomes "every job".
+- **The stronger idea still gets said.** When the best angle needs something the business
+  doesn't do yet, write the shipped lines from verified facts, then add the idea to **To
+  make this true**: the idea, the line it would unlock, and what it takes (a policy, a
+  build, a number to check, the owner's sign-off). That list is often the most valuable
+  part of the deliverable.
+
+A claim with no source moves to To make this true or gets cut. Admitting in the output
+that a claim was assumed or made up doesn't make it shippable.
+
+Frameworks (Schwartz's stages, Hormozi's value equation, the eight generator names) are
+for thinking. The deliverable says what they found in plain words: "buyers have heard
+every speed promise, so show how it works", not "Stage 3, Mechanism angle".
 
 ## Context
 
@@ -57,7 +87,9 @@ or offer that won a test), apply them and say which.
   is angle material.
 - **What they do that customers never see.** Run the fact-sheet interview in
   `references/angle-frameworks.md` with the founder, owner or whoever delivers the work.
-  Mechanisms come out of that interview more often than out of research.
+  Mechanisms come out of that interview more often than out of research. With no
+  interview possible, the fact sheet is what the brief, the site and the reviews say.
+  Write it before Phase 2; Phase 3 draws only from it.
 
 Load `references/dunford-positioning.md` if the problem is bigger than messaging: the
 wrong category, the wrong segment, or losing deals on price they should win on value.
@@ -118,7 +150,8 @@ any leg that fell back to model knowledge.
 ## Phase 3. The offer, the guarantee and the named method
 
 Two businesses with the same angle can sell very differently because of the offer. Build
-three pieces, each from what the business already does or can afford to do.
+three pieces from the fact sheet. Each ships only if the business does it today; a piece
+it could do but doesn't yet goes to To make this true with what it would take.
 
 **The offer** is what the customer gets and on what terms. Run Hormozi's value equation:
 raise the dream outcome and the buyer's belief they'll get it, cut the wait and the
@@ -130,19 +163,25 @@ business type, including a section for local trades.
 top complaint, and the owner confirms the business can afford it (refund rate, missed
 deadlines, callbacks). A guarantee the business can't keep becomes the next bad review.
 Write it as a sentence the owner would sign, with a number, a window and what happens if
-they miss.
+they miss. If the business doesn't offer it today, the sentence goes under To make this
+true with what to check first (refund rate, missed windows, callbacks) and who signs off.
 
 **The named method** is the HOW that makes the promise believable, the answer to "why
-will this work when other things haven't?" Even when nothing is proprietary, there is a
-step competitors skip or an ordinary fact nobody explains (Claude Hopkins' Schlitz move).
-Name it like a method, give the "because" in two sentences, and test it: could a
-competitor say this sentence verbatim? If yes, sharpen it. Load
-`references/unique-mechanism.md` when the owner says "we don't really do anything
+will this work when other things haven't?" Even when nothing is proprietary, there is
+often a step competitors skip or an ordinary fact nobody explains (Claude Hopkins'
+Schlitz move). Find it in the fact sheet: a step the site, the reviews or the owner
+describe. Never infer one from how the product might work. Name it like a method, give
+the "because" in two sentences, and test it: could a competitor say this sentence
+verbatim? If yes, sharpen it. No step in the facts means no named method in shipped
+lines; propose one under To make this true and say what the owner would need to confirm.
+Load `references/unique-mechanism.md` when the owner says "we don't really do anything
 different".
 
-## Phase 4. Market sophistication (Schwartz)
+## Phase 4. How jaded the market is (Schwartz, for thinking only)
 
-Detect the stage from Phase 2 evidence, not vibes:
+Use the stage to choose generators. Never print the stage number or the word
+"sophistication" in the deliverable; say what it means for this buyer. Detect the stage
+from Phase 2 evidence, not vibes:
 
 - **Stage 1.** You'd have to explain what the category is; buyers say "I didn't know that
   was possible". Announce the promise.
@@ -192,15 +231,18 @@ The 8 generators (the trigger condition matters more than the template):
 8. **Risk Reversal.** The guarantee is the headline. When risk is the top objection and
    the business can afford to keep the promise.
 
-**Quality gate.** Every surviving angle passes all six, or it's cut or sharpened:
+**Quality gate.** Every surviving angle passes all seven, or it's cut or sharpened. Run
+it privately; the checklist never appears in the deliverable.
 
-1. **Specific?** "Better results" fails. "Paid 11 days sooner" passes.
-2. **Differentiated?** Saturated claims and copies of a competitor's paid hook fail.
-3. **Believable?** The method or the proof supports it.
-4. **Keepable?** The owner confirmed the business delivers it every time.
-5. **Right for this buyer and moment?** Checked against audience segments and the
+1. **Sourced?** Every word of the statement, headline, offer, guarantee and method traces
+   to the fact sheet. Anything that doesn't moves to To make this true.
+2. **Specific?** "Better results" fails. "Paid 11 days sooner" passes.
+3. **Differentiated?** Saturated claims and copies of a competitor's paid hook fail.
+4. **Believable?** The method or the proof supports it.
+5. **Keepable?** The business does it today, every time.
+6. **Right for this buyer and moment?** Checked against audience segments and the
    customer's words.
-6. **Repeatable?** It fits a headline, an ad or the side of a van in about ten words, and
+7. **Repeatable?** It fits a headline, an ad or the side of a van in about ten words, and
    a customer could repeat it to a friend.
 
 About three generate-and-gate passes is the ceiling. Past that the constraint is the offer
@@ -234,16 +276,32 @@ business customers call from a map, adjust the method:
 - **Most trades sit at Stage 2-3 on claims.** Emergencies bend the stage table. Speed and
   availability decide, so a proven Speed angle leads at any stage.
 - **The unspoken mechanism is the rich vein.** Every plumber runs a camera down a slow
-  drain; almost none send the homeowner the video before quoting.
+  drain; almost none send the homeowner the video before quoting. Claim it only when this
+  crew does it; if it doesn't yet, it tops the To make this true list.
 
 ## Output
 
-Present in chat per `start-here/references/output-format.md`: the deliverable header, the landscape
-triage, the market read (stage, after-state, primary alternative, top complaint), then 3-5
-numbered angles. Each gets a **statement**, **psychology** (the complaint or customer
-phrase it answers), **headline**, **offer**, **guarantee** and **best for**. Star exactly
-one with 1-2 sentences tied to the stage and the white space, then ask which to keep or
-combine.
+Present in chat per `start-here/references/output-format.md`, in words the owner would
+use:
+
+1. The deliverable header.
+2. **What the market says.** What every competitor says (skip it), what one or two say,
+   and what nobody promises that buyers care about, each with one quote or example.
+3. **The read.** One short paragraph: the after-state in the customer's words, what they
+   do instead, the top complaint, and what it takes to be believed now ("they've heard
+   every speed claim, so show how it works").
+4. **3-5 numbered angles**, each named for what it says, not for its generator. Each gets
+   a **statement**, **why it lands** (the complaint or customer phrase it answers),
+   **headline**, **offer**, **guarantee** ("none offered today" is a fine answer) and
+   **best for**. Every line passes the claim gate.
+5. Star exactly one, with 1-2 sentences on why it wins here.
+6. **To make this true.** The stronger ideas the facts can't back yet: the idea, the line
+   it would unlock, what it takes. Skip it only when there are none.
+7. A short evidence note last: the data label, what the shipped lines rest on, and any
+   leg that fell back to model knowledge.
+
+No scoring, gate checklists, framework names or script paths in the chat output. Then ask
+which angle to keep or combine.
 
 **On selection, write `./brand/positioning.md`.** Offer, guarantee and mechanism live
 inside Chosen Angle, because other skills read only that section:
@@ -256,16 +314,18 @@ Last updated: <date> by /positioning-angles
 Angle: <name>
 Segment or moment: <who, which use case or job type>
 Statement: <one sentence>
-Offer: <what they get, on what terms>
-Guarantee: "<the sentence the owner signed off on>"
-Mechanism: <named method + the "because">
+Offer: <what they get, on what terms, as offered today>
+Guarantee: "<the sentence the business offers today>" or none offered today
+Mechanism: <named method + the "because", from a step the business does today> or none
 Psychology: <the fear or desire it answers, with the customer phrase>
 Headline direction: "<example>"
 Best for: <segments, channels>
+Facts it rests on: <fact (source)>; <fact (source)>
+Not yet true (keep out of copy): <idea> | needs: <what it takes>
 
 ## Market Assessment
 Category: <the market customers shop in>
-Sophistication: Stage <N>
+Market read: <what buyers have heard too often, and what it takes to be believed now>
 Primary alternative: <what customers do instead>
 Top complaint in the market: "<verbatim>" (<source>)
 AI consensus: <how assistants frame the category; our descriptor or ABSENT>
@@ -299,13 +359,16 @@ The shared contract is `start-here/references/schemas/ad-matrix.schema.json` (`$
 chosen angle: `direct`, `question`, `proof`, `contrarian`. Columns are 3 formats: `static`,
 `video`, `carousel`. Cell IDs are `MA-H{1-4}-{A-C}` (A static, B video, C carousel). Each
 cell holds hook text for the format, a one-sentence visual, primary text with a customer
-phrase, and a CTA. Write `./campaigns/<campaign-name>/ad-matrix.md` (readable grid plus
-per-cell detail) and `ad-matrix.json` (`{ "angle", "campaign", "created", "source":
+phrase, and a CTA. Every cell passes the claim gate. Write
+`./campaigns/<campaign-name>/ad-matrix.md` (readable grid plus per-cell detail) and `ad-matrix.json` (`{ "angle", "campaign", "created", "source":
 "positioning-angles", "cells": [ { "id": "MA-H1-A", "hook_type": "direct", "format":
 "static", "hook", "visual", "primary_text", "cta" }, ... ] }`, all 12 cells). Append both
 to `./brand/assets.md`. Assets get named by cell ID (`MA-H2-B-9x16-v1.mp4`).
 
 ## Worked examples (all research illustrative)
+
+These show the reasoning, so they name stages and generators. The deliverable says the
+same things in plain words.
 
 **Local service: Hartline Plumbing, Dallas TX (a sample business).** Water heater
 replacements, an urgent job type. The plumbers on the map all say "upfront pricing" and
@@ -315,25 +378,41 @@ already photographs the heater and venting before quoting, and the final bill ma
 quote on almost every job last year, so the guarantee is affordable. Offer: same-day or
 next-morning replacement at one flat installed price, haul-away and permit included.
 Guarantee: "The price on your quote is the price on your invoice." Method: the
-Price-Before-We-Touch-It check. ★ Risk Reversal, headline "Your water heater price in
-writing before we touch it." Runner-up: Speed, kept for the matrix's direct hook.
+Price-Before-We-Touch-It check (the crew already does it). ★ The price-in-writing angle
+(risk reversal), headline "Your water heater price in writing before we touch it."
+Runner-up: the same-day angle, kept for the matrix's direct hook.
 
 **Online service: bookkeeping for Shopify sellers doing $1-10M.** Four competitors say
 "stress-free bookkeeping" and "real-time dashboards" (saturated); two pay for
 "catch-up bookkeeping" ads (contested); sellers on Reddit complain "my books say I'm
 profitable but my bank account disagrees", and nobody talks about inventory-aware cost
-of goods (white space). Stage 3. Offer: monthly close by the 10th with COGS reconciled
-to stock counts. Guarantee: "If your P&L and bank balance don't reconcile within 60 days,
-we work free until they do." Method: Inventory-Aware Books. ★ Mechanism, headline "Your
-books say profit. Your bank says no. Here's the disconnect."
+of goods (white space). Stage 3. The firm's service page says it closes by the 10th and
+reconciles COGS to stock counts every month, so the offer and the method ship. Offer:
+monthly close by the 10th with COGS reconciled to stock counts. Method: Inventory-Aware
+Books. Guarantee: none offered today. ★ The books-versus-bank angle (mechanism),
+headline "Your books say profit. Your bank says no. Here's the disconnect." To make this
+true: "If your P&L and bank balance
+don't reconcile within 60 days, we work free until they do." It would turn the headline
+into a promise; it takes a count of last year's clients who didn't reconcile, and the
+owner's sign-off.
+
+**Claim gate in action: a specialty coffee subscription.** The bold angle is "coffee
+that arrives before you run out". The site says beans ship within 48 hours of roasting
+and customers choose a bag size and a delivery interval; there's no usage tracking, no
+skip button and no guarantee. Shipped headline, word for word from the facts: "Shipped
+within 48 hours of roasting." (Not "at your door in two days": the site promises the ship
+date, not the delivery date.) To make this true: a cups-per-day picker that sets the
+interval (a build), one-click skip in the account (a build), and a never-run-out promise
+(the owner covers rush shipping). Together they unlock "Never run out of good coffee again."
 
 **Creator or coach: an online running coach for runners over 40.** Competitors promise
 "PR faster" and "custom plans" (saturated). Complaints in running forums: "every plan
-assumes I'm 25", "got hurt in week 6". Stage 4, so proof and a mechanism lead. Offer: 12
-weeks, two runs and two 20-minute strength sessions a week, with a weekly video check-in.
-Guarantee: "Do the sessions for 6 weeks. If your easy pace hasn't improved, full refund."
-Method: the Two-Session Strength Block. ★ Specificity, headline "A faster 10K after 40,
-without another injury."
+assumes I'm 25", "got hurt in week 6". Stage 4, so proof and a mechanism lead. The
+coach's sales page lists the program and already offers the refund. Offer: 12 weeks, two runs and two
+20-minute strength sessions a week, with a weekly video check-in. Guarantee: "Do the
+sessions for 6 weeks. If your easy pace hasn't improved, full refund." Method: the
+Two-Session Strength Block. ★ The over-40 angle (specificity), headline "A faster 10K
+after 40, without another injury."
 
 ## What's next
 
