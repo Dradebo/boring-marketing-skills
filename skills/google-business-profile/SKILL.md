@@ -5,7 +5,7 @@ when_to_use: check my google business profile, google business profile audit, GB
 argument-hint: "[business name or profile link] [main service] [city]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: distribution
     reads: [voice-profile, positioning#chosen-angle, voc, competitors#competitor-profiles, brand-manifest, algo-cache]
     writes: [assets]

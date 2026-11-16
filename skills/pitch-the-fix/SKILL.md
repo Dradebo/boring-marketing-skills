@@ -5,7 +5,7 @@ when_to_use: pitch this business, write a cold email to a plumber, how do I pitc
 argument-hint: "[business name + town + site | a row from a find-local-clients list]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: growth
     reads: [positioning#chosen-angle, voice-profile, learnings]
     writes: []

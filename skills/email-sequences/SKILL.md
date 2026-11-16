@@ -5,7 +5,7 @@ when_to_use: write welcome emails, welcome email, first email after signup, writ
 argument-hint: "[sequence type + what it sells, e.g. 'welcome sequence for my checklist → $89 course' or 'quote follow-up for water heater installs'; or 'preflight <domain>']"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [voice-profile, positioning#chosen-angle, audience#segments, voc, learnings]
     writes: [assets, learnings]

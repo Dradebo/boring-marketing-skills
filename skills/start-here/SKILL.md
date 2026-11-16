@@ -5,7 +5,7 @@ when_to_use: start here, get started, where do I start, what should I do next, s
 argument-hint: "[business name | url | deep | audit | stack | 'new client <url>' | 'prospect <url>' | --brand <slug> | any marketing request]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: foundation
     reads: [brand-manifest, learnings, assets]
     writes: [stack, brand-manifest, preferences, voice-profile, positioning, audience, voc, competitors]

@@ -5,7 +5,7 @@ when_to_use: build me a landing page, landing page for X, turn this copy into a 
 argument-hint: "[offer or campaign name | live URL for teardown]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [voice-profile, positioning#chosen-angle, audience#pain-language, voc, creative-kit, competitors, learnings]
     writes: []

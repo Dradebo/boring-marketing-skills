@@ -5,7 +5,7 @@ when_to_use: keyword research for X, content strategy for X, what should I write
 argument-hint: "[topic, niche, or seed keywords]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: strategy
     reads: [positioning#chosen-angle, audience#watering-holes, competitors#competitor-profiles, voc]
     writes: [keyword-plan]

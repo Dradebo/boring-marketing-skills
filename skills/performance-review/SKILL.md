@@ -5,7 +5,7 @@ when_to_use: how did it perform, review my numbers, analyze these results, here'
 argument-hint: "[paste data / CSV path / screenshot path] | monthly"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: growth
     reads: [assets, learnings, brand-manifest, keyword-plan#cluster-priorities]
     writes: [learnings]

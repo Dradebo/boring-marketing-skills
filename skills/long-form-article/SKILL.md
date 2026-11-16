@@ -5,7 +5,7 @@ when_to_use: write a long article, write an X article, write a LinkedIn article,
 argument-hint: "[the point or topic] [x | linkedin | blog | newsletter]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: distribution
     reads: [voice-profile, positioning#chosen-angle, audience#pain-language, learnings]
     writes: []

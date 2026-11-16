@@ -5,7 +5,7 @@ when_to_use: check my site on a phone, why isn't my website getting calls, first
 argument-hint: "[site URL or the URL an ad opens] [optional: the ad's text or promise]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [positioning#chosen-angle, competitors]
     writes: [assets]

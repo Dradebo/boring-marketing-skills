@@ -5,7 +5,7 @@ when_to_use: are we missing calls, missed call text back, how many calls do we m
 argument-hint: "[call log CSV path] | audit | setup"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: growth
     reads: [voice-profile#voice-summary, audience#pain-language, learnings, brand-manifest]
     writes: []

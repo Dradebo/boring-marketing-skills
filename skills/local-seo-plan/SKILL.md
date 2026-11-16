@@ -5,7 +5,7 @@ when_to_use: local seo plan, which city pages should I build, should I make a pa
 argument-hint: "[business name or site] [main service] [main city]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: strategy
     reads: [positioning, audience, competitors#competitor-profiles, voc, keyword-plan, brand-manifest]
     writes: [assets]

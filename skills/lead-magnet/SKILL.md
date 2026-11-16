@@ -5,7 +5,7 @@ when_to_use: lead magnet ideas for X, grow my email list, what freebie should I 
 argument-hint: "[offer or niche, or a concept to build directly]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: strategy
     reads: [voice-profile#tone-spectrum, positioning#chosen-angle, audience#pain-language, voc]
     writes: [assets]

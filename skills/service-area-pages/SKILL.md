@@ -5,7 +5,7 @@ when_to_use: write city pages, service area pages, location pages for my busines
 argument-hint: "[business or site] [towns, or 'from plan']"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [voice-profile, positioning#chosen-angle, voc, competitors#competitor-profiles, brand-manifest]
     writes: []

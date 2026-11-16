@@ -5,7 +5,7 @@ when_to_use: programmatic seo, pseo, generate pages from data, build 100 landing
 argument-hint: "[keyword pattern or cluster, e.g. 'crm for [industry]']"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [keyword-plan, positioning#chosen-angle, voice-profile#voice-summary]
     writes: [assets]

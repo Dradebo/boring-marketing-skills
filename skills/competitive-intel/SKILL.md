@@ -5,7 +5,7 @@ when_to_use: competitor analysis, tear down my competitors, who am I up against,
 argument-hint: "[competitor names/URLs or a category] | watch | ads <category>"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: foundation
     reads: [positioning#market-assessment, competitors, brand-manifest]
     writes: [competitors, assets, brand-manifest]

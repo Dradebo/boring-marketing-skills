@@ -5,7 +5,7 @@ when_to_use: repurpose this, atomize this content, turn this into social posts, 
 argument-hint: "[source content, file path, or URL | 'replies' + pasted comments | 'calendar' + source]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: distribution
     reads: [voice-profile#platform-adaptations, learnings, algo-cache]
     writes: []

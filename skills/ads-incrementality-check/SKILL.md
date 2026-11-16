@@ -5,7 +5,7 @@ when_to_use: are my ads actually working, is performance max taking credit for m
 argument-hint: "[campaign to test] | plan | read <call log CSV>"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: growth
     reads: [learnings, assets, brand-manifest]
     writes: [assets]

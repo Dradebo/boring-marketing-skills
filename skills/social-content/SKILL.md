@@ -5,7 +5,7 @@ when_to_use: write me a tweet, draft an X post, write a LinkedIn post, set up my
 argument-hint: "[topic/insight/link to draft from | post to score | post URL to QT | 'setup' | 'week']"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: distribution
     reads: [social-canon, voice-profile, positioning#chosen-angle, learnings, algo-cache]
     writes: [social-canon, assets]

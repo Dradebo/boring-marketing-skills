@@ -5,7 +5,7 @@ when_to_use: get more reviews, more google reviews, reply to my reviews, respond
 argument-hint: "[business name + city, or the Google profile link] [optional: pasted reviews or a reviews export]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: growth
     reads: [voice-profile, positioning#chosen-angle, competitors, voc]
     writes: [assets]

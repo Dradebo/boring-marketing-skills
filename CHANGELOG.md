@@ -1,5 +1,10 @@
 # Changelog: Boring Marketing Skills
 
+## 4.1.1 (2026-11-16)
+
+### Fixed
+- `creative`: the visual check now requires the brand name to be readable in every ad, an offer or next step in every non-native ad, no unsupported claims about competitors, and no AI-generated person beside a real review. Found in a blind visual head-to-head, where our coffee ads won on truth but lost on brand clarity.
+
 ## 4.1.0 (2026-11-16)
 
 Tested against another popular open-source marketing library in a blind head-to-head on 32 jobs across six kinds of business (a plumber, a dental group, a software company, a coffee subscription, a law firm and an agency). The changes below come from what lost and why.

@@ -5,7 +5,7 @@ when_to_use: ai search audit, am I cited by ChatGPT, does ChatGPT recommend my b
 argument-hint: "[brand/domain or nothing] | optimize | monitor"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: growth
     reads: [positioning, keyword-plan, competitors#competitor-profiles, voc, brand-manifest]
     writes: []

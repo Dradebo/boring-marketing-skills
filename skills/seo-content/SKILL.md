@@ -5,7 +5,7 @@ when_to_use: write SEO content for X, create article for keyword, write blog pos
 argument-hint: "[target keyword, or path to an existing article to refresh]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [voice-profile, keyword-plan, audience#dominant-emotion-sophistication, learnings]
     writes: []

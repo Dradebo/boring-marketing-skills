@@ -5,7 +5,7 @@ when_to_use: find angles for X, how should I position X, what's the hook, why is
 argument-hint: "[product, service or offer to position, plus market or city; blank uses brand memory]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: foundation
     reads: [audience, competitors, voc, voice-profile#voice-summary, learnings]
     writes: [positioning, assets]

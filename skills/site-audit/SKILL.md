@@ -5,7 +5,7 @@ when_to_use: technical seo audit, site audit, crawl my site, check my robots.txt
 argument-hint: "[site URL] [quick | re-audit]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [brand-manifest, keyword-plan, stack]
     writes: [assets]

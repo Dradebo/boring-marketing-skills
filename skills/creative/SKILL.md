@@ -5,7 +5,7 @@ when_to_use: generate an image, product shot, product video, hero video, social 
 argument-hint: "[what to make, or blank to be routed]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [creative-kit, positioning#chosen-angle, voice-profile#voice-summary]
     writes: [creative-kit]

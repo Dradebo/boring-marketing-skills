@@ -235,7 +235,15 @@ sheet command in step 1, run on the final MP4. A piece passes only when all of t
   the product.
 - **Native formats look native:** a phone-photo look, platform-style text, no logo block, no button
   baked into the image.
+- **The brand is clear in every ad:** the name is readable on the product, in a wordmark or in the
+  copy. A logo mark alone (a leaf on a bag) doesn't count. When you generate packaging, put the
+  brand name on it.
+- **Every ad except a native post carries the offer or the next step** (subscribe and save 10%,
+  book a visit, the price), so the click has a reason. Native posts leave that to the caption
+  and the platform button.
 - **The claims are true,** including the end card and the captions, checked against the claim gate.
+  No unsupported claims about competitors (say "check the bag", not "sits on a shelf for months"),
+  and never put an AI-generated person next to a real review, where they read as the reviewer.
 - **Safe zones hold** for the placement, and the file carries the right cell name.
 
 Fix what fails and check again. A piece that still fails after about two tries is shown with its

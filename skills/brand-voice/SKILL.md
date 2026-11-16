@@ -5,7 +5,7 @@ when_to_use: what's my voice, analyze my brand voice, make this sound like me, v
 argument-hint: "[URL to auto-scrape | pasted content to extract | 'drift check' + recent content]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: foundation
     reads: [positioning, audience]
     writes: [voice-profile]

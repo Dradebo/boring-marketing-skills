@@ -5,7 +5,7 @@ when_to_use: google ads not tracking calls, zero conversions in google ads, are 
 argument-hint: "[business name or site URL] [audit | fix | budget]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: distribution
     reads: [stack, learnings, brand-manifest]
     writes: []

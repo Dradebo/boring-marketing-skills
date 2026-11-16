@@ -5,7 +5,7 @@ when_to_use: write my ads, paid ads, launch a campaign, Meta ads, Google ads, Li
 argument-hint: "[campaign name or product] | policy <copy or path> | results <export path>"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: distribution
     reads: [positioning#chosen-angle, voice-profile#voice-summary, audience, learnings]
     writes: [assets]

@@ -5,7 +5,7 @@ when_to_use: research my audience, who is my audience, voice of customer, what d
 argument-hint: "[product URL or description; optionally 'refresh' to diff against existing research]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: foundation
     reads: [positioning#market-assessment, brand-manifest]
     writes: [audience, voc]

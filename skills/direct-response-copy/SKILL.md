@@ -5,7 +5,7 @@ when_to_use: write copy for, write a landing page, make this convert, help me se
 argument-hint: "[format + offer, e.g. 'landing page for my invoicing tool' or 'service page for same-day water heater replacement in Dallas']"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [voice-profile, positioning#chosen-angle, audience#pain-language, voc, learnings]
     writes: [assets]

@@ -5,7 +5,7 @@ when_to_use: write my newsletter, newsletter edition about X, weekly roundup, ne
 argument-hint: "[topic, or 'strategy: <question>'; optionally an archetype name]"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: execution
     reads: [voice-profile, audience#segments, audience#desires-buying-triggers, learnings]
     writes: []

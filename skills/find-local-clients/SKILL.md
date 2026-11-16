@@ -5,7 +5,7 @@ when_to_use: find me clients, find local clients, prospect list, who should I pi
 argument-hint: "[trade] [town], e.g. plumbers Dallas TX"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: growth
     reads: [positioning#chosen-angle, learnings]
     writes: []

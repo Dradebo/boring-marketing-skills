@@ -5,7 +5,7 @@ when_to_use: set up the meta ads api, launch facebook ads from code, create a me
 argument-hint: "[campaign config path] | preflight | launch | verify-tracking"
 metadata:
   boring:
-    version: 4.1.0
+    version: 4.1.1
     layer: distribution
     reads: [positioning#chosen-angle, creative-kit, learnings]
     writes: []
