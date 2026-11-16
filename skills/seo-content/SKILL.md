@@ -1,0 +1,208 @@
+---
+name: seo-content
+description: Write publication-ready articles that earn classic rankings AND AI-surface citations (AI Overviews, ChatGPT search, Perplexity) while reading like a human expert wrote them. Use when turning a keyword or content brief into an actual piece. It scrapes the live SERP with parallel agents, captures who the AI surfaces cite and why, drafts in your voice, humanizes, optimizes on two tracks (on-page + GEO), and ships valid 2026 schema. Refresh mode diffs both the SERP and the AI-citation set against your published article.
+when_to_use: write SEO content for X, create article for keyword, write blog post about X, SEO article, content for keyword cluster, refresh article, update blog post, why am I not cited in AI Overviews
+argument-hint: "[target keyword, or path to an existing article to refresh]"
+metadata:
+  boring:
+    version: 4.0.0
+    layer: execution
+    reads: [voice-profile, keyword-plan, audience#dominant-emotion-sophistication, learnings]
+    writes: []
+    optional-keys: [FIRECRAWL_API_KEY]
+---
+
+# /seo-content: Content That Ranks AND Gets Cited
+
+Most informational queries are now answered by an AI surface before anyone clicks. The job is no longer "rank #1". It's "be the source the answer is built from, and convert the smaller, better-qualified traffic that arrives." This skill produces a piece that wins on both boards and sounds like a specific person wrote it from real experience. This is the floor, not the ceiling. When the situation argues for a better path, take it and say why.
+
+Success is measured three ways, together: position for the target query, citation presence on AI surfaces, and conversions from the page. A #3 that holds the AI Overview citation beats a #1 that doesn't.
+
+## Context
+
+Only if `./brand/`, `./brands/` or `MARKETING.md` exists (nothing to load otherwise), run:
+`python3 ${CLAUDE_SKILL_DIR}/../start-here/scripts/brand_context.py --for seo-content`
+(If the script or python3 is unavailable, read the files named in `reads:` directly, section-anchored where specified. If none exist, proceed standalone. Ask only for what the task strictly requires.)
+
+If `./brand/learnings.md` has entries about content (formats, angles, lengths that performed), cite which priors you applied in the final output.
+
+**Freshness check:** Load `references/ai-search-facts.md` before Phase 1.5 and Phase 5. If it's past TTL, refresh it per its header first and say so in one line.
+
+## Modes
+
+- **Create** (default): keyword → published-ready article. If a content brief exists at `./campaigns/content-plan/{keyword-slug}.md` (from /keyword-research), load it. Don't re-research what it already settled.
+- **Refresh**: an article already exists at `./campaigns/content/{keyword-slug}.md`, or the user points at one. Skip to **Refresh Mode** below. Always check for an existing file before creating. Never silently overwrite.
+
+Quick Mode applies: if the user pastes a brief and says "just write it," skip the research presentation ceremony: run Phases 1-1.5 quietly, deliver the article, one-line what's-next.
+
+## Required inputs
+
+Target keyword (the only hard requirement). Get the rest from the brief, brand context, or one round of questions: search intent, content type, unique angle, and the user's real experience/credentials on this topic (needed for E-E-A-T and voice injection; never fabricate these).
+
+---
+
+## Phase 1: SERP Reality (parallel fan-out)
+
+Search the target keyword. From the results page capture: top 5-7 organic URLs, the related/People-Also-Ask questions **as returned in the search results** (they come back as data: there is nothing to click), and whether an AI Overview is present.
+
+Then fan out **one subagent per top-5 competitor URL, in parallel**. Each agent scrapes its page (Firecrawl if `FIRECRAWL_API_KEY` is set, else WebFetch) and returns a structured evidence pack of FACTS, never estimates:
+
+- True word count (from fetched content, not snippet guesswork)
+- Complete H2/H3 map
+- Schema types present (parse the JSON-LD blocks in the HTML)
+- Publish date and last-updated date
+- Whether an answer-first block sits under each major heading
+- Original data/stats they present (verbatim, with their sourcing)
+- Author identity and credentials shown
+- Unique angles; what they miss or get wrong
+
+We use Firecrawl for these page reads: full-page reads, so the word count, heading map and JSON-LD come from the real page (free tier of 1,000 credits a month, no card). Without it, WebFetch reads pages as summaries, so mark word counts and schema `~` and say so.
+
+Run 2-3 keyword variations through search as well to widen the PAA pool. Label the deliverable `Data: LIVE (n pages scraped)`. If scraping is genuinely unavailable, say so, mark everything `~`, and ask whether to proceed on `Data: MODEL KNOWLEDGE` or stop.
+
+**Gap analysis** (from the evidence packs): what's missing, what's outdated, what's generic, and what's your edge: the thing the user can say that no ranking page can. If you can't articulate an edge, flag it now; an aggregation piece will neither rank nor get cited.
+
+## Phase 1.5: AI Surface Analysis
+
+This decides whether the piece can earn citations, which is half the win condition. Run it in parallel with Phase 1's competitor agents.
+
+1. **Capture the AI Overview** for the target query: its answer text and every cited source (URL + which claim it supports). If no AIO appears, note that. It means the query still resolves to classic results, and Track B effort shifts from "displace a citation" to "be first in when one appears."
+2. **Run 2-3 LLM-phrasing variants**: the question as someone would ask a chatbot, not type into Google ("what is X" → "explain X like I'm evaluating tools," "is X worth it for a small team"). Search each; capture how the answer and citation set shift. Conversational phrasings often cite different sources than the keyword phrasing.
+3. **For each cited source, record WHY it's cited** (judge against the drivers in `references/ai-search-facts.md`): extractable answer-block format? An original stat the answer quotes? Freshness? Clear entity attribution? Domain authority alone?
+4. **Output the AI citation gap** alongside the classic SERP gap:
+
+```
+AI SURFACE: "{query}"
+AIO present: yes/no · Cited: {domain → why}, {domain → why}, ...
+Variant phrasings cited: {any deltas}
+Citation gap: {what a page would need that no current citation has,
+e.g., "no cited source has post-2025 data; an original benchmark wins this"}
+```
+
+Save the citation set. Refresh mode diffs against it.
+
+## Phase 2: Brief & Structure
+
+Consolidate into a brief (or enrich the one from /keyword-research): keyword + secondaries, intent, content type, audience, unique angle, key points, PAA questions, SERP gap, AI citation gap, internal link targets, CTA.
+
+**Structure is information-driven, not length-driven.** There is no target word count. List every question and subtopic the piece must cover (intent + PAA + gaps), give each exactly the space it needs, stop. Density wins: AI-assisted SERPs and AI answers both punish padded long-form. A bloated 6,000-word "ultimate guide" is now a liability, not a moat. Length is an output, not an input.
+
+Ordering judgment by content type: pillar/explainer leads with the direct answer then descends from broad to specific; how-to shows the end result first then numbered steps (one action each, troubleshooting inline); comparison opens with the verdict ("Choose X if... Y if...") then a spec table then depth; listicle opens with the full list for skimmers then per-item depth including honest limitations.
+
+**PAA coverage, the default bar:** every captured question gets answered: as an H2 (deserves depth) or an FAQ entry (deserves two sentences). Use the question's own phrasing in the heading; that's how people search and how LLMs match. Skip a question only when it's genuinely off-intent or belongs on another page, and say which.
+
+**Internal links come from real data.** Fetch the user's `sitemap.xml` (or scan the content directory if this is a local repo site) and pick 4-8 genuinely related URLs. Never write "[link to related content]" placeholders: if you can't find the sitemap, ask for 3-5 URLs or omit the links and say why. Descriptive anchor text, varied naturally.
+
+## Phase 3: Draft
+
+**Load `references/humanize.md` BEFORE drafting**: it's cheaper to write human than to repair AI prose. Calibrate to `voice-profile.md` if loaded (tone, vocabulary, rhythm, words-to-avoid); otherwise default to direct, conversational, specific, opinionated: a smart friend who happens to be an expert.
+
+Craft rules that govern the draft:
+
+- **The first-paragraph rule.** Answer the search query in the first 2-3 sentences. Nobody scrolls for the answer anymore, and neither do extraction models.
+- **The "so what?" chain.** For every point, ask "so what?" until you hit something the reader cares about, then write from the bottom of the chain. "Automated sequences" → "follow-ups send themselves" → "you wake up to replies." Write the last one.
+- **Specificity over generality.** "Saves time" is dead weight; "cut outreach from 4 hours to 15 minutes" (illustrative) is an argument. Numbers, examples, named things.
+- **Show your work.** Claims carry their evidence: "after testing N tools," "across N client accounts," "we analyzed N pages." These must be the user's REAL numbers: pull from brand context or ask. A fabricated experience claim is an E-E-A-T liability and a trust breach.
+- **Positioning shapes HOW, not WHAT.** The keyword dictates the topic; positioning (if loaded) dictates the lens: practitioner stories vs. data-led vs. contrarian. The angle should be visible in every section, not bolted onto the intro.
+- Match the quality bar in `references/eeat-examples.md`. Load it when you need calibration on what "a specific person wrote this" reads like.
+
+## Phase 4: Humanize
+
+Run the full pass from `references/humanize.md`: word/phrase/structure/voice tells removed, voice injection points added from the user's real experience, rhythm varied, detection checklist green, read-aloud test passed. This phase is the soul of the skill: the full pass is the default; compress it only when the draft already reads human, and say so. A word-swap is not a humanize pass.
+
+One tension to manage deliberately: the answer blocks (Track B below) stay direct and self-contained; the prose around them carries the personality. Humanize the piece, not the extractable blocks into mush.
+
+## Phase 5: Optimize: two tracks
+
+### Track A: Classic on-page
+
+- Primary keyword: title (front-loaded, ≤60 chars), H1, first 100 words, ≥1 H2, URL slug, meta description.
+- Meta description 150-160 chars: direct answer + proof + hook. It's ad copy for the click that still exists.
+- Secondary keywords distributed across H2s where natural, never forced.
+- Headers are scannable summaries of their sections, logical H2 > H3 hierarchy.
+- 4-8 internal links (from the Phase 2 sitemap crawl), 2-4 external links to authoritative sources for factual claims, descriptive alt text on images.
+- Featured snippets: don't chase them separately. AI Overviews have cannibalized most of that real estate, and the Track B answer blocks are the same format that wins whatever snippets remain. One format, both targets.
+
+### Track B: GEO (citation engineering)
+
+This is what makes the piece extractable and attributable. Apply against the drivers in `references/ai-search-facts.md`:
+
+1. **Answer-first block under every H2:** 40-80 words, self-contained (no "as mentioned above," no dangling pronouns), directly answering the heading. This is the passage an LLM lifts; it must stand alone out of context.
+2. **≥1 original, citable stat per major section.** First-party data, a computed synthesis ("across the 5 top-ranking pages, median word count was N; we scraped them in Phase 1" is itself original data), or the user's real numbers. Each stat phrased so it can be quoted with attribution. If a section has no citable fact, it will be paraphrased without credit: that's the failure mode.
+3. **Named-entity consistency:** one canonical name per product/company/person used throughout; define each entity on first mention. Engines cite pages they can confidently attribute and disambiguate.
+4. **Freshness signals:** visible updated date, current-year facts, no fossil dates in examples.
+5. **Distribution notes for the user** (one line each in the output): ping IndexNow on publish (it reaches Bing and Copilot; Google ignores it, and ChatGPT retrieves from OpenAI's own index); check that OAI-SearchBot and GPTBot are allowed in robots.txt and that the core content is in server-rendered HTML. An `llms.txt` file is optional and has no confirmed effect (see `references/ai-search-facts.md`).
+
+## Phase 6: Schema
+
+What schema does: it makes the page machine-parseable and clarifies what it is, who wrote
+it, and who published it. Generate it for those reasons, with no rich-result promises;
+current rich-result status and citation evidence live in `references/ai-search-facts.md`.
+
+Generate, into the saved file's frontmatter:
+
+- **Article**: headline, description, datePublished, dateModified, mainEntityOfPage. No `keywords` property (dead weight, ignored).
+- **Person (author)**: name, jobTitle, and `sameAs` links to the author's LinkedIn/X/site. This is the entity-clarity workhorse: it's how engines resolve WHO is behind the page. Ask for the author's profile URLs if brand context doesn't have them.
+- **Organization (publisher)**: name, url, logo, `sameAs`.
+- **FAQPage**: only if the article has an FAQ section, and tell the user honestly: this earns no rich result for most sites; its value is giving LLMs a clean Q/A structure to lift.
+- **Never HowTo.** Removed by Google in 2023; generating it is shipping dead code.
+
+## Quality gate
+
+Score the draft before saving; rewrite weak dimensions and rescore: ~3 iterations is the practical ceiling; past that the constraint is upstream (angle, experience inventory), say so. Always present the honest score history; never present unscored work as scored:
+
+1. Answers the query in the first paragraph, better than what's ranking
+2. Every PAA question answered (H2 or FAQ); SERP gaps from Phase 1 addressed
+3. AI citation gap from Phase 1.5 addressed: at least one section gives an engine a reason to cite YOU specifically
+4. Humanize checklist passed (references/humanize.md)
+5. All experience claims and stats are real (user-sourced) or clearly attributed; zero fabricated numbers
+6. Track A + Track B items verifiably present (answer blocks, entity consistency, schema valid JSON-LD)
+7. The bar: would someone bookmark this? Is there one thing here they can't get anywhere else?
+
+---
+
+## Refresh Mode
+
+Trigger: existing file at `./campaigns/content/{keyword-slug}.md`, or the user says refresh/update. Read the article and its frontmatter (`serp_snapshot_date`, `aio_citations`), then re-run Phase 1 and Phase 1.5 and diff:
+
+**SERP diff:** new top-5 entrants and their angles · PAA questions not yet covered · intent shift · outdated stats/claims in the article.
+
+**AI citation diff** (the differentiated half): compare today's AIO citation set against the stored `aio_citations`. Report movement plainly: "you held the citation for the pricing claim; you lost the definition citation to {domain} since {snapshot date}, because their answer block is fresher and carries a current-year stat." For each loss, name the mechanism (format/stat/freshness/entity) and the specific fix. Remember the base rate from ai-search-facts.md: 40-60% of citations churn monthly: losses are normal and recoverable, which is exactly why refresh is a recurring job worth scheduling.
+
+Present recommendations as specifics, never "update the content": *add H2 "{question}" after "{section}" because {evidence}* · *replace the {year} stat in {section} with {current}* · *rewrite the answer block under "{H2}" to ≤80 self-contained words* · *add FAQ entries for {new PAA}*. Apply on confirmation; update `last_updated`, `serp_snapshot_date`, and `aio_citations`; auto-version the old file per the brand-memory protocol.
+
+---
+
+## Output
+
+Worked example: load `references/worked-example.md` for the end-to-end flow and clearly labeled sample data.
+
+Save to `./campaigns/content/{keyword-slug}.md` (create the directory if needed; slug = lowercase kebab-case, stop words dropped if >60 chars). YAML frontmatter:
+
+```yaml
+---
+title: ""
+meta_description: ""
+primary_keyword: ""
+secondary_keywords: []
+content_type: ""
+search_intent: ""
+author: ""
+date_created: YYYY-MM-DD
+last_updated: YYYY-MM-DD
+status: draft
+serp_snapshot_date: YYYY-MM-DD
+aio_citations: []        # [{domain, claim_cited, why}]: Refresh mode diffs this
+paa_questions_answered: N
+schema: |
+  {Article + Person + Organization (+ FAQPage) JSON-LD, ready to paste into the CMS}
+---
+```
+
+Body: the full article (H2/H3 structure, FAQ section last). Then present per the output contract (`${CLAUDE_SKILL_DIR}/../start-here/references/output-format.md`): deliverable header with `Data: LIVE (n)` label, a compact summary (SERP + AI-surface findings, article stats, gate score, applied learnings priors), **Files saved** (content file + one-line append to `./brand/assets.md`), and **What's next**.
+
+**What's next** (pick 2-3 that fit):
+- `/content-atomizer`: one article into platform-native social assets (~10 min)
+- `/ai-search`: full share-of-model audit + citation monitoring routine across your money queries (~20 min)
+- `/creative`: featured image and social cards for this piece (~15 min)
+- `/seo-content`: next brief in the keyword plan, or schedule a refresh: citations churn monthly

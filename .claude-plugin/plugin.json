@@ -1,0 +1,29 @@
+{
+  "name": "boring-marketing",
+  "version": "4.0.0",
+  "description": "Free marketing skills for your AI agent: research, positioning, copy, pages, SEO, AI search, ads, email and content, plus a local-business pack (Google profile, reviews, local pages, call tracking). Built from real campaigns. Every skill works without a paid tool. MIT licensed.",
+  "author": {
+    "name": "James Dickerson (@boringmarketer)",
+    "url": "https://boringmarketing.com"
+  },
+  "homepage": "https://boringmarketing.com",
+  "keywords": [
+    "marketing",
+    "copywriting",
+    "seo",
+    "ai-search",
+    "paid-ads",
+    "email",
+    "content",
+    "positioning",
+    "brand",
+    "local-seo",
+    "google-business-profile",
+    "reviews",
+    "local-business",
+    "agency",
+    "google-ads",
+    "meta-ads"
+  ],
+  "hooks": "./automations/hooks/hooks.json"
+}
