@@ -62,6 +62,8 @@ def parse_args(argv):
 def resolve_brand_dir(root: Path, brand_slug):
     """Resolve a single safe client slug or the default ./brand/ directory."""
     brands = root / "brands"
+    if not brands.resolve().is_relative_to(root.resolve()):
+        raise ValueError("brands directory escapes the workspace")
 
     def selected(slug):
         if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", slug) or slug in (".", ".."):
@@ -78,6 +80,8 @@ def resolve_brand_dir(root: Path, brand_slug):
         slug = pointer.read_text(encoding="utf-8").strip()
         if slug:
             return selected(slug)
+    if not (root / "brand").resolve().is_relative_to(root.resolve()):
+        raise ValueError("brand directory escapes the workspace")
     return root / "brand"
 
 
