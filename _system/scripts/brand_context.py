@@ -69,8 +69,8 @@ def resolve_brand_dir(root: Path, brand_slug):
         if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", slug) or slug in (".", ".."):
             raise ValueError("invalid brand slug: use a single folder name, not a path")
         candidate = brands / slug
-        if not candidate.resolve().is_relative_to(brands.resolve()):
-            raise ValueError("brand directory escapes the workspace")
+        if candidate.resolve() != brands.resolve() / slug:
+            raise ValueError("brand directory escapes its client folder or aliases another client")
         return candidate
 
     if brand_slug:
