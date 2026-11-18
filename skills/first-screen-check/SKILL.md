@@ -142,6 +142,10 @@ Two traps that make a page look better or worse than it is:
 
 > Optional: boringfunnels (made by the author of this library, paid Pro with a free search) helps with this step: its prospect tool reads a named business's Google rating, newest reviews and ads, and its teardown opens one real page that sells well, section by section with phone-size pictures, to hold your read against. The free path above gets the same answer by hand.
 
+## Region-aware inquiry paths
+
+For Ugandan or comparable East African businesses, read `../start-here/references/market-uganda.md`. Keep the phone-first check but also verify clearly presented WhatsApp, directions, available hours and booking/enquiry path where the actual buyer uses them. Do not infer enquiry handling from an icon, and never send unsolicited test messages. Mark unavailable data as unobserved, not failed.
+
 ## Phase 3: The first-screen checks
 
 Each check is a question the customer asks in the first few seconds. Load
