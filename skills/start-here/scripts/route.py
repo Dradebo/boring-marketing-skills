@@ -1036,7 +1036,7 @@ def build_all_brands(goal_or_task, root, skills_dir, capabilities_path=None):
 def _normal_brand_dir(root, brand, requested_dir):
     if requested_dir and requested_dir != "auto":
         path = Path(requested_dir).expanduser()
-        return path if path.is_absolute() else Path(root) / path
+        return capability.validate_brand_dir(root, path)
     return capability.resolve_brand_dir(root, brand)
 
 
