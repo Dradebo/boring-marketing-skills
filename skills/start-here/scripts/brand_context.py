@@ -60,14 +60,24 @@ def parse_args(argv):
 
 
 def resolve_brand_dir(root: Path, brand_slug):
-    """Resolution order: --brand arg > brands/active pointer > ./brand/."""
+    """Resolve a single safe client slug or the default ./brand/ directory."""
+    brands = root / "brands"
+
+    def selected(slug):
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", slug) or slug in (".", ".."):
+            raise ValueError("invalid brand slug: use a single folder name, not a path")
+        candidate = brands / slug
+        if not candidate.resolve().is_relative_to(brands.resolve()):
+            raise ValueError("brand directory escapes the workspace")
+        return candidate
+
     if brand_slug:
-        return root / "brands" / brand_slug
-    pointer = root / "brands" / "active"
+        return selected(str(brand_slug))
+    pointer = brands / "active"
     if pointer.is_file():
         slug = pointer.read_text(encoding="utf-8").strip()
         if slug:
-            return root / "brands" / slug
+            return selected(slug)
     return root / "brand"
 
 
@@ -242,7 +252,11 @@ def freshness(updated: datetime.date, owner):
 def main(argv=None):
     args = parse_args(argv)
     root = Path(args.root)
-    brand_dir = resolve_brand_dir(root, args.brand)
+    try:
+        brand_dir = resolve_brand_dir(root, args.brand)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
 
     if args.dir_only:
         print(brand_dir)
