@@ -14,6 +14,7 @@ printed. Python 3 standard library only.
 import argparse
 import json
 import os
+import re
 import sys
 from collections import OrderedDict
 from pathlib import Path
@@ -124,18 +125,28 @@ def parse_env_file(path):
 
 
 def resolve_brand_dir(root, slug):
-    """Resolve a brand directory: explicit slug, active pointer, then ./brand/."""
+    """Resolve a single safe client slug or the default ./brand/ directory."""
     root = Path(root)
-    if slug:
-        return root / "brands" / str(slug)
+    brands = root / "brands"
 
-    active_pointer = root / "brands" / "active"
+    def selected(value):
+        candidate_slug = str(value)
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", candidate_slug) or candidate_slug in (".", ".."):
+            raise ValueError("invalid brand slug: use a single folder name, not a path")
+        candidate = brands / candidate_slug
+        if not candidate.resolve().is_relative_to(brands.resolve()):
+            raise ValueError("brand directory escapes the workspace")
+        return candidate
+
+    if slug:
+        return selected(slug)
+    active_pointer = brands / "active"
     try:
         active_slug = active_pointer.read_text(encoding="utf-8").strip()
     except OSError:
         active_slug = ""
     if active_slug:
-        return root / "brands" / active_slug
+        return selected(active_slug)
     return root / "brand"
 
 
