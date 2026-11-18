@@ -70,6 +70,16 @@ class BrandSelectionSafety(unittest.TestCase):
             with self.assertRaises(ValueError):
                 capability.validate_brand_dir(root, "brands/link")
 
+    def test_explicit_brand_dir_rejects_symlink_to_another_client(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "brands" / "client-a").mkdir(parents=True)
+            (root / "brands" / "client-b").symlink_to(
+                root / "brands" / "client-a", target_is_directory=True
+            )
+            with self.assertRaises(ValueError):
+                capability.validate_brand_dir(root, "brands/client-b")
+
     def test_rejects_symlink_escape(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
