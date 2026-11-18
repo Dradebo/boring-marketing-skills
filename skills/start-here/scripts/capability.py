@@ -14,6 +14,7 @@ printed. Python 3 standard library only.
 import argparse
 import json
 import os
+import re
 import sys
 from collections import OrderedDict
 from pathlib import Path
@@ -124,18 +125,32 @@ def parse_env_file(path):
 
 
 def resolve_brand_dir(root, slug):
-    """Resolve a brand directory: explicit slug, active pointer, then ./brand/."""
+    """Resolve a single safe client slug or the default ./brand/ directory."""
     root = Path(root)
-    if slug:
-        return root / "brands" / str(slug)
+    brands = root / "brands"
+    if not brands.resolve().is_relative_to(root.resolve()):
+        raise ValueError("brands directory escapes the workspace")
 
-    active_pointer = root / "brands" / "active"
+    def selected(value):
+        candidate_slug = str(value)
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", candidate_slug) or candidate_slug in (".", ".."):
+            raise ValueError("invalid brand slug: use a single folder name, not a path")
+        candidate = brands / candidate_slug
+        if candidate.resolve() != brands.resolve() / candidate_slug:
+            raise ValueError("brand directory escapes its client folder or aliases another client")
+        return candidate
+
+    if slug:
+        return selected(slug)
+    active_pointer = brands / "active"
     try:
         active_slug = active_pointer.read_text(encoding="utf-8").strip()
     except OSError:
         active_slug = ""
     if active_slug:
-        return root / "brands" / active_slug
+        return selected(active_slug)
+    if not (root / "brand").resolve().is_relative_to(root.resolve()):
+        raise ValueError("brand directory escapes the workspace")
     return root / "brand"
 
 
@@ -207,12 +222,38 @@ def _single_provider(available, provider):
     }
 
 
+def validate_brand_dir(root, candidate):
+    """Limit explicit brand-dir overrides to the workspace's canonical brand paths."""
+    root = Path(root).expanduser().resolve()
+    raw = Path(candidate).expanduser()
+    path = (raw if raw.is_absolute() else root / raw)
+    resolved = path.resolve()
+    workspace = root / "brand"
+    brands = root / "brands"
+    if not brands.resolve().is_relative_to(root):
+        raise ValueError("brands directory escapes the workspace")
+    if not workspace.resolve().is_relative_to(root):
+        raise ValueError("brand directory escapes the workspace")
+    if resolved == workspace.resolve():
+        return path
+    # Explicit client references must be direct children, never nested or linked
+    # to another brand or outside the workspace.
+    if path.parent.resolve() != brands.resolve():
+        raise ValueError("brand directory must be ./brand or ./brands/<slug>")
+    slug = path.name
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", slug) or slug in (".", ".."):
+        raise ValueError("invalid brand slug")
+    if resolved != brands.resolve() / slug:
+        raise ValueError("brand directory redirects to another client or outside the workspace")
+    return path
+
+
 def _resolve_requested_brand(root, brand, brand_dir):
     if brand_dir == "auto":
         return resolve_brand_dir(root, brand)
     if brand_dir is not None:
         candidate = Path(brand_dir).expanduser()
-        return candidate if candidate.is_absolute() else Path(root) / candidate
+        return validate_brand_dir(root, candidate)
     if brand:
         return resolve_brand_dir(root, brand)
     return None

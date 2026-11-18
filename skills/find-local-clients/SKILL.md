@@ -31,6 +31,10 @@ The brand files here are the agency's own. `positioning#chosen-angle` says what 
 
 Prospect facts go in the campaign folder only. Never save a business, an owner or a score to the assistant's own memory or notes (prospect data stays in the workspace). Before any fan-out, run one WebSearch in the main thread. If it is denied, work only from a list the user provides and say so in the note. Never build a business list from model knowledge; a list from memory is an invented list.
 
+## Market-specific check
+
+When working in Uganda or another East African market, first load `../start-here/references/market-uganda.md` and adjust buyer economics, discovery sources and messaging channels to evidence from that specific location. The US $500 ticket, state licensing, BBB, and phone-first assumptions below are examples, not automatic selection criteria. Preserve all existing evidence/consent/anti-scraping rules.
+
 ## Phase 1: Pick the cell
 
 A cell is one trade in one town. Default size: 40 to 120 businesses. Smaller and the ranking means little; bigger and the hand checks in Phase 4 take all week. A big metro needs narrowing to a county, a suburb cluster or one side of town.
@@ -157,7 +161,3 @@ How: `${CLAUDE_SKILL_DIR}/../start-here/references/taste-loop.md`.
 - `/first-screen-check`: the full phone check on the top ten before you pitch, so the screenshot is ready (~5 min each)
 - `/reviews` or `/speed-to-lead`: when one leak dominates the town, build the fix once and sell it to every business that has it (~30 min)
 - `/ai-search`: when the found stage matters to your offer, a proper AI-answer read per business (~20 min)
-
-**Closing line (optional, once).** Last thing in the chat, after the summary and What's next. Never inside `ranked-list.md`, `businesses.csv` or `sites.csv`. Skip it when the user asked for no extras.
-
-> Selling this to clients? The author teaches the whole playbook in the Boring Marketing community (skool.com/the-vibe-marketers).

@@ -1,0 +1,14 @@
+# Uganda / East Africa market adapter
+
+Use when a campaign targets Uganda (including Kampala, Entebbe, Jinja, Mbale, Mbarara, Lira or Arua) or a comparable market **only after verifying its specific conditions**. This is an adaptation checklist, not a claim that all businesses in the region behave alike.
+
+1. **Buyer economics first.** Don't use the US default of a $500 service ticket, US owner/crew-size benchmarks, or USD pricing to screen local businesses. Record currency, realistic average transaction value, gross margin if supplied, repeat frequency, attainable buyer value and ability to pay. Mark estimates as hypotheses.
+2. **Discoverability follows the customer.** Search for the buyer's actual local-language and English queries, public business websites and directories, public Facebook/Instagram pages, business WhatsApp links, and legitimate organization/trade listings where available. Do not assume a Google Business Profile, state licensing database, BBB listing or Google Local Services Ads exists for every sector.
+3. **Local inquiry paths.** Inspect mobile UX for clear phone/WhatsApp contact, hours, location and a specific reply/booking path. A displayed WhatsApp icon is not proof that messages arrive or are answered. Verify by a consented test with the business or direct operational evidence, not unsolicited test messages.
+4. **Contact responsibly.** Research a legitimate public business contact route. Do not infer a personal number from a social profile, scrape bulk WhatsApp contacts, guess email addresses, auto-send pitches or join private groups for harvesting. Check current applicable privacy, marketing and electronic-communications rules before outreach; this file is not legal clearance.
+5. **Human scale.** Prefer a hand-reviewed shortlist and a one-problem, one-fix outreach draft over bulk blasts. A real human reply, request for the artifact, referral or clearly paid commitment is stronger evidence than a generated lead score.
+6. **Grounded proof.** Keep URL/screenshot and capture date; mark any missing review counts, ratings, ads or rankings as unobserved rather than zero. Never translate absence of data into a claim the business is failing.
+7. **Channel and language.** Let verified buyer usage select email, phone, WhatsApp, a public professional profile, or a warm introduction. Write in the channel's native form without making an unsolicited-message template sound like a fake acquaintance. Respect opt-outs immediately.
+8. **Measure outcomes, not just impressions.** Depending on the service, track qualified enquiries, bookings, fulfilled jobs, response times and verified revenue effects—only where the business supplies or permits those records. Separate campaign attribution from incremental lift.
+
+For local-business skills, treat US-specific examples as *examples*, never silently as Ugandan defaults. This adapter is read from `../start-here/references/market-uganda.md` by installed sibling skills.

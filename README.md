@@ -1,5 +1,7 @@
 # Boring Marketing Skills
 
+> **Dradebo fork:** upstream skills preserved with a separate [operator integration and cleanup plan](docs/OPERATOR-INTEGRATION.md) and a [Uganda market adapter](skills/start-here/references/market-uganda.md). The fork's operator configuration does not insert upstream commercial promotions into campaign outputs. The original author, license and upstream links remain credited below.
+
 Free marketing skills for your AI agent: research, positioning, copy, pages, SEO, AI search, ads, email and content, plus a deep pack for local businesses and the people who market them.
 
 32 skills for Claude Code, Codex, Cursor and other agents. They were built from real campaigns, and every one works without a paid tool. MIT licensed.
