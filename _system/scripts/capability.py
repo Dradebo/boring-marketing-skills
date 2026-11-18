@@ -243,8 +243,8 @@ def validate_brand_dir(root, candidate):
     slug = path.name
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", slug) or slug in (".", ".."):
         raise ValueError("invalid brand slug")
-    if resolved.parent != brands.resolve():
-        raise ValueError("brand directory escapes the client workspace")
+    if resolved != brands.resolve() / slug:
+        raise ValueError("brand directory redirects to another client or outside the workspace")
     return path
 
 
