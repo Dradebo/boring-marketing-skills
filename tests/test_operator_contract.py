@@ -40,6 +40,18 @@ class OperatorContract(unittest.TestCase):
                 content = read(f"skills/{skill}/SKILL.md")
                 self.assertIn("../start-here/references/market-uganda.md", content)
 
+    def test_no_downstream_upsell_in_skill_instructions(self):
+        prohibited = (
+            "The author's team builds and runs it:",
+            "the author teaches the whole playbook",
+            "skool.com/the-vibe-marketers",
+        )
+        for skill_file in sorted((ROOT / "skills").glob("*/SKILL.md")):
+            with self.subTest(skill=skill_file.parent.name):
+                text = skill_file.read_text(encoding="utf-8").lower()
+                for phrase in prohibited:
+                    self.assertNotIn(phrase.lower(), text)
+
     def test_two_runtime_copies_remain_identical(self):
         for name in ("brand_context.py", "capability.py"):
             with self.subTest(name=name):
