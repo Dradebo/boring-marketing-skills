@@ -45,6 +45,31 @@ class BrandSelectionSafety(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     fn(root, None)
 
+    def test_explicit_brand_dir_rejects_outside_and_nested_paths(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "brands").mkdir()
+            (root / "outside").mkdir()
+            (root / "brands" / "acme").mkdir()
+            for value in ("../outside", "/tmp/outside", "brands/acme/../../outside",
+                          "brands/acme/child", "brands/../outside"):
+                with self.subTest(value=value):
+                    with self.assertRaises(ValueError):
+                        capability.validate_brand_dir(root, value)
+            self.assertEqual(
+                capability.validate_brand_dir(root, "brands/acme").resolve(),
+                (root / "brands" / "acme").resolve(),
+            )
+
+    def test_explicit_brand_dir_rejects_symlink_escape(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "brands").mkdir()
+            (root / "outside").mkdir()
+            (root / "brands" / "link").symlink_to(root / "outside", target_is_directory=True)
+            with self.assertRaises(ValueError):
+                capability.validate_brand_dir(root, "brands/link")
+
     def test_rejects_symlink_escape(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
